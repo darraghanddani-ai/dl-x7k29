@@ -2414,7 +2414,7 @@
    DriveLog - single-file app
    Storage: IndexedDB cache on-device + Google Drive file sync
    ============================================================ */
-const GOOGLE_CLIENT_ID = '';   // optional: paste your OAuth Web Client ID here (or enter it in Settings)
+const GOOGLE_CLIENT_ID = '940087177441-qgm7vr395409jii8r1d7egi0n42hfsvq.apps.googleusercontent.com';   // OAuth Web Client ID (public, not a secret)
 const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 const DRIVE_FILE_NAME = 'DriveLog-data.json';
 const DRIVE_API = 'https://www.googleapis.com/drive/v3';
@@ -4007,7 +4007,7 @@ window.addEventListener('online', () => { if (settings.driveOn && dirty) syncNow
   loadSettingsLocal(); buildNav(); icons();
   ['input', 'change'].forEach(ev => $('form-workorder').addEventListener(ev, updateWoCost));
   const saved = await idbGet('state');
-  if (saved && Array.isArray(saved.vehicles)) adoptState(saved); else renderAll();
+  if (saved && Array.isArray(saved.vehicles)) adoptState(saved); else if (window.__DEMO_FIRST) renderAll(); else adoptState(emptyData());   // a fresh install starts empty so demo data can never reach Drive
   dirty = !!(await idbGet('dirty'));
   switchTab('dashboard');
   if (settings.driveOn && getClientId()) {
