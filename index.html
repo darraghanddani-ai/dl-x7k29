@@ -319,6 +319,24 @@
   .col-span-full {
     grid-column: 1 / -1;
   }
+  .container {
+    width: 100%;
+    @media (width >= 40rem) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem) {
+      max-width: 64rem;
+    }
+    @media (width >= 80rem) {
+      max-width: 80rem;
+    }
+    @media (width >= 96rem) {
+      max-width: 96rem;
+    }
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -571,6 +589,11 @@
   .gap-\[2px\] {
     gap: 2px;
   }
+  :where(.space-y-0\.5 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 0.5) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 0.5) * calc(1 - var(--tw-space-y-reverse)));
+  }
   :where(.space-y-1 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
     margin-block-start: calc(var(--spacing) * var(--tw-space-y-reverse));
@@ -614,6 +637,9 @@
   .gap-x-2 {
     column-gap: calc(var(--spacing) * 2);
   }
+  .gap-x-6 {
+    column-gap: calc(var(--spacing) * 6);
+  }
   :where(.space-x-1 > :not(:last-child)) {
     --tw-space-x-reverse: 0;
     margin-inline-start: calc(var(--spacing) * var(--tw-space-x-reverse));
@@ -621,6 +647,9 @@
   }
   .gap-y-1 {
     row-gap: var(--spacing);
+  }
+  .gap-y-2 {
+    row-gap: calc(var(--spacing) * 2);
   }
   :where(.divide-y > :not(:last-child)) {
     --tw-divide-y-reverse: 0;
@@ -905,6 +934,12 @@
   .bg-stone-800 {
     background-color: var(--color-stone-800);
   }
+  .bg-stone-800\/60 {
+    background-color: color-mix(in srgb, oklch(26.8% 0.007 34.298) 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-stone-800) 60%, transparent);
+    }
+  }
   .bg-stone-900 {
     background-color: var(--color-stone-900);
   }
@@ -924,6 +959,12 @@
     background-color: color-mix(in srgb, oklch(21.6% 0.006 56.043) 60%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-stone-900) 60%, transparent);
+    }
+  }
+  .bg-stone-900\/70 {
+    background-color: color-mix(in srgb, oklch(21.6% 0.006 56.043) 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-stone-900) 70%, transparent);
     }
   }
   .bg-stone-900\/80 {
@@ -1049,6 +1090,12 @@
   .pr-1 {
     padding-right: var(--spacing);
   }
+  .pr-3 {
+    padding-right: calc(var(--spacing) * 3);
+  }
+  .pb-1 {
+    padding-bottom: var(--spacing);
+  }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
   }
@@ -1160,6 +1207,9 @@
     --tw-tracking: var(--tracking-wider);
     letter-spacing: var(--tracking-wider);
   }
+  .whitespace-normal {
+    white-space: normal;
+  }
   .whitespace-nowrap {
     white-space: nowrap;
   }
@@ -1234,6 +1284,9 @@
   }
   .italic {
     font-style: italic;
+  }
+  .underline {
+    text-decoration-line: underline;
   }
   .antialiased {
     -webkit-font-smoothing: antialiased;
@@ -1393,6 +1446,9 @@
     .sm\:flex {
       display: flex;
     }
+    .sm\:w-72 {
+      width: calc(var(--spacing) * 72);
+    }
     .sm\:w-80 {
       width: calc(var(--spacing) * 80);
     }
@@ -1417,11 +1473,17 @@
     .sm\:flex-row {
       flex-direction: row;
     }
+    .sm\:flex-wrap {
+      flex-wrap: wrap;
+    }
     .sm\:items-center {
       align-items: center;
     }
     .sm\:items-end {
       align-items: flex-end;
+    }
+    .sm\:justify-end {
+      justify-content: flex-end;
     }
     .sm\:self-auto {
       align-self: auto;
@@ -1717,6 +1779,7 @@
   svg { flex-shrink:0; }
   .icon-btn { display:inline-flex; align-items:center; justify-content:center; min-width:2.5rem; min-height:2.5rem; border-radius:.5rem; }
   .btn.hidden, .icon-btn.hidden { display:none; }
+  .hl-flash { outline:2px solid #f59e0b; outline-offset:3px; box-shadow:0 0 0 6px rgba(245,158,11,.18); }
   .viz-col:hover .viz-bar, .viz-col:focus-visible .viz-bar { filter:brightness(1.3); }
   .viz-col:focus { outline:none; }
   .viz-col:focus-visible { outline:2px solid #a8a29e; outline-offset:-2px; border-radius:4px; }
@@ -1856,6 +1919,7 @@
       <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
         <select id="inv-vehicle-filter" onchange="invVeh=this.value;renderInventory()" class="inp sm:w-80"></select>
         <button id="inv-copy-btn" onclick="copyOrderList()" class="btn btn-secondary hidden" style="padding:.5rem .75rem;font-size:.75rem"><i data-lucide="copy" class="w-4 h-4"></i> <span id="inv-copy-label">Copy order list</span></button>
+        <button onclick="openReorder()" class="btn btn-secondary" style="padding:.5rem .75rem;font-size:.75rem"><i data-lucide="list-checks" class="w-4 h-4"></i> Reorder list</button>
       </div>
       <p id="inv-out-note" class="text-xs text-stone-400 hidden">Parts that have run out stay on this list, with where and when they were last used, so you know what to order again.</p>
     </div>
@@ -1876,6 +1940,13 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <div><h2 class="text-2xl font-bold text-white">Work Orders</h2><p class="text-sm text-stone-400">Log repairs, track labor timers, auto-deduct inventory, print reports or invoices.</p></div>
       <button onclick="openWorkOrderModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Create Work Order</button>
+    </div>
+    <div class="bg-stone-800 border border-stone-700 rounded-xl p-4 space-y-2">
+      <div class="flex flex-col sm:flex-row gap-2">
+        <select id="wo-veh-filter" onchange="woVeh=this.value;renderWorkOrders()" class="inp sm:w-72" aria-label="Vehicle"></select>
+        <div class="relative flex-1"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-stone-400"></i><input type="text" id="wo-search" oninput="renderWorkOrders()" placeholder="Search jobs: title, parts, part numbers, notes, fault codes..." class="inp" style="padding-left:2.25rem"></div>
+      </div>
+      <p id="wo-count" class="text-xs text-stone-400"></p>
     </div>
     <div class="flex gap-2 border-b border-stone-700 pb-2">
       <button onclick="filterWorkOrders('all')" data-f="all" class="wo-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold">All Orders</button>
@@ -1900,7 +1971,7 @@
       <div><h2 class="text-2xl font-bold text-white">Service & Interval Reminders</h2><p class="text-sm text-stone-400">Dual tracking: odometer distance and calendar months. Reset automatically from completed work orders.</p></div>
       <button onclick="openReminderModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Add Reminder</button>
     </div>
-    <div class="bg-stone-800 border border-stone-700 rounded-xl p-4 sm:max-w-sm"><label class="lbl">Show</label><select id="rem-filter" onchange="remVeh=this.value;renderReminders();renderExpiries()" class="inp"></select></div>
+    <div class="bg-stone-800 border border-stone-700 rounded-xl p-4 sm:max-w-sm"><label class="lbl">Show</label><select id="rem-filter" onchange="remVeh=this.value;renderReminders();renderExpiries();renderWarranties()" class="inp"></select></div>
     <div id="reminders-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 border-t border-stone-700">
@@ -1908,6 +1979,11 @@
       <button onclick="openExpiryModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Add Expiry Date</button>
     </div>
     <div id="expiries-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+    <div class="pt-6 border-t border-stone-700">
+      <h2 class="text-2xl font-bold text-white">Part Warranties</h2><p class="text-sm text-stone-400">Parts with a warranty you set in Inventory, counted from the job they were fitted in. Tap one to open that job.</p>
+    </div>
+    <div id="warranty-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
   </section>
 
   <!-- HISTORY -->
@@ -1944,6 +2020,7 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <div><h2 class="text-2xl font-bold text-white">Tyres</h2><p class="text-sm text-stone-400">What is fitted on each wheel, tread depth readings, wear rate and age. Tyres below 3 mm show up as alerts.</p></div>
       <div class="grid grid-cols-2 sm:flex gap-2 w-full sm:w-auto">
+        <button onclick="openRotateModal()" class="btn btn-secondary"><i data-lucide="refresh-cw" class="w-4 h-4"></i> Rotate tyres</button>
         <button onclick="openTreadModal()" class="btn btn-secondary"><i data-lucide="gauge" class="w-4 h-4"></i> Tread depths</button>
         <button onclick="openTyreModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Add tyre</button>
       </div>
@@ -2061,16 +2138,28 @@
       <div class="grid grid-cols-3 gap-3">
         <div><label id="inv-qty-label" class="lbl">Quantity *</label><input type="number" step="0.01" min="0" id="inv-qty" required placeholder="5" class="inp"></div>
         <div><label class="lbl">Unit *</label>
-          <select id="inv-unit" class="inp">
+          <select id="inv-unit" class="inp" onchange="invUnitChanged()">
             <option value="pcs">pcs</option><option value="litres">litres</option><option value="mls">mls</option><option value="grams">grams</option><option value="kg">kg</option><option value="sets">sets</option><option value="bottles">bottles</option>
           </select></div>
         <div><label class="lbl">Low Stock Alert</label><input type="number" step="0.01" min="0" id="inv-low" placeholder="2" class="inp"></div>
       </div>
-      <div class="grid grid-cols-2 gap-4 bg-stone-900/60 p-3 rounded-lg border border-stone-700/60">
-        <div><label class="lbl">Purchase Price (per unit)</label><input type="number" step="0.01" min="0" id="inv-price" required placeholder="45.00" class="inp"></div>
-        <div><label class="lbl">Purchase Currency</label>
-          <select id="inv-currency" class="inp"><option value="EUR">EUR (€)</option><option value="GBP">GBP (£)</option><option value="USD">USD ($)</option><option value="CAD">CAD ($)</option><option value="AUD">AUD ($)</option></select></div>
+      <div id="inv-container-wrap" class="hidden bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 space-y-3">
+        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="inv-container" onchange="invContainerToggle()" class="w-4 h-4 accent-amber-600"><span class="text-sm text-amber-200 font-semibold">Bought as one container (drum, can, bottle)</span></label>
+        <div id="inv-container-fields" class="hidden space-y-2">
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="lbl">Container size (<span id="inv-cont-unit">litres</span>)</label><input type="number" step="any" min="0" id="inv-cont-size" oninput="invContainerCalc()" placeholder="5" class="inp"></div>
+            <div><label class="lbl">Total paid for it</label><input type="number" step="0.01" min="0" id="inv-cont-total" oninput="invContainerCalc()" placeholder="62.00" class="inp"></div>
+          </div>
+          <p id="inv-cont-result" class="text-xs text-amber-200 font-semibold"></p>
+          <p class="text-[11px] text-stone-400">The price per unit is worked out for you and the whole container is added to stock, so jobs are costed per litre as you use it.</p>
+        </div>
       </div>
+      <div class="grid grid-cols-2 gap-4 bg-stone-900/60 p-3 rounded-lg border border-stone-700/60">
+        <div><label class="lbl">Purchase Price (per unit)</label><input type="number" step="any" min="0" id="inv-price" required placeholder="45.00" class="inp"></div>
+        <div><label class="lbl">Purchase Currency</label>
+          <select id="inv-currency" class="inp" onchange="invContainerCalc()"><option value="EUR">EUR (€)</option><option value="GBP">GBP (£)</option><option value="USD">USD ($)</option><option value="CAD">CAD ($)</option><option value="AUD">AUD ($)</option></select></div>
+      </div>
+      <div><label class="lbl">Warranty on this part (months)</label><input type="number" min="0" step="1" id="inv-warranty" placeholder="Optional, e.g. 24" class="inp"><span class="text-[10px] text-stone-400">Counted from the day the part is used in a job. You get a warning shortly before it runs out.</span></div>
       <div class="flex justify-end gap-3 pt-4 border-t border-stone-700">
         <button type="button" onclick="closeModal('modal-inventory')" class="btn btn-secondary">Cancel</button>
         <button type="submit" class="btn btn-primary">Save Item</button>
@@ -2144,7 +2233,7 @@
       <input type="hidden" id="wo-id">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div><label class="lbl">Target Vehicle *</label><select id="wo-vehicle-id" required onchange="handleWoVehicleChange()" class="inp"></select></div>
-        <div><label class="lbl">Job Title *</label><input type="text" id="wo-job-title" required placeholder="e.g. Oil Service & Front Brake Pads" class="inp"></div>
+        <div><label class="lbl">Job Title *</label><input type="text" id="wo-job-title" required oninput="updateWoEstimate()" placeholder="e.g. Oil Service & Front Brake Pads" class="inp"><p id="wo-estimate" class="text-[11px] text-amber-300 mt-1"></p></div>
         <div><label class="lbl">Status</label><select id="wo-status" class="inp"><option value="Completed">Completed</option><option value="In Progress">In Progress</option></select></div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -2156,6 +2245,8 @@
         <div><label class="lbl">Date & Time</label><input type="datetime-local" id="wo-datetime" class="inp"></div>
       </div>
 
+      <details id="wo-specs" class="hidden bg-stone-900/60 border border-stone-700/70 rounded-xl p-3"><summary class="cursor-pointer text-xs font-bold text-amber-400 uppercase tracking-wider py-1">Specs &amp; torque for this car</summary><div id="wo-specs-body" class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2"></div></details>
+
       <div id="wo-timer-box"><div class="bg-stone-900/80 border border-stone-700/80 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-stone-400 flex items-center gap-1.5"><i data-lucide="timer" class="w-4 h-4 text-amber-400"></i> Labor Stopwatch (time only, no cost)</span>
@@ -2166,6 +2257,11 @@
           <button type="button" onclick="pauseTimer()" class="btn" style="background:#d97706;color:#fff;padding:.5rem .875rem;font-size:.75rem"><i data-lucide="pause" class="w-3.5 h-3.5"></i> Pause</button>
           <button type="button" onclick="resetTimer()" class="btn btn-secondary" style="padding:.5rem .875rem;font-size:.75rem"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset</button>
         </div>
+      </div>
+      <div class="mt-2 bg-stone-900/80 border border-stone-700/80 rounded-xl p-3 flex flex-wrap items-end gap-x-6 gap-y-2">
+        <div><label class="lbl">Forgot the timer? Add the time by hand</label>
+          <div class="flex items-center gap-2"><input type="number" min="0" step="1" id="wo-manual-h" oninput="updateLaborTotal()" placeholder="0" class="inp inp-sm" style="width:4.5rem"><span class="text-xs text-stone-400">hours</span><input type="number" min="0" max="59" step="1" id="wo-manual-m" oninput="updateLaborTotal()" placeholder="0" class="inp inp-sm" style="width:4.5rem"><span class="text-xs text-stone-400">min</span></div></div>
+        <p class="text-xs text-stone-300 pb-2">Total labour: <strong id="wo-labor-total" class="text-amber-400 font-mono">0m</strong></p>
       </div></div>
 
       <div class="bg-stone-900/60 border border-stone-700/70 p-4 rounded-xl space-y-2">
@@ -2231,12 +2327,29 @@
   </div>
 </div>
 
+<!-- MODAL: REORDER LIST -->
+<div id="modal-reorder" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-stone-700 pb-3">
+      <div><h3 class="text-lg font-bold text-white">Parts to reorder</h3><p class="text-xs text-stone-400">Everything that is low or out of stock, with what you paid last time.</p></div>
+      <button onclick="closeModal('modal-reorder')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="reorder-body"></div>
+    <div id="reorder-actions"><div class="flex flex-wrap justify-end gap-2 border-t border-stone-700 pt-3">
+      <button onclick="copyReorder()" class="btn btn-secondary"><i data-lucide="copy" class="w-4 h-4"></i> Copy</button>
+      <button onclick="printReorder()" class="btn btn-primary"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+    </div></div>
+  </div>
+</div>
+
 <!-- MODAL: WORK ORDER VIEWER -->
 <div id="modal-wo-viewer" class="modal hidden">
   <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-4xl w-full p-6 shadow-2xl space-y-4 max-h-[94vh] overflow-y-auto">
     <div class="flex justify-between items-center border-b border-stone-700 pb-3 flex-wrap gap-2">
       <h3 class="text-xl font-bold text-white">Work Order Summary</h3>
       <div class="flex gap-2 items-center flex-wrap">
+        <button onclick="viewerEdit()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="edit-2" class="w-4 h-4"></i> Open work order</button>
+        <button id="vm-history" onclick="viewerHistory()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="history" class="w-4 h-4"></i> Show in history</button>
         <div class="flex rounded-lg overflow-hidden border border-stone-600 text-xs font-medium">
           <button onclick="setViewMode('report')" id="vm-report" class="px-3 py-1.5">Full Report</button>
           <button onclick="setViewMode('invoice')" id="vm-invoice" class="px-3 py-1.5">Cost Summary</button>
@@ -2369,10 +2482,43 @@
         <div><label class="lbl">Odometer when fitted (<span class="u-d">km</span>)</label><input type="number" min="0" id="tyre-odo" data-dist class="inp"></div>
       </div>
       <div id="tyre-tread-wrap"><label class="lbl">Tread depth when fitted (mm)</label><input type="number" step="0.1" min="0" max="12" id="tyre-tread" placeholder="e.g. 8" class="inp"></div>
+      <div id="tyre-removed-wrap" class="hidden"><div class="grid grid-cols-2 gap-4">
+        <div><label class="lbl">Taken off on</label><input type="date" id="tyre-removed-date" class="inp"></div>
+        <div><label class="lbl">Odometer when taken off (<span class="u-d">km</span>)</label><input type="number" min="0" id="tyre-removed-odo" data-dist class="inp"></div>
+      </div></div>
       <div><label class="lbl">Notes</label><input type="text" id="tyre-notes" class="inp"></div>
-      <div class="flex justify-end gap-3 pt-4 border-t border-stone-700">
+      <div class="flex justify-between gap-3 pt-4 border-t border-stone-700">
+        <button type="button" id="tyre-delete-btn" onclick="deleteTyreFromModal()" class="btn btn-danger hidden"><i data-lucide="trash-2" class="w-4 h-4"></i> Delete</button>
+        <span class="flex gap-3 ml-auto">
         <button type="button" onclick="closeModal('modal-tyre')" class="btn btn-secondary">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save tyre</button>
+        <button type="submit" class="btn btn-primary">Save tyre</button></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL: ROTATE TYRES -->
+<div id="modal-rotate" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-stone-700 pb-3">
+      <div><h3 class="text-lg font-bold text-white">Rotate tyres</h3><p id="rot-veh-name" class="text-xs text-stone-400"></p></div>
+      <button onclick="closeModal('modal-rotate')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <form onsubmit="saveRotation(event)" class="space-y-4">
+      <input type="hidden" id="rot-veh">
+      <div><label class="lbl">Pattern</label><select id="rot-pattern" onchange="rotRender()" class="inp"><option value="fb">Front to back (same side)</option><option value="cross">Cross (front to opposite rear)</option><option value="ss">Side to side</option><option value="custom">Custom (choose each wheel)</option></select></div>
+      <div id="rot-custom" class="hidden"><div id="rot-custom-rows" class="grid grid-cols-2 gap-2"></div></div>
+      <div><span class="lbl">What will move</span><div id="rot-preview" class="space-y-1.5"></div></div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="lbl">Date</label><input type="date" id="rot-date" class="inp"></div>
+        <div><label class="lbl">Odometer (<span class="u-d">km</span>)</label><input type="number" min="0" id="rot-odo" data-dist class="inp"></div>
+      </div>
+      <div><span class="lbl">Reset these reminders</span><div id="rot-rems" class="space-y-1.5"></div></div>
+      <label class="flex items-center gap-2 cursor-pointer text-xs text-stone-300"><input type="checkbox" id="rot-wo" class="w-4 h-4 accent-amber-600"> Also log it as a work order (shows in the job list)</label>
+      <div><label class="lbl">Note</label><input type="text" id="rot-note" class="inp" placeholder="Optional"></div>
+      <div class="flex justify-end gap-3 pt-4 border-t border-stone-700">
+        <button type="button" onclick="closeModal('modal-rotate')" class="btn btn-secondary">Cancel</button>
+        <button type="submit" class="btn btn-primary">Rotate and save</button>
       </div>
     </form>
   </div>
@@ -2424,9 +2570,11 @@
       <p class="text-xs text-stone-400">Saves everything to a file called <code class="text-stone-200">DriveLog-data.json</code> in your own Drive. Data is also cached on this device, so the app works offline and syncs when you reconnect.</p>
       <div><label class="lbl">Google OAuth Client ID</label><input type="text" id="set-client-id" placeholder="1234567890-abc.apps.googleusercontent.com" class="inp" style="font-size:.75rem"></div>
       <p id="drive-status-line" class="text-xs text-stone-400"></p>
+      <p id="backup-line" class="text-xs text-stone-400"></p>
       <div class="flex flex-wrap gap-2">
         <button type="button" onclick="connectDrive()" class="btn btn-primary" style="padding:.375rem .75rem;font-size:.75rem">Connect / Reconnect</button>
         <button type="button" onclick="syncNow(true)" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Sync now</button>
+        <button type="button" onclick="backupNow(true)" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Back up now</button>
         <button type="button" onclick="disconnectDrive()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Disconnect</button>
       </div>
     </div>
@@ -2450,7 +2598,9 @@
 
     <div class="space-y-3 bg-stone-900/60 p-4 rounded-xl border border-stone-700/60">
       <h4 class="text-sm font-bold text-white">Data</h4>
+      <p id="data-size-line" class="text-xs text-stone-400"></p>
       <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="shrinkAllPhotos()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="image" class="w-3.5 h-3.5"></i> Shrink saved photos</button>
         <button type="button" onclick="exportData()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="download" class="w-3.5 h-3.5"></i> Export backup</button>
         <label class="btn btn-secondary cursor-pointer" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="upload" class="w-3.5 h-3.5"></i> Import backup<input type="file" accept="application/json,.json" class="hidden" onchange="importData(event)"></label>
         <button type="button" onclick="exportCsv('workorders')" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="download" class="w-3.5 h-3.5"></i> Jobs CSV</button>
@@ -3997,7 +4147,7 @@ function switchTab(tabId) {
 function openModal(id) { modalDistIn(id); $(id).classList.remove('hidden'); icons(); }
 function closeModal(id) { $(id).classList.add('hidden'); }
 
-function renderAll() { renderDashboard(); renderVehicles(); renderInventory(); renderWorkOrders(); renderHistory(); renderChecklists(); renderReminders(); renderExpiries(); renderFuel(); renderTyres(); renderShareIfOpen(); applyUnitLabels(); icons(); }
+function renderAll() { renderDashboard(); renderVehicles(); renderInventory(); renderWorkOrders(); renderHistory(); renderChecklists(); renderReminders(); renderExpiries(); renderFuel(); renderTyres(); renderWarranties(); renderShareIfOpen(); applyUnitLabels(); icons(); }
 
 /* ---------- reminders engine ---------- */
 function getReminderStatus(r) {
@@ -4018,7 +4168,7 @@ function getReminderStatus(r) {
   const isDueSoon = !isOverdue && ((remainingKm != null && remainingKm <= 1500) || (daysRemaining != null && daysRemaining <= 30));
   return { reminder: r, vehicle, cur, targetKm, remainingKm, kmPct, targetDate, daysRemaining, timePct, isOverdue, isDueSoon, rank: isOverdue ? 0 : isDueSoon ? 1 : 2 };
 }
-const sortedStatuses = () => state.reminders.map(getReminderStatus).sort((a, b) => a.rank - b.rank || (a.daysRemaining ?? 99999) - (b.daysRemaining ?? 99999));
+const sortedStatuses = () => state.reminders.filter(r => !vehArchived(r.vehicleId)).map(getReminderStatus).sort((a, b) => a.rank - b.rank || (a.daysRemaining ?? 99999) - (b.daysRemaining ?? 99999));
 function kmBadge(st) {
   if (st.remainingKm == null) return '';
   const bad = st.remainingKm <= 0, warn = !bad && st.remainingKm <= 1500;
@@ -4034,10 +4184,10 @@ function dayBadge(st) {
 
 /* ---------- DASHBOARD ---------- */
 function renderDashboard() {
-  $('dash-count-vehicles').textContent = state.vehicles.length;
+  $('dash-count-vehicles').textContent = liveVehicles().length;
   $('dash-count-inventory').textContent = state.inventory.length;
   $('dash-count-orders').textContent = state.workorders.length;
-  $('dash-count-reminders').textContent = state.reminders.length + state.expiries.length;
+  $('dash-count-reminders').textContent = sortedStatuses().length + sortedExpiries().length;
   const lowN = state.inventory.filter(i => stockOf(i) === 'low').length, outN = state.inventory.filter(i => stockOf(i) === 'out').length;
   const lb = $('dash-inventory-low');
   lb.textContent = (lowN || outN) ? [lowN ? `${lowN} low` : '', outN ? `${outN} out of stock` : ''].filter(Boolean).join(' • ') : 'All stock healthy';
@@ -4046,14 +4196,15 @@ function renderDashboard() {
   const alerts = dashAlerts();
   $('dash-reminders-due').textContent = `${alerts.length} due soon / overdue`;
 
-  $('dash-vehicles-list').innerHTML = state.vehicles.length ? state.vehicles.map(v => `
-    <div class="bg-stone-900/80 border border-stone-700/80 p-3.5 rounded-xl flex items-center justify-between gap-2">
+  $('dash-vehicles-list').innerHTML = liveVehicles().length ? liveVehicles().map(v => `
+    <div class="bg-stone-900/80 border border-stone-700/80 p-3.5 rounded-xl space-y-2.5">
       <div class="min-w-0">
         <h4 class="font-bold text-white text-sm truncate">${esc(v.make)} ${esc(v.model)}</h4>
         <span class="text-xs text-stone-400 font-mono">${esc(v.reg || 'No Reg')}</span>
         <div class="text-sm text-amber-400 font-bold mt-1">${fmtKm(v.odometer)}</div>
       </div>
-      <button onclick="openOdometerModal('${v.id}')" class="bg-amber-600/20 hover:bg-amber-500 text-amber-300 hover:text-stone-900 border border-amber-500/30 px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-1 shrink-0"><i data-lucide="gauge" class="w-3.5 h-3.5"></i> Update</button>
+      <div class="flex gap-2"><input type="number" inputmode="numeric" min="0" id="qm-${v.id}" placeholder="New reading (${unitName()})" aria-label="New odometer reading" class="inp inp-sm flex-1 min-w-0" onkeydown="if(event.key==='Enter'){event.preventDefault();quickMileage('${v.id}')}">
+        <button onclick="quickMileage('${v.id}')" class="btn btn-primary shrink-0" style="padding:.5rem .75rem;font-size:.75rem">Save</button></div>
     </div>`).join('') : `<p class="text-xs text-stone-500 italic col-span-full">No vehicles yet. Add one in the Vehicles tab.</p>`;
 
   $('dash-recent-orders').innerHTML = state.workorders.length ? state.workorders.slice().sort((a, b) => (b.datetime || '').localeCompare(a.datetime || '')).slice(0, 3).map(wo => {
@@ -4083,7 +4234,7 @@ function dashAlerts() {
       </div>
       <div>${expiryBadge(s)}</div>
     </div>` }));
-  state.tyres.filter(t => t.status === 'Fitted' && t.position !== 'SP').forEach(t => {
+  state.tyres.filter(t => t.status === 'Fitted' && t.position !== 'SP' && !vehArchived(t.vehicleId)).forEach(t => {
     const l = latestTread(t); if (!l) return;
     const ti = treadInfo(l.mm); if (ti.rank > 1) return;
     items.push({ rank: ti.rank, key: l.mm, html: `
@@ -4094,6 +4245,12 @@ function dashAlerts() {
       </div>
     </div>` });
   });
+  warrantyList().filter(x => x.days >= 0 && x.days <= 30).forEach(x => items.push({ rank: 1, key: x.days, html: `
+    <div onclick="switchTab('reminders')" class="bg-stone-900/60 p-3 rounded-lg border border-stone-700/60 cursor-pointer">
+      <div class="flex justify-between items-center gap-2">
+        <div class="min-w-0"><h4 class="font-semibold text-sm text-white truncate">Warranty: ${esc(x.p.name)}</h4><p class="text-[11px] text-stone-400">${esc(vehName(x.w.vehicleId))} \u2022 ends ${esc(fmtDate(x.end))}</p></div>
+        <span class="px-2 py-0.5 text-[10px] font-bold rounded-md shrink-0 bg-amber-500/20 text-amber-400 border border-amber-500/30">${x.days === 0 ? 'ENDS TODAY' : x.days + ' DAYS LEFT'}</span>
+      </div></div>` }));
   return items.sort((a, b) => a.rank - b.rank || a.key - b.key);
 }
 
@@ -4101,7 +4258,7 @@ function dashAlerts() {
 function renderVehicles() {
   const c = $('vehicles-grid');
   if (!state.vehicles.length) { c.innerHTML = `<div class="col-span-full text-center py-12 text-stone-500">No vehicles yet. Tap "Add Vehicle" to begin.</div>`; return; }
-  c.innerHTML = state.vehicles.map(v => `
+  c.innerHTML = liveVehicles().map(v => `
     <div class="bg-stone-800 border border-stone-700/80 hover:border-stone-600 rounded-2xl p-5 shadow-xl space-y-4 flex flex-col justify-between">
       <div>
         <div class="flex justify-between items-start">
@@ -4126,8 +4283,9 @@ function renderVehicles() {
       </div>
       <button onclick="openHistory('${v.id}')" class="w-full bg-stone-900 hover:bg-stone-700 text-stone-200 border border-stone-700 text-xs py-2.5 rounded-lg font-medium flex items-center justify-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5 text-indigo-400"></i> Service history & costs</button>
       <button onclick="openShareModal('${v.id}')" class="w-full bg-amber-600/10 hover:bg-amber-500/20 text-amber-200 border border-amber-500/30 text-xs py-2.5 rounded-lg font-medium flex items-center justify-center gap-1.5"><i data-lucide="qr-code" class="w-3.5 h-3.5 text-amber-400"></i> QR service report</button>
+      <button onclick="archiveVehicle('${v.id}')" class="w-full text-stone-400 hover:text-white text-xs py-2 rounded-lg font-medium flex items-center justify-center gap-1.5"><i data-lucide="archive" class="w-3.5 h-3.5"></i> Mark as sold</button>
       </div>
-    </div>`).join('');
+    </div>`).join('') + archivedVehiclesHtml();
 }
 function openVehicleModal(id = null) {
   $('form-vehicle').reset(); $('veh-id').value = '';
@@ -4156,6 +4314,7 @@ function deleteVehicle(id) {
   state.expiries = state.expiries.filter(x => x.vehicleId !== id);
   state.fuel = state.fuel.filter(f => f.vehicleId !== id);
   state.tyres = state.tyres.filter(t => t.vehicleId !== id);
+  state.rotations = (state.rotations || []).filter(r => r.vehicleId !== id);
   commit();
 }
 function openOdometerModal(vehId) {
@@ -4168,7 +4327,7 @@ function saveQuickOdometer(e) {
   const v = state.vehicles.find(x => x.id === $('odo-veh-id').value); if (!v) return;
   const val = parseInt($('odo-new-value').value);
   if (isNaN(val)) return;
-  if (val < v.odometer && !confirm(`That is lower than the current reading (${fmtKm(v.odometer)}). Save anyway?`)) return;
+  { const ow = odoWarn(v, val); if (ow && !confirm(ow)) return; }
   v.odometer = val; closeModal('modal-odometer'); commit(); toast('Odometer updated, countdowns recalculated');
 }
 
@@ -4229,8 +4388,8 @@ function renderInventory() {
         <div class="mt-1.5">${vChip}</div><div class="text-[11px] text-stone-500 mt-1">${usage}</div></td>
       <td data-label="Vendor / Code" class="py-3 px-4"><div><div class="text-xs text-stone-200">${esc(i.vendor || 'Direct store')}</div><div class="text-[11px] font-mono text-stone-400">${esc(i.code || 'No code')}</div></div></td>
       <td data-label="Stock" class="py-3 px-4"><div class="flex items-center gap-2"><span class="font-bold text-sm text-white whitespace-nowrap">${i.qty} ${esc(i.unit)}</span>${badge}</div>
-        <div class="flex gap-1 mt-1">${st === 'out' ? '' : `<button onclick="adjustStock('${i.id}',-1)" class="px-3.5 py-2 bg-stone-700 hover:bg-stone-600 text-sm rounded text-stone-200">-1</button>`}<button onclick="adjustStock('${i.id}',1)" class="px-3.5 py-2 bg-stone-700 hover:bg-stone-600 text-sm rounded text-stone-200">+1</button>${st !== 'ok' ? `<button onclick="openInventoryModal('${i.id}',true)" class="px-3 py-2 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/30 text-xs font-semibold rounded">Restock</button>` : ''}</div></td>
-      <td data-label="Unit price" class="py-3 px-4 text-xs font-mono text-stone-300 whitespace-nowrap">${formatCurrency(i.price, i.currency)}</td>
+        <div class="flex gap-1 mt-1">${st === 'out' ? '' : `<button onclick="adjustStock('${i.id}',-1)" class="px-3.5 py-2 bg-stone-700 hover:bg-stone-600 text-sm rounded text-stone-200">-1</button>`}<button onclick="adjustStock('${i.id}',1)" class="px-3.5 py-2 bg-stone-700 hover:bg-stone-600 text-sm rounded text-stone-200">+1</button><button onclick="openInventoryModal('${i.id}',true)" class="px-3 py-2 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/30 text-xs font-semibold rounded">Restock</button></div></td>
+      <td data-label="Unit price" class="py-3 px-4 text-xs font-mono text-stone-300 whitespace-nowrap">${formatCurrency(i.price, i.currency)}${i.warrantyMonths ? `<div class="text-[10px] text-stone-500 font-sans">${i.warrantyMonths} mo warranty</div>` : ''}<div class="whitespace-normal font-sans">${purchaseHistoryHtml(i)}</div></td>
       <td data-label="In euro" class="py-3 px-4 text-xs font-mono text-emerald-400 font-semibold whitespace-nowrap">${formatEur(convertToEuro(i.price, i.currency))}</td>
       <td class="actions py-3 px-4 text-right whitespace-nowrap"><button onclick="openInventoryModal('${i.id}')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Edit"><i data-lucide="edit-2" class="w-4 h-4"></i></button><button onclick="deleteInventory('${i.id}')" class="icon-btn text-stone-300 hover:text-rose-400 bg-stone-700/60 ml-1" aria-label="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button></td>
     </tr>`;
@@ -4249,28 +4408,34 @@ function openInventoryModal(id = null, restock = false) {
   $('form-inventory').reset(); $('inv-id').value = ''; $('inv-restock').value = '';
   $('inv-qty-label').textContent = 'Quantity *';
   $('modal-inventory-title').textContent = id ? (restock ? 'Restock item' : 'Edit Inventory Item') : 'Add Inventory Item';
-  $('inv-vehicle').innerHTML = `<option value="">Any vehicle / shared</option>` + state.vehicles.map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
+  $('inv-vehicle').innerHTML = `<option value="">Any vehicle / shared</option>` + vehOptionsLive(id && (state.inventory.find(x => x.id === id) || {}).vehicleId);
   if (!id && invVeh && invVeh !== '__shared') $('inv-vehicle').value = invVeh;   // new item defaults to the vehicle you are filtering by
   const i = id && state.inventory.find(x => x.id === id);
   if (i) {
     $('inv-id').value = i.id; $('inv-name').value = i.name; $('inv-brand').value = i.brand || ''; $('inv-vendor').value = i.vendor || ''; $('inv-code').value = i.code || ''; $('inv-batch').value = i.batch || '';
     $('inv-qty').value = i.qty; $('inv-unit').value = i.unit || 'pcs'; $('inv-low').value = i.low ?? ''; $('inv-price').value = i.price; $('inv-currency').value = i.currency || 'EUR';
-    $('inv-vehicle').value = ownedByVehicle(i) ? i.vehicleId : '';
+    $('inv-vehicle').value = ownedByVehicle(i) ? i.vehicleId : ''; $('inv-warranty').value = i.warrantyMonths || '';
     if (restock) { $('inv-restock').value = '1'; $('inv-qty-label').textContent = `Quantity to add (now ${i.qty} ${i.unit}) *`; $('inv-qty').value = ''; $('inv-qty').placeholder = 'e.g. 2'; }
   }
+  invAllowContainer = !id || restock; $('inv-container').checked = false; $('inv-cont-size').value = ''; $('inv-cont-total').value = ''; invContainerToggle(); invUnitChanged();
   openModal('modal-inventory');
   if (restock) setTimeout(() => $('inv-qty').focus(), 60);
 }
 function saveInventory(e) {
   e.preventDefault();
-  const id = $('inv-id').value;
-  const old = state.inventory.find(x => x.id === id);
-  let qty = parseFloat($('inv-qty').value) || 0;
-  if ($('inv-restock').value === '1' && old) qty = +(old.qty + qty).toFixed(2);
-  const data = { id: id || uid('i'), vehicleId: $('inv-vehicle').value, name: $('inv-name').value.trim(), brand: $('inv-brand').value.trim(), vendor: $('inv-vendor').value.trim(), code: $('inv-code').value.trim(), batch: $('inv-batch').value.trim(), qty, unit: $('inv-unit').value, low: parseFloat($('inv-low').value) || 0, price: parseFloat($('inv-price').value) || 0, currency: $('inv-currency').value };
+  const id = $('inv-id').value, old = state.inventory.find(x => x.id === id), restock = $('inv-restock').value === '1' && !!old;
+  const entered = parseFloat($('inv-qty').value) || 0, qty = restock ? +(old.qty + entered).toFixed(2) : entered;
+  const price = parseFloat($('inv-price').value) || 0, currency = $('inv-currency').value, vendor = $('inv-vendor').value.trim(), cont = $('inv-container').checked && !$('inv-container-wrap').classList.contains('hidden');
+  const data = Object.assign({}, old || {}, { id: id || uid('i'), vehicleId: $('inv-vehicle').value, name: $('inv-name').value.trim(), brand: $('inv-brand').value.trim(), vendor, code: $('inv-code').value.trim(), batch: $('inv-batch').value.trim(), qty, unit: $('inv-unit').value, low: parseFloat($('inv-low').value) || 0, price, currency, warrantyMonths: parseInt($('inv-warranty').value) || 0 });
+  const hist = (old && old.purchases ? old.purchases.slice() : []);
+  const changed = old && (price !== old.price || currency !== old.currency || vendor !== (old.vendor || ''));
+  if (!old || restock) hist.push({ date: todayStr(), vendor, price, currency, qty: entered, size: cont ? entered : undefined });
+  else if (changed) hist.push({ date: todayStr(), vendor, price, currency, qty: 0 });
+  data.purchases = hist;
   const idx = state.inventory.findIndex(x => x.id === id);
   if (idx >= 0) state.inventory[idx] = data; else state.inventory.push(data);
   closeModal('modal-inventory'); commit();
+  if (restock && changed) toast('Restocked. New price and vendor saved to the price history.');
 }
 function deleteInventory(id) {
   const i = state.inventory.find(x => x.id === id); if (!i) return;
@@ -4326,9 +4491,9 @@ function deleteChecklist(id) { if (confirm('Delete this checklist template?')) {
 /* ---------- REMINDERS ---------- */
 let remVeh = 'all';
 function syncRemFilter() {
-  if (remVeh !== 'all' && !state.vehicles.some(v => v.id === remVeh)) remVeh = 'all';
+  if (remVeh !== 'all' && !liveVehicles().some(v => v.id === remVeh)) remVeh = 'all';
   const s = $('rem-filter'); if (!s) return;
-  s.innerHTML = `<option value="all">All vehicles</option>` + state.vehicles.map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
+  s.innerHTML = `<option value="all">All vehicles</option>` + liveVehicles().map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
   s.value = remVeh;
 }
 function renderReminders() {
@@ -4360,6 +4525,7 @@ function renderReminders() {
         ${st.remainingKm != null ? `<div><div class="flex justify-between text-[11px] text-stone-400 mb-1"><span>Distance • last ${fmtKm(r.lastKm)}</span><span>every ${fmtKm(r.intervalKm)}</span></div>${bar(st.kmPct, st.remainingKm <= 0, st.remainingKm <= 1500)}</div>` : ''}
         ${st.daysRemaining != null ? `<div><div class="flex justify-between text-[11px] text-stone-400 mb-1"><span>Time • last ${fmtDate(r.lastDate)}</span><span>every ${r.intervalMonths} mo</span></div>${bar(st.timePct, st.daysRemaining <= 0, st.daysRemaining <= 30)}</div>` : ''}
       </div>
+      <button onclick="logFromReminder('${r.id}')" class="w-full bg-amber-600/20 hover:bg-amber-500 text-amber-300 hover:text-stone-900 border border-amber-500/30 text-xs py-2 rounded-lg font-medium flex items-center justify-center gap-1.5"><i data-lucide="wrench" class="w-3.5 h-3.5"></i> Do this now (log the job)</button>
       <button onclick="markReminderDone('${r.id}')" class="w-full bg-stone-700 hover:bg-stone-600 text-white text-xs py-2 rounded-lg font-medium flex items-center justify-center gap-1.5"><i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-emerald-400"></i> Mark done now (reset at ${fmtKm(st.cur)} / today)</button>
     </div>`;
   }).join('');
@@ -4373,7 +4539,7 @@ function openReminderModal(id = null) {
   if (!state.vehicles.length) { toast('Add a vehicle first'); return; }
   $('form-reminder').reset(); $('rem-id').value = '';
   $('modal-reminder-title').textContent = id ? 'Edit Service Reminder' : 'Add Service Reminder';
-  $('rem-vehicle-id').innerHTML = state.vehicles.map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
+  $('rem-vehicle-id').innerHTML = vehOptionsLive(id && (state.reminders.find(x => x.id === id) || {}).vehicleId);
   const r = id && state.reminders.find(x => x.id === id);
   if (r) { $('rem-id').value = r.id; $('rem-vehicle-id').value = r.vehicleId; $('rem-title').value = r.title; $('rem-interval-km').value = r.intervalKm || ''; $('rem-interval-months').value = r.intervalMonths || ''; $('rem-last-km').value = r.lastKm ?? ''; $('rem-last-date').value = r.lastDate || ''; }
   openModal('modal-reminder');
@@ -4393,39 +4559,10 @@ function deleteReminder(id) { if (confirm('Delete this service reminder?')) { st
 /* ---------- WORK ORDERS ---------- */
 let activeWoFilter = 'all';
 function filterWorkOrders(f) { activeWoFilter = f; renderWorkOrders(); }
-function renderWorkOrders() {
-  document.querySelectorAll('.wo-tab-btn').forEach(b => { const on = b.dataset.f === activeWoFilter; b.className = 'wo-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold ' + (on ? 'bg-amber-500 text-stone-900' : 'bg-stone-800 text-stone-400 hover:text-white'); });
-  const list = state.workorders.filter(w => activeWoFilter === 'all' || w.status === activeWoFilter).sort((a, b) => (b.datetime || '').localeCompare(a.datetime || ''));
-  $('workorders-list').innerHTML = list.length ? list.map(wo => {
-    const v = state.vehicles.find(x => x.id === wo.vehicleId) || { make: 'Unknown', model: '', reg: '' };
-    const c = woCosts(wo), pro = isPro(wo);
-    return `
-    <div class="bg-stone-800 border border-stone-700/80 hover:border-stone-600 rounded-2xl p-5 shadow-xl space-y-4">
-      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-stone-700/80 pb-3">
-        <div><div class="flex items-center gap-2 flex-wrap"><h3 class="text-lg font-bold text-white cursor-pointer hover:text-amber-400" onclick="viewWorkOrder('${wo.id}')">${esc(wo.jobTitle)}</h3>
-          <span class="px-2 py-0.5 text-[10px] font-bold rounded-md ${wo.status === 'Completed' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">${wo.status}</span>
-          <span class="px-2 py-0.5 text-[10px] font-bold rounded-md ${pro ? 'bg-violet-500/15 text-violet-300 border border-violet-500/30' : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'}">${pro ? 'GARAGE' : 'DIY'}</span></div>
-          <p class="text-xs text-stone-400 mt-0.5">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')}) • ${fmtDateTime(wo.datetime)}</p></div>
-        <div class="grid grid-cols-2 sm:flex gap-2 w-full sm:w-auto">
-          <button onclick="openWorkOrderModal('${wo.id}')" class="btn btn-secondary" style="padding:.65rem .75rem"><i data-lucide="edit-2" class="w-4 h-4"></i> Edit</button>
-          <button onclick="viewWorkOrder('${wo.id}')" class="btn btn-primary" style="padding:.65rem .75rem"><i data-lucide="eye" class="w-4 h-4"></i> View / Print</button>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs bg-stone-900/60 p-3 rounded-xl border border-stone-700/50">
-        <div><span class="text-stone-400 block">Odometer</span><strong class="text-amber-400 font-mono">${fmtKm(wo.odometer)}</strong></div>
-        <div>${pro ? `<span class="text-stone-400 block">Garage</span><strong class="text-violet-300">${esc(wo.provider || 'Professional')}</strong>` : `<span class="text-stone-400 block">Labor time</span><strong class="text-amber-400 font-mono">${fmtLabor(wo.laborSeconds)}</strong>`}</div>
-        <div><span class="text-stone-400 block">Parts used</span><strong class="text-white">${(wo.parts || []).length} items</strong></div>
-        <div><span class="text-stone-400 block">Total cost</span><strong class="text-emerald-400 font-mono text-sm">${formatEur(c.total)}</strong>
-          <span class="block text-[10px] text-stone-500">parts ${formatEur(c.parts)}${c.extra ? ` • ${pro ? 'garage' : 'other'} ${formatEur(c.extra)}` : ''}</span></div>
-      </div>
-    </div>`;
-  }).join('') : `<div class="text-center py-12 text-stone-500">No work orders match.</div>`;
-}
-
 /* stopwatch (timestamp based so it stays accurate if the tablet sleeps) */
 const timer = { base: 0, startedAt: null, iv: null };
 const timerSecs = () => timer.base + (timer.startedAt ? Math.floor((Date.now() - timer.startedAt) / 1000) : 0);
-function updateTimerDisplay() { $('timer-display').textContent = fmtHMS(timerSecs()); }
+function updateTimerDisplay() { $('timer-display').textContent = fmtHMS(timerSecs()); updateLaborTotal(); }
 function startTimer() { if (timer.startedAt) return; timer.startedAt = Date.now(); timer.iv = setInterval(updateTimerDisplay, 500); }
 function pauseTimer() { if (timer.startedAt) { timer.base = timerSecs(); timer.startedAt = null; } clearInterval(timer.iv); updateTimerDisplay(); }
 function resetTimer() { pauseTimer(); timer.base = 0; updateTimerDisplay(); }
@@ -4433,12 +4570,12 @@ function resetTimer() { pauseTimer(); timer.base = 0; updateTimerDisplay(); }
 let woPhotos = [];
 function closeWorkOrderModal() { pauseTimer(); closeModal('modal-workorder'); }
 
-function openWorkOrderModal(id = null, preVeh = null) {
+function openWorkOrderModal(id = null, preVeh = null, tpl = null) {
   if (!state.vehicles.length) { toast('Add a vehicle first'); switchTab('vehicles'); return; }
   $('form-workorder').reset(); $('wo-id').value = '';
   ['wo-checklists-container', 'wo-parts-container', 'wo-dtc-parsed-container', 'wo-photos-preview'].forEach(i => $(i).innerHTML = '');
   woPhotos = []; resetTimer();
-  $('wo-vehicle-id').innerHTML = state.vehicles.map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
+  $('wo-vehicle-id').innerHTML = vehOptionsLive(id ? (state.workorders.find(w => w.id === id) || {}).vehicleId : preVeh);
   $('wo-import-checklist-select').innerHTML = `<option value="">Select Checklist Template...</option>` + state.checklists.map(c => `<option value="${c.id}">${esc(c.title)}</option>`).join('');
   const wo = id && state.workorders.find(w => w.id === id);
   $('wo-delete-btn').classList.toggle('hidden', !wo);
@@ -4460,8 +4597,14 @@ function openWorkOrderModal(id = null, preVeh = null) {
     if (preVeh) $('wo-vehicle-id').value = preVeh;
     $('wo-odometer').value = state.vehicles.find(v => v.id === $('wo-vehicle-id').value)?.odometer || '';
   }
+  if (tpl && !wo) {
+    $('wo-job-title').value = tpl.title; $('wo-done-by').value = tpl.doneBy; $('wo-provider').value = tpl.provider;
+    (tpl.parts || []).forEach(p => addWoPartRow(p.invId, p.qty)); (tpl.checklists || []).forEach(t => addWoChecklistRow(t, 'Pass', ''));
+    checkedIds = tpl.reset || [];
+  }
   renderWoResetList(checkedIds);
   toggleWoBy();
+  $('wo-specs').open = false; renderWoSpecs(); updateWoEstimate();
   openModal('modal-workorder');
 }
 function toggleWoBy() {
@@ -4471,7 +4614,7 @@ function toggleWoBy() {
   $('wo-extra-label').textContent = pro ? 'Garage invoice total (€)' : 'Other costs (€)';
   $('wo-extra-hint').textContent = pro ? 'What the garage charged you. Parts taken from your own stock are counted separately.' : 'Consumables, disposal fees, tool hire... anything not in your inventory.';
   if (pro) pauseTimer();
-  updateWoCost();
+  updateWoCost(); updateWoEstimate();
 }
 // keep the price a part had when the job was done, so editing an old job never rewrites its history
 function partSnapshot(inv, prev) {
@@ -4496,7 +4639,7 @@ function handleWoVehicleChange() {
   if (!$('wo-id').value) setKmInput('wo-odometer', state.vehicles.find(v => v.id === $('wo-vehicle-id').value)?.odometer || '');
   renderWoResetList([]);
   document.querySelectorAll('.wo-part-select').forEach(sel => { const cur = sel.value; sel.innerHTML = partOptions($('wo-vehicle-id').value, cur); });
-  updateWoCost();
+  updateWoCost(); renderWoSpecs();
 }
 // parts for this vehicle (and shared ones) first, other vehicles' parts tucked in a separate group
 function partOptions(vehId, selId = '') {
@@ -4590,6 +4733,7 @@ function saveWorkOrder(e) {
   const id = $('wo-id').value, vehId = $('wo-vehicle-id').value;
   const veh = state.vehicles.find(v => v.id === vehId);
   const odo = parseInt($('wo-odometer').value) || 0;
+  { const ow = odoWarn(veh, odo, false); if (ow && !confirm(ow)) return; }
   const status = $('wo-status').value;
   const pro = $('wo-done-by').value === 'Professional';
   const prevWo = id && state.workorders.find(w => w.id === id);
@@ -4600,12 +4744,12 @@ function saveWorkOrder(e) {
     const qty = parseFloat(r.querySelector('.wo-part-qty').value) || 0;
     if (!inv || !(qty > 0)) return null;
     const s = partSnapshot(inv, prevWo);
-    return { invId: inv.id, code: inv.code || '', name: inv.name, qty, unit: inv.unit, price: s.price, currency: s.currency, eurUnit: s.eurUnit };
+    return { invId: inv.id, code: inv.code || '', name: inv.name, qty, unit: inv.unit, price: s.price, currency: s.currency, eurUnit: s.eurUnit, warrantyMonths: ((prevWo && (prevWo.parts || []).find(x => x.invId === inv.id)) || {}).warrantyMonths ?? (inv.warrantyMonths || 0) };
   }).filter(Boolean).concat([...document.querySelectorAll('.wo-part-orphan')].map(r => JSON.parse(r.dataset.p)));
   const dtcs = [...document.querySelectorAll('.wo-dtc-row')].map(r => ({ code: r.querySelector('.wo-dtc-code').textContent.trim(), note: r.querySelector('.wo-dtc-note').value.trim() }));
   const resetIds = [...document.querySelectorAll('.wo-reset-rem-cb:checked')].map(c => c.value);
 
-  const wo = { id: id || ('wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4)), vehicleId: vehId, jobTitle: $('wo-job-title').value.trim(), status, odometer: odo, datetime: $('wo-datetime').value || nowLocalInput(), laborSeconds: pro ? 0 : timerSecs(), doneBy: pro ? 'Professional' : 'DIY', provider: pro ? $('wo-provider').value.trim() : '', costExtra: Math.max(0, parseFloat($('wo-cost-extra').value) || 0), checklists, parts, dtcs, comments: $('wo-comments').value.trim(), photos: [...woPhotos], resetReminderIds: resetIds };
+  const wo = { id: id || ('wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4)), vehicleId: vehId, jobTitle: $('wo-job-title').value.trim(), status, odometer: odo, datetime: $('wo-datetime').value || nowLocalInput(), laborSeconds: pro ? 0 : timerSecs() + manualSecs(), doneBy: pro ? 'Professional' : 'DIY', provider: pro ? $('wo-provider').value.trim() : '', costExtra: Math.max(0, parseFloat($('wo-cost-extra').value) || 0), checklists, parts, dtcs, comments: $('wo-comments').value.trim(), photos: [...woPhotos], resetReminderIds: resetIds };
 
   // inventory: give back the previous deduction when editing, then deduct the new one
   const prev = id && state.workorders.find(w => w.id === id);
@@ -4639,6 +4783,7 @@ function viewWorkOrder(id) { viewId = id; viewMode = 'report'; renderViewer(); o
 function setViewMode(m) { viewMode = m; renderViewer(); }
 function renderViewer() {
   const wo = state.workorders.find(w => w.id === viewId); if (!wo) return;
+  $('vm-history').classList.toggle('hidden', wo.status !== 'Completed');
   $('vm-report').className = 'px-3 py-1.5 ' + (viewMode === 'report' ? 'bg-amber-500 text-stone-900' : 'bg-stone-900 text-stone-300');
   $('vm-invoice').className = 'px-3 py-1.5 ' + (viewMode === 'invoice' ? 'bg-amber-500 text-stone-900' : 'bg-stone-900 text-stone-300');
   const v = state.vehicles.find(x => x.id === wo.vehicleId) || { make: 'Unknown', model: '' };
@@ -4659,7 +4804,7 @@ function renderViewer() {
 
   const partsTable = parts.length ? `
     <table><thead><tr><th>Part</th><th>Qty</th><th>Unit price</th><th>Unit (€)</th><th>Line total (€)</th></tr></thead><tbody>
-    ${parts.map(p => { const eu = p.eurUnit ?? convertToEuro(p.price, p.currency); return `<tr><td>${esc(p.name)}${p.code ? `<div style="font-size:.7rem;color:#64748b">${esc(p.code)}</div>` : ''}</td><td>${p.qty} ${esc(p.unit)}</td><td>${formatCurrency(p.price, p.currency)}</td><td>${formatEur(eu)}</td><td>${formatEur(eu * p.qty)}</td></tr>`; }).join('')}
+    ${parts.map(p => { const eu = p.eurUnit ?? convertToEuro(p.price, p.currency); return `<tr><td>${esc(p.name)}${p.code ? `<div style="font-size:.7rem;color:#64748b">${esc(p.code)}</div>` : ''}${warrantyEnd(wo, p) ? `<div style="font-size:.7rem;color:#64748b">Warranty to ${fmtDate(warrantyEnd(wo, p))}</div>` : ''}</td><td>${p.qty} ${esc(p.unit)}</td><td>${formatCurrency(p.price, p.currency)}</td><td>${formatEur(eu)}</td><td>${formatEur(eu * p.qty)}</td></tr>`; }).join('')}
     <tr><td colspan="4" style="text-align:right;font-weight:700">Total parts (EUR)</td><td style="font-weight:700">${formatEur(c.parts)}</td></tr></tbody></table>` : `<p class="text-sm text-stone-500 italic">No parts used from inventory.</p>`;
 
   const costTable = `<table><tbody>
@@ -4688,7 +4833,7 @@ function renderViewer() {
 function printDocument() { $('print-template').innerHTML = `<div class="paper p-4 space-y-5">${$('wo-printable-area').innerHTML}</div>`; window.print(); }
 
 /* ---------- small shared helpers for the new tabs ---------- */
-const vehicleOptionsHtml = () => state.vehicles.map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
+const vehicleOptionsHtml = () => liveVehicles().map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
 const statTile = (label, val, sub, tone = 'text-white') => `<div class="bg-stone-800 border border-stone-700 rounded-xl p-4"><span class="text-[11px] uppercase text-stone-400 font-semibold tracking-wider">${label}</span><p class="text-2xl font-bold ${tone} mt-1 font-mono">${val}</p><span class="text-xs text-stone-400">${sub}</span></div>`;
 const iconBtn = (onclick, icon, label, hover = 'hover:text-white') => `<button onclick="${onclick}" class="icon-btn text-stone-300 ${hover} bg-stone-700/60" aria-label="${label}"><i data-lucide="${icon}" class="w-4 h-4"></i></button>`;
 function showTip(el) {          // chart tooltip: textContent only, same on hover and keyboard focus
@@ -4714,7 +4859,7 @@ function expiryStatus(x) {
   const days = Math.round((new Date(x.dueDate + 'T00:00:00') - today) / 864e5), warn = x.warnDays ?? 30;
   return { x, vehicle, days, warn, rank: days < 0 ? 0 : days <= warn ? 1 : 2 };
 }
-const sortedExpiries = () => state.expiries.map(expiryStatus).sort((a, b) => a.rank - b.rank || a.days - b.days);
+const sortedExpiries = () => state.expiries.filter(x => !vehArchived(x.vehicleId)).map(expiryStatus).sort((a, b) => a.rank - b.rank || a.days - b.days);
 function expiryBadge(s) {
   const cls = s.rank === 0 ? 'bg-rose-500/20 text-rose-300 border-rose-500/30' : s.rank === 1 ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
   const n = Math.abs(s.days), txt = s.days < 0 ? `EXPIRED ${n} day${n === 1 ? '' : 's'} ago` : s.days === 0 ? 'EXPIRES TODAY' : `${s.days} day${s.days === 1 ? '' : 's'} left`;
@@ -4835,7 +4980,7 @@ function fuelChartHtml(s) {
 }
 function renderFuel() {
   const sel = $('fuel-vehicle'); if (!sel) return;
-  if (!state.vehicles.some(v => v.id === fuelVeh)) fuelVeh = state.vehicles[0]?.id || '';
+  if (!liveVehicles().some(v => v.id === fuelVeh)) fuelVeh = liveVehicles()[0]?.id || '';
   sel.innerHTML = vehicleOptionsHtml(); sel.value = fuelVeh;
   const body = $('fuel-body'), v = state.vehicles.find(x => x.id === fuelVeh);
   if (!v) { body.innerHTML = `<div class="text-center py-12 text-stone-500">Add a vehicle to start a fuel log.</div>`; return; }
@@ -4875,7 +5020,7 @@ function openFuelModal(id = null) {
   const f = id && state.fuel.find(x => x.id === id);
   $('fuel-delete-btn').classList.toggle('hidden', !f);
   if (f) { $('fuel-id').value = f.id; $('fuel-form-vehicle').value = f.vehicleId; $('fuel-date').value = f.date; $('fuel-odo').value = f.odometer; $('fuel-litres').value = f.litres; $('fuel-cost').value = f.cost; $('fuel-full').checked = !!f.full; $('fuel-station').value = f.station || ''; $('fuel-type').value = f.fuelType || fuelDefaults(f.vehicleId).type; $('fuel-additive').checked = !!f.additive; fuelAdditiveLabel(f.vehicleId); }
-  else { $('fuel-form-vehicle').value = fuelVeh || state.vehicles[0].id; $('fuel-date').value = todayStr(); fuelFormVehicleChanged(); }
+  else { $('fuel-form-vehicle').value = fuelVeh || (liveVehicles()[0] || {}).id; $('fuel-date').value = todayStr(); fuelFormVehicleChanged(); }
   fuelPreview(); openModal('modal-fuel');
 }
 function fuelDefaults(vehId) {
@@ -4891,6 +5036,7 @@ function fuelPreview() { const l = parseFloat($('fuel-litres').value), c = parse
 function saveFuel(e) {
   e.preventDefault();
   const id = $('fuel-id').value, vehId = $('fuel-form-vehicle').value, odo = parseInt($('fuel-odo').value) || 0;
+  { const fw = odoWarn(state.vehicles.find(v => v.id === vehId), odo, false); if (fw && !confirm(fw)) return; }
   const data = { id: id || uid('f'), vehicleId: vehId, date: $('fuel-date').value || todayStr(), odometer: odo, litres: parseFloat($('fuel-litres').value) || 0, cost: parseFloat($('fuel-cost').value) || 0, full: $('fuel-full').checked, station: $('fuel-station').value.trim(), note: '', fuelType: $('fuel-type').value, additive: $('fuel-additive').checked, additiveName: fuelDefaults(vehId).additive };
   const i = state.fuel.findIndex(x => x.id === id);
   if (i >= 0) state.fuel[i] = data; else state.fuel.push(data);
@@ -4927,7 +5073,7 @@ function tyreWear(t) {
 }
 function renderTyres() {
   const sel = $('tyre-vehicle-sel'); if (!sel) return;
-  if (!state.vehicles.some(v => v.id === tyreVeh)) tyreVeh = state.vehicles[0]?.id || '';
+  if (!liveVehicles().some(v => v.id === tyreVeh)) tyreVeh = liveVehicles()[0]?.id || '';
   sel.innerHTML = vehicleOptionsHtml(); sel.value = tyreVeh;
   const body = $('tyres-body'), v = state.vehicles.find(x => x.id === tyreVeh);
   if (!v) { body.innerHTML = `<div class="text-center py-12 text-stone-500">Add a vehicle to track its tyres.</div>`; return; }
@@ -4945,12 +5091,13 @@ function renderTyres() {
       </div>
       <p class="text-xs text-stone-400">${fmtKm(Math.max(0, v.odometer - (t.fittedOdo || 0)))} on this tyre${age != null ? ` • ${age.toFixed(1)} yrs old` : ''}${age != null && age >= 6 ? ' <span class="text-amber-400 font-semibold">(check its age)</span>' : ''}</p>
       ${w ? `<p class="text-xs text-stone-300">Wears about ${w.per1000.toFixed(2)} mm per 1,000 ${unitName()}${w.kmLeft > 0 ? ` • roughly ${fmtNum(Math.round(dk(w.kmLeft) / 100) * 100)} ${unitName()} until 3 mm` : ' • already at 3 mm'}</p>` : ''}
+      ${(t.moves || []).length ? `<p class="text-[11px] text-stone-400">Distance per wheel: ${Object.entries(tyrePosKm(t, v.odometer)).filter(e => e[1] > 0).map(e => esc(posLabel(e[0])) + ' ' + esc(fmtKm(e[1]))).join(' \u2022 ')}</p>` : ''}
       <div class="flex gap-2"><button onclick="openTyreModal(null,'${pos}')" class="flex-1 bg-stone-700 hover:bg-stone-600 text-white text-xs py-2.5 rounded-lg font-medium">Replace</button>${iconBtn(`openTyreModal('${t.id}')`, 'edit-2', 'Edit')}${iconBtn(`removeTyre('${t.id}')`, 'trash-2', 'Take off', 'hover:text-rose-400')}</div>
     </div>`;
   };
   const removed = state.tyres.filter(t => t.vehicleId === v.id && t.status === 'Removed').sort((a, b) => (b.removedDate || '').localeCompare(a.removedDate || ''));
   const spent = state.tyres.filter(t => t.vehicleId === v.id).reduce((a, t) => a + (+t.cost || 0), 0);
-  body.innerHTML = `
+  body.innerHTML = rotationLineHtml(v) + `
     <div class="grid grid-cols-2 gap-3">
       <p class="col-span-2 text-[11px] uppercase tracking-wider text-stone-500 font-semibold">Front</p>${card(TYRE_POS[0])}${card(TYRE_POS[1])}
       <p class="col-span-2 text-[11px] uppercase tracking-wider text-stone-500 font-semibold mt-2">Rear</p>${card(TYRE_POS[2])}${card(TYRE_POS[3])}
@@ -4962,20 +5109,23 @@ function renderTyres() {
       <div class="bg-stone-800 border border-stone-700 rounded-xl p-4 flex items-start justify-between gap-3">
         <div class="min-w-0 space-y-1"><p class="text-sm font-semibold text-white">${esc(posLabel(t.position))}: ${esc(t.brand)} ${esc(t.model)} <span class="text-stone-400 font-normal font-mono text-xs">${esc(t.size || '')}</span></p>
           <p class="text-xs text-stone-400">${fmtDate(t.fittedDate)} to ${fmtDate(t.removedDate)} • ${fmtKm(Math.max(0, (t.removedOdo ?? t.fittedOdo) - t.fittedOdo))}${l ? ' • last tread ' + l.mm.toFixed(1) + ' mm' : ''}${t.cost ? ' • ' + formatEur(t.cost) : ''}</p></div>
-        <div class="shrink-0">${iconBtn(`deleteTyre('${t.id}')`, 'trash-2', 'Delete', 'hover:text-rose-400')}</div>
+        <div class="shrink-0 flex gap-1">${iconBtn(`refitTyre('${t.id}')`, 'rotate-ccw', 'Put back on')}${iconBtn(`openTyreModal('${t.id}')`, 'edit-2', 'Edit')}${iconBtn(`deleteTyre('${t.id}')`, 'trash-2', 'Delete', 'hover:text-rose-400')}</div>
       </div>`; }).join('') : `<p class="text-sm text-stone-500 italic">Nothing here yet. Replaced tyres are kept as a record.</p>`}
     </div>`;
 }
 function openTyreModal(id = null, pos = null) {
+  $('tyre-removed-wrap').classList.add('hidden'); $('tyre-delete-btn').classList.add('hidden');
   if (!state.vehicles.length) { toast('Add a vehicle first'); return; }
   $('form-tyre').reset(); $('tyre-id').value = '';
-  $('tyre-vehicle').innerHTML = vehicleOptionsHtml(); $('tyre-vehicle').value = tyreVeh || state.vehicles[0].id;
+  $('tyre-vehicle').innerHTML = vehicleOptionsHtml(); $('tyre-vehicle').value = tyreVeh || (liveVehicles()[0] || {}).id;
   $('tyre-position').innerHTML = TYRE_POS.map(p => `<option value="${p[0]}">${p[1]}</option>`).join('');
   const t = id && state.tyres.find(x => x.id === id);
   $('tyre-tread-wrap').classList.toggle('hidden', !!t);
   if (t) {
     $('modal-tyre-title').textContent = 'Edit Tyre'; $('tyre-id').value = t.id; $('tyre-vehicle').value = t.vehicleId; $('tyre-position').value = t.position;
     $('tyre-brand').value = t.brand; $('tyre-model').value = t.model || ''; $('tyre-size').value = t.size || ''; $('tyre-type').value = t.type || 'Summer'; $('tyre-dot').value = t.dot || '';
+    $('tyre-delete-btn').classList.remove('hidden');
+    if (t.status === 'Removed') { $('tyre-removed-wrap').classList.remove('hidden'); $('tyre-removed-date').value = t.removedDate || ''; $('tyre-removed-odo').value = t.removedOdo ?? ''; $('modal-tyre-title').textContent = 'Edit tyre taken off'; }
     $('tyre-cost').value = t.cost || ''; $('tyre-date').value = t.fittedDate || ''; $('tyre-odo').value = t.fittedOdo ?? ''; $('tyre-notes').value = t.notes || '';
   } else {
     $('modal-tyre-title').textContent = pos && fittedTyre($('tyre-vehicle').value, pos) ? `Replace ${posLabel(pos).toLowerCase()} tyre` : 'Add Tyre';
@@ -4996,7 +5146,10 @@ function saveTyre(e) {
     if (cur) { if (!confirm(`Take off the ${cur.brand} ${cur.model} (${posLabel(pos).toLowerCase()}) and fit this one instead?`)) return; cur.status = 'Removed'; cur.removedDate = date; cur.removedOdo = odo; }
     const mm = parseFloat($('tyre-tread').value); if (!isNaN(mm)) data.treadLog.push({ date, mm, odo });
     state.tyres.push(data);
-  } else state.tyres[state.tyres.findIndex(t => t.id === id)] = data;
+  } else {
+    if (old.status === 'Removed') { data.removedDate = $('tyre-removed-date').value || old.removedDate; const ro = parseInt($('tyre-removed-odo').value); data.removedOdo = isNaN(ro) ? old.removedOdo : ro; }
+    state.tyres[state.tyres.findIndex(t => t.id === id)] = Object.assign({}, old, data);
+  }
   const veh = state.vehicles.find(v => v.id === vehId); if (veh && odo > veh.odometer) veh.odometer = odo;
   tyreVeh = vehId; closeModal('modal-tyre'); commit();
 }
@@ -5004,6 +5157,14 @@ function removeTyre(id) {
   const t = state.tyres.find(x => x.id === id), v = t && state.vehicles.find(x => x.id === t.vehicleId); if (!t) return;
   if (!confirm(`Take off the ${posLabel(t.position).toLowerCase()} tyre (${t.brand} ${t.model})? It stays in the history.`)) return;
   t.status = 'Removed'; t.removedDate = todayStr(); t.removedOdo = v ? v.odometer : t.fittedOdo; commit();
+}
+function deleteTyreFromModal() { const id = $('tyre-id').value; if (id && confirm('Delete this tyre record for good? Its cost is removed from your totals.')) { state.tyres = state.tyres.filter(t => t.id !== id); closeModal('modal-tyre'); commit(); } }
+function refitTyre(id) {
+  const t = state.tyres.find(x => x.id === id); if (!t) return;
+  const cur = fittedTyre(t.vehicleId, t.position);
+  if (cur) { toast(`The ${posLabel(t.position).toLowerCase()} wheel already has a tyre. Take that one off first, or edit this tyre and pick another wheel.`); return; }
+  if (!confirm(`Put this ${t.brand} ${t.model} back on the ${posLabel(t.position).toLowerCase()} wheel?`)) return;
+  t.status = 'Fitted'; t.removedDate = ''; t.removedOdo = null; commit(); toast('Tyre is back on');
 }
 function deleteTyre(id) { if (confirm('Delete this tyre record for good?')) { state.tyres = state.tyres.filter(t => t.id !== id); commit(); } }
 function openTreadModal() {
@@ -5065,8 +5226,8 @@ function historyTotals(jobs) {
 function openHistory(vehId) { histVeh = vehId; switchTab('history'); renderHistory(); }
 function renderHistory() {
   const sel = $('hist-vehicle'); if (!sel) return;
-  if (!state.vehicles.some(v => v.id === histVeh)) histVeh = state.vehicles[0]?.id || '';
-  sel.innerHTML = state.vehicles.map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
+  if (!state.vehicles.some(v => v.id === histVeh)) histVeh = (liveVehicles()[0] || state.vehicles[0] || {}).id || '';
+  sel.innerHTML = state.vehicles.map(v => `<option value="${v.id}">${esc(vehLabel(v))}</option>`).join('');
   sel.value = histVeh;
   const body = $('history-body'), v = state.vehicles.find(x => x.id === histVeh);
   if (!v) { body.innerHTML = `<div class="text-center py-12 text-stone-500">Add a vehicle to start its service history.</div>`; return; }
@@ -5086,7 +5247,7 @@ function renderHistory() {
     return `
     <div class="relative pl-6 pb-4 border-l border-stone-700 ml-1">
       <span class="absolute -left-[7px] top-2 w-3 h-3 rounded-full ${pro ? 'bg-violet-400' : 'bg-amber-400'} border-2 border-stone-900"></span>
-      <div onclick="viewWorkOrder('${w.id}')" class="bg-stone-800 border border-stone-700 hover:border-stone-500 rounded-xl p-4 cursor-pointer space-y-2">
+      <div id="hist-job-${w.id}" onclick="viewWorkOrder('${w.id}')" class="bg-stone-800 border border-stone-700 hover:border-stone-500 rounded-xl p-4 cursor-pointer space-y-2">
         <div class="flex justify-between items-start gap-3">
           <div class="min-w-0"><p class="text-[11px] text-stone-400">${fmtDate(w.datetime)}${w.odometer ? ' • ' + fmtKm(w.odometer) : ''}</p><h4 class="font-bold text-white text-sm">${esc(w.jobTitle)}</h4></div>
           <strong class="text-emerald-400 font-mono text-sm shrink-0">${formatEur(c.total)}</strong>
@@ -5116,6 +5277,9 @@ function renderHistory() {
       ${tile('DIY / garage', `${t.diy} / ${t.pro}`, 'jobs, you / professional', 'text-white')}
     </div>
     ${runningCostsHtml(v.id, t.total)}
+    ${yearlyCostsHtml(v.id)}
+    ${dtcLogHtml(v.id)}
+    ${rotationsHistoryHtml(v.id)}
     ${years.length ? `<div class="bg-stone-800 border border-stone-700 rounded-xl p-4 space-y-3"><div class="flex justify-between items-center flex-wrap gap-2"><h3 class="font-bold text-white text-sm">Spend by year</h3><div class="flex gap-3 text-[11px] text-stone-400"><span>${dot('#f59e0b')} Parts</span><span>${dot('#a78bfa')} Garage</span><span>${dot('#a8a29e')} Other</span></div></div>${yearBars}</div>` : ''}
     <div><h3 class="font-bold text-white text-sm mb-3 flex items-center gap-2"><i data-lucide="history" class="w-4 h-4 text-indigo-400"></i> Work done, newest first</h3>
       ${timeline || `<p class="text-sm text-stone-500 italic">No completed jobs logged for this vehicle yet.</p>`}</div>`;
@@ -5192,7 +5356,8 @@ function runSearch() {
   state.expiries.filter(x => has(x.type, x.title, x.notes)).forEach(x => res.push(row(`closeModal('modal-search');switchTab('reminders')`, expiryName(x), `${vehName(x.vehicleId)} • expires ${fmtDate(x.dueDate)}`, 'Expiry')));
   state.reminders.filter(r => has(r.title)).forEach(r => res.push(row(`closeModal('modal-search');switchTab('reminders')`, r.title, vehName(r.vehicleId), 'Reminder')));
   state.fuel.filter(f => has(f.station)).slice(0, 5).forEach(f => res.push(row(`closeModal('modal-search');switchTab('fuel')`, `${f.station} fill-up`, `${fmtDate(f.date)} • ${vehName(f.vehicleId)}`, 'Fuel')));
-  out.innerHTML = res.length ? res.slice(0, 40).join('') : `<p class="text-sm text-stone-400 px-1 py-4">Nothing found for "${esc(q)}".</p>`;
+  const last = lastDoneHtml(q.split(/\s+/).filter(Boolean));
+  out.innerHTML = last + (res.length ? res.slice(0, 40).join('') : `<p class="text-sm text-stone-400 px-1 py-4">Nothing found for "${esc(q)}".</p>`);
   icons();
 }
 
@@ -5224,7 +5389,9 @@ function openSettingsModal() {
   $('set-client-id').value = settings.clientId || GOOGLE_CLIENT_ID || '';
   ['GBP', 'USD', 'CAD', 'AUD'].forEach(c => $('rate-' + c).value = state.rates[c]);
   $('set-unit').value = state.unit || 'km';
-  updateDriveStatusLine(); openModal('modal-settings');
+  updateDriveStatusLine(); updateDataSizeLine();
+  $('backup-line').textContent = state.backupAt ? 'Last automatic backup: ' + fmtDateTime(state.backupAt) + '. A dated copy is saved to your Drive about once a week and the newest 8 are kept.' : 'A dated backup copy is saved to your Drive about once a week (the newest 8 are kept).';
+  openModal('modal-settings');
 }
 function saveRates() {
   ['GBP', 'USD', 'CAD', 'AUD'].forEach(c => { const v = parseFloat($('rate-' + c).value); if (v > 0) state.rates[c] = v; });
@@ -5319,7 +5486,7 @@ async function syncNow(manual = false) {
     setSync(needAuth ? 'reconnect' : 'error', e.message);
     if (manual) toast('Sync failed: ' + e.message);
   } finally { syncing = false; }
-  if (syncState === 'synced') refreshReports();
+  if (syncState === 'synced') { await refreshReports(); maybeBackup(); }
 }
 async function connectDrive() {
   if (!$('modal-settings').classList.contains('hidden')) { const v = $('set-client-id').value.trim(); if (v !== settings.clientId) { settings.clientId = v; tokenClient = null; saveSettingsLocal(); } }
@@ -5829,6 +5996,391 @@ function shareQr(kind) {
   if (kind === 'svg') saveBlob(new Blob([qrSvgString(url)], { type: 'image/svg+xml' }), base + '.svg');
   else if (kind === 'stl') saveBlob(new Blob([qrStlBytes(url)], { type: 'model/stl' }), base + '-plate.stl');
   else { const img = new Image(); img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = 1200; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, 1200, 1200); x.imageSmoothingEnabled = false; x.drawImage(img, 0, 0, 1200, 1200); c.toBlob(b => saveBlob(b, base + '.png')); }; img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(qrSvgString(url)); }
+}
+
+const vehArchived = id => { const v = state.vehicles.find(x => x.id === id); return !!(v && v.archived); };
+/* ============================================================
+   ROUND 5: vehicle archive, work order search/links/repeat, estimates, lookups,
+   costs, fault codes, warranties, reorder list, container restock, backups
+   ============================================================ */
+const liveVehicles = () => state.vehicles.filter(v => !v.archived);
+const vehLabel = v => `${v.make} ${v.model} (${v.reg || 'No Reg'})${v.archived ? ' - sold' : ''}`;
+const vehOptionsLive = (keepId = '') => state.vehicles.filter(v => !v.archived || v.id === keepId).map(v => `<option value="${v.id}">${esc(vehLabel(v))}</option>`).join('');
+
+/* ---------- mileage sanity check ---------- */
+function odoWarn(veh, km, lowerToo = true) {
+  if (!veh || !(km > 0)) return '';
+  const cur = veh.odometer || 0;
+  if (lowerToo && km < cur) return `That is lower than the current reading (${fmtKm(cur)}). Save anyway?`;
+  if (cur > 0 && km - cur > 5000) return `That is ${fmtKm(km - cur)} more than the current reading (${fmtKm(cur)}). Could it be a typo? Save anyway?`;
+  return '';
+}
+function quickMileage(id) {
+  const v = state.vehicles.find(x => x.id === id), el = $('qm-' + id); if (!v || !el) return;
+  const raw = parseFloat(el.value); if (isNaN(raw)) { toast('Type the odometer reading first'); return; }
+  const km = Math.round(kd(raw)), w = odoWarn(v, km);
+  if (w && !confirm(w)) return;
+  v.odometer = km; commit(); toast('Odometer updated, countdowns recalculated');
+}
+
+/* ---------- archive a sold car ---------- */
+function archiveVehicle(id) {
+  const v = state.vehicles.find(x => x.id === id); if (!v) return;
+  if (!confirm(`Mark ${v.make} ${v.model} as sold?\n\nIts history, costs and QR report are kept. It disappears from the pickers, reminders and alerts. You can restore it at any time.`)) return;
+  v.archived = true; v.archivedOn = todayStr(); commit(); toast('Marked as sold. Find it under "Sold cars" on the Vehicles page.');
+}
+function restoreVehicle(id) { const v = state.vehicles.find(x => x.id === id); if (!v) return; v.archived = false; v.archivedOn = ''; commit(); toast('Vehicle restored'); }
+function archivedVehiclesHtml() {
+  const arch = state.vehicles.filter(v => v.archived); if (!arch.length) return '';
+  return `<details class="col-span-full bg-stone-800/60 border border-stone-700 rounded-2xl p-4"><summary class="cursor-pointer text-sm font-semibold text-stone-200 py-1">Sold cars (${arch.length})</summary>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3">${arch.map(v => `
+      <div class="bg-stone-900/70 border border-stone-700 rounded-xl p-4 space-y-3">
+        <div><h4 class="font-bold text-white">${esc(v.make)} ${esc(v.model)} ${esc(v.year || '')}</h4><p class="text-xs text-stone-400">${esc(v.reg || 'No Reg')} • ${fmtKm(v.odometer)}${v.archivedOn ? ' • sold ' + esc(fmtDate(v.archivedOn)) : ''}</p></div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="openHistory('${v.id}')" class="btn btn-secondary" style="padding:.4rem .7rem;font-size:.75rem"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> History</button>
+          <button onclick="openShareModal('${v.id}')" class="btn btn-secondary" style="padding:.4rem .7rem;font-size:.75rem"><i data-lucide="qr-code" class="w-3.5 h-3.5"></i> QR report</button>
+          <button onclick="restoreVehicle('${v.id}')" class="btn btn-secondary" style="padding:.4rem .7rem;font-size:.75rem"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Restore</button>
+          <button onclick="deleteVehicle('${v.id}')" class="btn btn-danger" style="padding:.4rem .7rem;font-size:.75rem"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete</button>
+        </div></div>`).join('')}</div></details>`;
+}
+
+/* ---------- work orders: search + filters, links, repeat, from reminder ---------- */
+let woVeh = '';
+function woSearchText(w) {
+  return [w.jobTitle, w.comments, w.provider, vehName(w.vehicleId), (w.parts || []).map(p => p.name + ' ' + (p.code || '')).join(' '), (w.checklists || []).map(c => c.text + ' ' + c.comment).join(' '), (w.dtcs || []).map(d => d.code + ' ' + d.note).join(' ')].join(' ').toLowerCase();
+}
+function renderWorkOrders() {
+  const sel = $('wo-veh-filter'); if (!sel) return;
+  if (woVeh && !state.vehicles.some(v => v.id === woVeh)) woVeh = '';
+  sel.innerHTML = `<option value="">All vehicles</option>` + state.vehicles.map(v => `<option value="${v.id}">${esc(vehLabel(v))}</option>`).join(''); sel.value = woVeh;
+  document.querySelectorAll('.wo-tab-btn').forEach(b => { const on = b.dataset.f === activeWoFilter; b.className = 'wo-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold ' + (on ? 'bg-amber-500 text-stone-900' : 'bg-stone-800 text-stone-400 hover:text-white'); });
+  const toks = ($('wo-search').value || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const base = state.workorders.filter(w => !woVeh || w.vehicleId === woVeh);
+  const list = base.filter(w => (activeWoFilter === 'all' || w.status === activeWoFilter) && (!toks.length || toks.every(t => woSearchText(w).includes(t)))).sort((a, b) => (b.datetime || '').localeCompare(a.datetime || ''));
+  $('wo-count').textContent = `${list.length} of ${base.length} work order${base.length === 1 ? '' : 's'}`;
+  $('workorders-list').innerHTML = list.length ? list.map(wo => {
+    const v = state.vehicles.find(x => x.id === wo.vehicleId) || { make: 'Unknown', model: '', reg: '' };
+    const c = woCosts(wo), pro = isPro(wo);
+    return `
+    <div class="bg-stone-800 border border-stone-700/80 hover:border-stone-600 rounded-2xl p-5 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-stone-700/80 pb-3">
+        <div><div class="flex items-center gap-2 flex-wrap"><h3 class="text-lg font-bold text-white cursor-pointer hover:text-amber-400" onclick="viewWorkOrder('${wo.id}')">${esc(wo.jobTitle)}</h3>
+          <span class="px-2 py-0.5 text-[10px] font-bold rounded-md ${wo.status === 'Completed' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">${wo.status}</span>
+          <span class="px-2 py-0.5 text-[10px] font-bold rounded-md ${pro ? 'bg-violet-500/15 text-violet-300 border border-violet-500/30' : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'}">${pro ? 'GARAGE' : 'DIY'}</span></div>
+          <p class="text-xs text-stone-400 mt-0.5">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')}) • ${fmtDateTime(wo.datetime)}</p></div>
+        <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 w-full sm:w-auto sm:justify-end">
+          <button onclick="openWorkOrderModal('${wo.id}')" class="btn btn-secondary" style="padding:.65rem .75rem"><i data-lucide="edit-2" class="w-4 h-4"></i> Edit</button>
+          <button onclick="viewWorkOrder('${wo.id}')" class="btn btn-primary" style="padding:.65rem .75rem"><i data-lucide="eye" class="w-4 h-4"></i> View / Print</button>
+          ${wo.status === 'Completed' ? `<button onclick="showInHistory('${wo.id}')" class="btn btn-secondary" style="padding:.65rem .75rem"><i data-lucide="history" class="w-4 h-4"></i> In history</button>` : ''}
+          <button onclick="repeatWorkOrder('${wo.id}')" class="btn btn-secondary" style="padding:.65rem .75rem"><i data-lucide="copy" class="w-4 h-4"></i> Repeat</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs bg-stone-900/60 p-3 rounded-xl border border-stone-700/50">
+        <div><span class="text-stone-400 block">Odometer</span><strong class="text-amber-400 font-mono">${fmtKm(wo.odometer)}</strong></div>
+        <div>${pro ? `<span class="text-stone-400 block">Garage</span><strong class="text-violet-300">${esc(wo.provider || 'Professional')}</strong>` : `<span class="text-stone-400 block">Labor time</span><strong class="text-amber-400 font-mono">${fmtLabor(wo.laborSeconds)}</strong>`}</div>
+        <div><span class="text-stone-400 block">Parts used</span><strong class="text-white">${(wo.parts || []).length} items</strong></div>
+        <div><span class="text-stone-400 block">Total cost</span><strong class="text-emerald-400 font-mono text-sm">${formatEur(c.total)}</strong>
+          <span class="block text-[10px] text-stone-500">parts ${formatEur(c.parts)}${c.extra ? ` • ${pro ? 'garage' : 'other'} ${formatEur(c.extra)}` : ''}</span></div>
+      </div>
+    </div>`;
+  }).join('') : `<div class="text-center py-12 text-stone-500">No work orders match.</div>`;
+  icons();
+}
+function showInHistory(id) {
+  const w = state.workorders.find(x => x.id === id); if (!w) return;
+  if (w.status !== 'Completed') { toast('Only completed jobs appear in the history'); return; }
+  histVeh = w.vehicleId; switchTab('history'); renderHistory();
+  setTimeout(() => { const el = $('hist-job-' + id); if (!el) return; el.scrollIntoView({ block: 'center', behavior: 'smooth' }); el.classList.add('hl-flash'); setTimeout(() => el.classList.remove('hl-flash'), 2800); }, 80);
+}
+function viewerEdit() { const id = viewId; closeModal('modal-wo-viewer'); openWorkOrderModal(id); }
+function viewerHistory() { const id = viewId; closeModal('modal-wo-viewer'); showInHistory(id); }
+
+function woTemplate(w, extra = {}) {
+  const have = p => state.inventory.some(i => i.id === p.invId);
+  return Object.assign({ title: w.jobTitle, doneBy: w.doneBy || 'DIY', provider: w.provider || '', parts: (w.parts || []).filter(have).map(p => ({ invId: p.invId, qty: p.qty })), skipped: (w.parts || []).filter(p => !have(p)).length, checklists: (w.checklists || []).map(c => c.text), reset: (w.resetReminderIds || []).filter(id => state.reminders.some(r => r.id === id)) }, extra);
+}
+function repeatWorkOrder(id) {
+  const w = state.workorders.find(x => x.id === id); if (!w) return;
+  const tpl = woTemplate(w);
+  openWorkOrderModal(null, w.vehicleId, tpl);
+  toast(`Copied "${w.jobTitle}". Check the parts and quantities, then save.` + (tpl.skipped ? ` ${tpl.skipped} part${tpl.skipped > 1 ? 's' : ''} no longer in inventory ${tpl.skipped > 1 ? 'were' : 'was'} left out.` : ''));
+}
+function logFromReminder(id) {
+  const r = state.reminders.find(x => x.id === id); if (!r) return;
+  if (/rotat/i.test(r.title) && state.tyres.some(t => t.vehicleId === r.vehicleId && t.status === 'Fitted')) return openRotateModal(r.vehicleId, r.id);
+  const prior = state.workorders.filter(w => w.vehicleId === r.vehicleId && (w.resetReminderIds || []).includes(r.id)).sort((a, b) => (b.datetime || '').localeCompare(a.datetime || ''))[0];
+  const tpl = prior ? woTemplate(prior) : { title: r.title, doneBy: 'DIY', provider: '', parts: [], skipped: 0, checklists: [], reset: [] };
+  tpl.reset = [...new Set([...(tpl.reset || []), r.id])];
+  openWorkOrderModal(null, r.vehicleId, tpl);
+  toast(prior ? `Filled in from the last time (${fmtDate(prior.datetime)}). Check the parts, then save.` : 'No earlier job found for this reminder, so the parts list starts empty.');
+}
+function renderWoSpecs() {
+  const box = $('wo-specs'); if (!box) return;
+  const v = state.vehicles.find(x => x.id === $('wo-vehicle-id').value), rows = [];
+  if (v) {
+    if (fuelLine(v)) rows.push(['Fuel', fuelLine(v)]);
+    [SPEC_GROUPS[1], SPEC_GROUPS[0], SPEC_GROUPS[2]].forEach(g => g[1].forEach(r => { if (v[r[0]]) rows.push([r[1], v[r[0]]]); }));
+  }
+  box.classList.toggle('hidden', !rows.length);
+  $('wo-specs-body').innerHTML = rows.map(r => `<div class="bg-stone-900 rounded-lg border border-stone-700/70 px-2.5 py-1.5"><div class="text-[10px] text-stone-400">${esc(r[0])}</div><div class="text-xs text-stone-100 font-semibold whitespace-pre-line">${esc(r[1])}</div></div>`).join('');
+}
+/* labour: stopwatch plus time typed in by hand */
+const manualSecs = () => Math.max(0, Math.round((parseFloat($('wo-manual-h').value) || 0) * 3600 + (parseFloat($('wo-manual-m').value) || 0) * 60));
+function updateLaborTotal() { const el = $('wo-labor-total'); if (el) el.textContent = fmtLabor(timerSecs() + manualSecs()); }
+function similarJobs(title, exceptId) {
+  const t = (title || '').trim().toLowerCase(); if (t.length < 3) return [];
+  return state.workorders.filter(w => w.id !== exceptId && w.status === 'Completed' && !isPro(w) && (w.laborSeconds || 0) > 0 && (() => { const j = (w.jobTitle || '').trim().toLowerCase(); return j === t || j.includes(t) || t.includes(j); })());
+}
+function updateWoEstimate() {
+  const el = $('wo-estimate'); if (!el) return;
+  const m = $('wo-done-by').value === 'Professional' ? [] : similarJobs($('wo-job-title').value, $('wo-id').value);
+  if (!m.length) { el.textContent = ''; return; }
+  const s = m.map(w => w.laborSeconds).sort((a, b) => a - b), avg = s.reduce((a, b) => a + b, 0) / s.length;
+  el.textContent = `Similar jobs took you about ${fmtLabor(avg)} (${m.length} time${m.length > 1 ? 's' : ''}${m.length > 1 ? ', ' + fmtLabor(s[0]) + ' to ' + fmtLabor(s[s.length - 1]) : ''}).`;
+}
+
+/* ---------- "when did I last change ...?" ---------- */
+function lastDoneHtml(toks) {
+  const text = w => [w.jobTitle, (w.parts || []).map(p => p.name + ' ' + (p.code || '')).join(' ')].join(' ').toLowerCase();
+  const jobs = state.workorders.filter(w => w.status === 'Completed' && toks.every(t => text(w).includes(t)));
+  if (!jobs.length) return '';
+  const by = {}, n = {};
+  jobs.forEach(w => { n[w.vehicleId] = (n[w.vehicleId] || 0) + 1; if (!by[w.vehicleId] || (w.datetime || '') > (by[w.vehicleId].datetime || '')) by[w.vehicleId] = w; });
+  const cards = Object.values(by).map(w => {
+    const v = state.vehicles.find(x => x.id === w.vehicleId), days = Math.max(0, Math.floor((Date.now() - new Date(w.datetime)) / 864e5));
+    const since = v && w.odometer && v.odometer >= w.odometer ? v.odometer - w.odometer : null;
+    const ago = days >= 60 ? `${Math.round(days / 30.4)} months ago` : days === 0 ? 'today' : `${days} day${days === 1 ? '' : 's'} ago`;
+    return `<button onclick="closeModal('modal-search');viewWorkOrder('${w.id}')" class="w-full text-left rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 space-y-0.5">
+      <span class="block text-[10px] uppercase font-bold tracking-wider text-amber-300">Last done • ${esc(v ? v.make + ' ' + v.model : 'Unknown car')}</span>
+      <span class="block text-sm text-white font-semibold">${esc(w.jobTitle)}</span>
+      <span class="block text-xs text-stone-200">${esc(fmtDate(w.datetime))} (${ago})${w.odometer ? ' at ' + esc(fmtKm(w.odometer)) : ''}</span>
+      <span class="block text-xs text-stone-300">${since != null ? esc(fmtKm(since)) + ' driven since' : ''}${since != null && n[w.vehicleId] > 1 ? ' • ' : ''}${n[w.vehicleId] > 1 ? 'done ' + n[w.vehicleId] + ' times in total' : ''}</span></button>`;
+  });
+  return `<div class="space-y-1.5 pb-1"><p class="text-[11px] font-semibold text-stone-400 px-1">When did I last...</p>${cards.join('')}</div>`;
+}
+
+/* ---------- running costs by year, cost per km ---------- */
+function yearlyCosts(vehId) {
+  const by = {}, add = (date, k, amt) => { const y = (date || '').slice(0, 4); if (!/^\d{4}$/.test(y) || !(amt > 0)) return; (by[y] = by[y] || { maint: 0, fuel: 0, tyres: 0, renew: 0 })[k] += amt; };
+  state.workorders.filter(w => w.vehicleId === vehId && w.status === 'Completed').forEach(w => add(w.datetime, 'maint', woCosts(w).total));
+  state.fuel.filter(f => f.vehicleId === vehId).forEach(f => add(f.date, 'fuel', +f.cost || 0));
+  state.tyres.filter(t => t.vehicleId === vehId).forEach(t => add(t.fittedDate, 'tyres', +t.cost || 0));
+  state.expiries.filter(x => x.vehicleId === vehId).forEach(x => (x.log || []).forEach(l => add(l.doneOn, 'renew', +l.cost || 0)));
+  const odos = [].concat(state.workorders.filter(w => w.vehicleId === vehId && w.odometer).map(w => w.odometer), state.fuel.filter(f => f.vehicleId === vehId && f.odometer).map(f => f.odometer), state.tyres.filter(t => t.vehicleId === vehId && t.fittedOdo).map(t => t.fittedOdo));
+  const v = state.vehicles.find(x => x.id === vehId), span = odos.length && v ? v.odometer - Math.min(...odos) : 0;
+  const total = Object.values(by).reduce((a, b) => a + b.maint + b.fuel + b.tyres + b.renew, 0);
+  return { by, span, total, perKm: span >= 500 ? total / span : null };
+}
+function yearlyCostsHtml(vehId) {
+  const yc = yearlyCosts(vehId), years = Object.keys(yc.by).sort().reverse(); if (!years.length) return '';
+  const e = n => n ? formatEur(n) : '<span class="text-stone-600">–</span>';
+  const perUnit = yc.perKm != null ? yc.total / dk(yc.span) : null;
+  return `<div class="bg-stone-800 border border-stone-700 rounded-xl p-4 space-y-3">
+    <div><h3 class="font-bold text-white text-sm">What this car costs to run</h3><p class="text-xs text-stone-400">Maintenance, fuel, tyres, insurance, tax and NCT together.${perUnit != null ? ` Cost per ${unitName()} is the total divided by the ${fmtKm(yc.span)} covered by your records.` : ' Cost per distance appears once your records span 500 km or more.'}</p></div>
+    <div class="grid grid-cols-2 gap-3 text-xs"><div><span class="text-stone-400 block">All-in total</span><strong class="text-emerald-400 font-mono text-base">${formatEur(yc.total)}</strong></div>
+      <div><span class="text-stone-400 block">Cost per ${unitName()}</span><strong class="text-white font-mono text-base">${perUnit != null ? '€' + perUnit.toFixed(2) : '—'}</strong></div></div>
+    <div class="overflow-x-auto"><table class="w-full text-xs text-left"><thead class="text-stone-400 uppercase text-[10px]"><tr><th class="py-1.5 pr-3">Year</th><th class="py-1.5 pr-3">Maintenance</th><th class="py-1.5 pr-3">Fuel</th><th class="py-1.5 pr-3">Tyres</th><th class="py-1.5 pr-3">Ins / tax / NCT</th><th class="py-1.5 text-right">Total</th></tr></thead><tbody class="divide-y divide-stone-700/60 font-mono text-stone-200">
+    ${years.map(y => { const b = yc.by[y]; return `<tr><td class="py-1.5 pr-3 text-stone-400">${esc(y)}</td><td class="pr-3">${e(b.maint)}</td><td class="pr-3">${e(b.fuel)}</td><td class="pr-3">${e(b.tyres)}</td><td class="pr-3">${e(b.renew)}</td><td class="text-right font-semibold text-white">${formatEur(b.maint + b.fuel + b.tyres + b.renew)}</td></tr>`; }).join('')}
+    </tbody></table></div></div>`;
+}
+
+/* ---------- fault code log ---------- */
+function dtcLogHtml(vehId) {
+  const map = {};
+  state.workorders.filter(w => w.vehicleId === vehId).forEach(w => (w.dtcs || []).forEach(d => { const k = String(d.code || '').toUpperCase(); if (k) (map[k] = map[k] || []).push({ w, note: d.note }); }));
+  const codes = Object.keys(map); if (!codes.length) return '';
+  const last = k => map[k].reduce((a, b) => (a.w.datetime || '') > (b.w.datetime || '') ? a : b);
+  codes.sort((a, b) => (last(b).w.datetime || '').localeCompare(last(a).w.datetime || ''));
+  return `<div class="bg-stone-800 border border-stone-700 rounded-xl p-4 space-y-3"><div><h3 class="font-bold text-white text-sm flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4 text-rose-400"></i> Fault codes logged (${codes.length})</h3><p class="text-xs text-stone-400">Every code saved on this car's jobs, newest first. A code that keeps coming back shows how many times.</p></div>
+    ${codes.map(k => { const items = map[k].slice().sort((a, b) => (b.w.datetime || '').localeCompare(a.w.datetime || '')); return `
+    <div class="bg-stone-900/70 border border-stone-700/70 rounded-lg p-3 space-y-1.5">
+      <div class="flex items-center gap-2 flex-wrap"><span class="font-mono font-bold text-xs bg-rose-500/20 text-rose-300 border border-rose-500/30 px-2 py-1 rounded">${esc(k)}</span>${items.length > 1 ? `<span class="text-[11px] font-semibold text-amber-300">seen ${items.length} times</span>` : ''}</div>
+      ${items.map(it => `<button onclick="viewWorkOrder('${it.w.id}')" class="block w-full text-left text-xs text-stone-300 hover:text-white"><span class="text-stone-400">${esc(fmtDate(it.w.datetime))}${it.w.odometer ? ' • ' + esc(fmtKm(it.w.odometer)) : ''} •</span> ${esc(it.w.jobTitle)}${it.note ? ' <span class="text-stone-500">— ' + esc(it.note) + '</span>' : ''}</button>`).join('')}
+    </div>`; }).join('')}</div>`;
+}
+
+/* ---------- part warranties ---------- */
+function warrantyList() {
+  const out = [], today = new Date(); today.setHours(0, 0, 0, 0);
+  state.workorders.filter(w => w.status === 'Completed').forEach(w => (w.parts || []).forEach(p => {
+    const inv = state.inventory.find(i => i.id === p.invId), m = +(p.warrantyMonths ?? (inv && inv.warrantyMonths) ?? 0), start = (w.datetime || '').slice(0, 10);
+    if (!(m > 0) || !start) return;
+    const end = addMonthsStr(start, m);
+    out.push({ w, p, end, months: m, days: Math.round((new Date(end + 'T00:00:00') - today) / 864e5) });
+  }));
+  return out.filter(x => { const v = state.vehicles.find(c => c.id === x.w.vehicleId); return !(v && v.archived); }).sort((a, b) => a.days - b.days);
+}
+const warrantyEnd = (w, p) => { const inv = state.inventory.find(i => i.id === p.invId), m = +(p.warrantyMonths ?? (inv && inv.warrantyMonths) ?? 0); return m > 0 && w.datetime ? addMonthsStr(w.datetime.slice(0, 10), m) : ''; };
+function renderWarranties() {
+  const c = $('warranty-grid'); if (!c) return;
+  const list = warrantyList().filter(x => (remVeh === 'all' || x.w.vehicleId === remVeh) && x.days >= -90);
+  if (!list.length) { c.innerHTML = `<div class="col-span-full text-center py-8 text-stone-500">No part warranties running. Add a warranty length (in months) to a part in Inventory and it appears here once the part is used in a job.</div>`; return; }
+  c.innerHTML = list.map(x => {
+    const cls = x.days < 0 ? 'bg-stone-700/50 text-stone-300 border-stone-600' : x.days <= 30 ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
+    const txt = x.days < 0 ? `ENDED ${-x.days} day${x.days === -1 ? '' : 's'} ago` : x.days === 0 ? 'ENDS TODAY' : `${x.days} day${x.days === 1 ? '' : 's'} left`;
+    return `<div onclick="viewWorkOrder('${x.w.id}')" class="bg-stone-800 border ${x.days >= 0 && x.days <= 30 ? 'border-amber-500/40' : 'border-stone-700'} rounded-2xl p-4 shadow-xl space-y-2 cursor-pointer">
+      <div class="flex justify-between items-start gap-2"><div class="min-w-0"><h3 class="text-sm font-bold text-white">${esc(x.p.name)}</h3><span class="text-xs text-stone-400 block">${esc(vehName(x.w.vehicleId))} • fitted ${esc(fmtDate(x.w.datetime))}${x.w.odometer ? ' at ' + esc(fmtKm(x.w.odometer)) : ''}</span></div>
+      <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md border shrink-0 ${cls}">${txt}</span></div>
+      <p class="text-xs text-stone-400">${x.months} month warranty • ends ${esc(fmtDate(x.end))} • job: ${esc(x.w.jobTitle)}</p></div>`;
+  }).join('');
+}
+
+/* ---------- inventory: container restock, price history, reorder list ---------- */
+const BULK_UNITS = ['litres', 'mls', 'kg', 'grams'];
+let invAllowContainer = true;
+function invUnitChanged() {
+  const u = $('inv-unit').value, ok = invAllowContainer && BULK_UNITS.includes(u);
+  $('inv-container-wrap').classList.toggle('hidden', !ok); $('inv-cont-unit').textContent = u;
+  if (!ok) { $('inv-container').checked = false; invContainerToggle(); }
+}
+function invContainerToggle() { $('inv-container-fields').classList.toggle('hidden', !$('inv-container').checked); invContainerCalc(); }
+function invContainerCalc() {
+  const out = $('inv-cont-result'); if (!$('inv-container').checked) { out.textContent = ''; return; }
+  const size = parseFloat($('inv-cont-size').value), total = parseFloat($('inv-cont-total').value), u = $('inv-unit').value, sym = { EUR: '€', GBP: '£', USD: '$', CAD: 'CA$', AUD: 'A$' }[$('inv-currency').value] || '';
+  if (size > 0 && total >= 0) { const per = total / size; $('inv-price').value = +per.toFixed(4); $('inv-qty').value = size; out.textContent = `${sym}${per.toFixed(2)} per ${u.replace(/s$/, '')}. Adds ${size} ${u} to stock.`; } else out.textContent = '';
+}
+function purchaseHistoryHtml(i) {
+  const ps = (i.purchases || []).slice().reverse(); if (!ps.length) return '';
+  const eu = p => convertToEuro(p.price, p.currency), min = Math.min(...ps.map(eu));
+  return `<details class="mt-1.5 text-[11px]"><summary class="cursor-pointer text-stone-400 py-1">Price history (${ps.length})</summary><ul class="space-y-0.5 pt-1 text-stone-300">${ps.slice(0, 12).map(p => `<li>${esc(fmtDate(p.date))} • ${esc(p.vendor || 'no vendor')} • ${esc(formatCurrency(p.price, p.currency))} per ${esc((i.unit || '').replace(/s$/, ''))}${p.qty ? ' • +' + p.qty + ' ' + esc(i.unit || '') : ' • price updated'}${ps.length > 1 && eu(p) === min ? ' <span class="text-emerald-400 font-semibold">lowest</span>' : ''}</li>`).join('')}</ul></details>`;
+}
+function reorderRows() {
+  return state.inventory.filter(i => stockOf(i) !== 'ok').sort((a, b) => (ownedByVehicle(a) ? vehName(a.vehicleId) : 'zzz').localeCompare(ownedByVehicle(b) ? vehName(b.vehicleId) : 'zzz') || a.name.localeCompare(b.name)).map(i => {
+    const ps = (i.purchases || []), best = ps.length ? ps.reduce((a, b) => convertToEuro(b.price, b.currency) < convertToEuro(a.price, a.currency) ? b : a) : null;
+    return { i, best, last: ps[ps.length - 1] };
+  });
+}
+function openReorder() {
+  const rows = reorderRows();
+  $('reorder-body').innerHTML = rows.length ? `<div class="space-y-2">${rows.map(({ i, best, last }) => `
+    <div class="bg-stone-900/70 border border-stone-700/70 rounded-lg p-3 space-y-0.5">
+      <div class="flex justify-between gap-2"><span class="text-sm font-bold text-white">${esc(i.name)}</span><span class="text-[10px] font-bold px-1.5 py-0.5 rounded border ${stockOf(i) === 'out' ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 'bg-rose-500/20 text-rose-400 border-rose-500/30'}">${stockOf(i) === 'out' ? 'OUT' : 'LOW'}</span></div>
+      <p class="text-xs text-stone-300">${[i.brand, i.code ? 'Part no. ' + i.code : '', ownedByVehicle(i) ? 'for ' + vehName(i.vehicleId) : 'any vehicle'].filter(Boolean).map(esc).join(' • ')}</p>
+      <p class="text-xs text-stone-400">In stock ${i.qty} ${esc(i.unit)}${i.low ? ' (alert at ' + i.low + ')' : ''}${last ? ' • last bought ' + esc(fmtDate(last.date)) + ' from ' + esc(last.vendor || 'unknown') + ' at ' + esc(formatCurrency(last.price, last.currency)) : i.vendor ? ' • usual vendor ' + esc(i.vendor) : ''}${best && last && best !== last ? ' • cheapest was ' + esc(best.vendor || 'unknown') + ' ' + esc(formatCurrency(best.price, best.currency)) : ''}</p>
+    </div>`).join('')}</div>` : `<p class="text-sm text-stone-400 py-4">Nothing is low or out of stock.</p>`;
+  $('reorder-actions').classList.toggle('hidden', !rows.length);
+  openModal('modal-reorder');
+}
+function reorderText() {
+  return reorderRows().map(({ i, best, last }) => '• ' + [i.name, i.brand, i.code ? 'part no. ' + i.code : '', ownedByVehicle(i) ? '(' + vehName(i.vehicleId) + ')' : '', (last || best) ? 'last paid ' + formatCurrency((last || best).price, (last || best).currency) + ((last || best).vendor ? ' at ' + (last || best).vendor : '') : (i.vendor ? 'vendor: ' + i.vendor : '')].filter(Boolean).join(' - ')).join('\n');
+}
+function copyReorder() { if (!navigator.clipboard) return toast('Copy is not available in this browser'); navigator.clipboard.writeText(reorderText()).then(() => toast('Reorder list copied'), () => toast('Could not copy')); }
+function printReorder() {
+  const rows = reorderRows(); if (!rows.length) return;
+  $('print-template').innerHTML = `<div class="paper p-4 space-y-5"><div class="flex justify-between items-start border-b-2 border-stone-800 pb-3 gap-3"><div><h2 class="text-2xl font-extrabold">Parts reorder list</h2><p class="text-sm text-stone-600">${esc(fmtDate(todayStr()))}</p></div>${printBrand('Vehicle maintenance log')}</div>
+    <table><thead><tr><th>Item</th><th>Part no.</th><th>For</th><th>In stock</th><th>Last bought</th></tr></thead><tbody>${rows.map(({ i, last }) => `<tr><td><b>${esc(i.name)}</b>${i.brand ? `<div style="font-size:.72rem;color:#475569">${esc(i.brand)}</div>` : ''}</td><td>${esc(i.code || '')}</td><td>${ownedByVehicle(i) ? esc(vehName(i.vehicleId)) : 'Any'}</td><td>${i.qty} ${esc(i.unit)}</td><td>${last ? esc(fmtDate(last.date)) + '<div style="font-size:.72rem;color:#475569">' + esc(last.vendor || '') + ' ' + esc(formatCurrency(last.price, last.currency)) + '</div>' : esc(i.vendor || '')}</td></tr>`).join('')}</tbody></table></div>`;
+  window.print();
+}
+
+/* ---------- storage: photo shrinking, backups ---------- */
+function shrinkDataUrl(src, max = 1000, q = 0.65) {
+  return new Promise(res => {
+    const img = new Image();
+    img.onload = () => { const s = Math.min(1, max / Math.max(img.width, img.height)), c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); const out = c.toDataURL('image/jpeg', q); res(out.length < src.length ? out : src); };
+    img.onerror = () => res(src); img.src = src;
+  });
+}
+async function shrinkAllPhotos() {
+  let before = 0, after = 0, n = 0;
+  for (const w of state.workorders) {
+    if (!(w.photos || []).length) continue;
+    const out = [];
+    for (const p of w.photos) { before += p.length; const s = await shrinkDataUrl(p); after += s.length; if (s.length < p.length) n++; out.push(s); }
+    w.photos = out;
+  }
+  if (n) commit();
+  updateDataSizeLine(); toast(n ? `Shrunk ${n} photo${n > 1 ? 's' : ''}, saving about ${((before - after) / 1e6).toFixed(1)} MB` : 'Your photos are already small');
+}
+function updateDataSizeLine() {
+  const el = $('data-size-line'); if (!el) return;
+  const all = JSON.stringify(state).length, photos = state.workorders.reduce((a, w) => a + (w.photos || []).reduce((b, p) => b + p.length, 0), 0);
+  el.textContent = `Your data file is ${(all / 1e6).toFixed(2)} MB, of which photos are ${(photos / 1e6).toFixed(2)} MB. Small files sync faster.`;
+}
+const BACKUP_PREFIX = 'DriveLog-backup-';
+async function backupNow(manual = false) {
+  if (!settings.driveOn) { if (manual) toast('Connect Google Drive first'); return; }
+  try {
+    const name = `${BACKUP_PREFIX}${todayStr()}.json`, b = 'dlbak' + Date.now();
+    const body = `--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({ name, mimeType: 'application/json' })}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(state)}\r\n--${b}--`;
+    await driveFetch(`${DRIVE_UPLOAD}/files?uploadType=multipart&fields=id`, { method: 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + b }, body });
+    const qs = new URLSearchParams({ q: `name contains '${BACKUP_PREFIX}' and trashed=false`, fields: 'files(id,name,createdTime)', orderBy: 'createdTime desc', pageSize: '50' });
+    const list = (await (await driveFetch(`${DRIVE_API}/files?${qs}`)).json()).files || [];
+    for (const f of list.slice(8)) await driveFetch(`${DRIVE_API}/files/${f.id}`, { method: 'DELETE' });
+    state.backupAt = new Date().toISOString(); commit();
+    if (manual) toast('Backup saved to your Drive');
+  } catch (e) { console.warn('Backup failed', e); if (manual) toast('Backup failed: ' + e.message); }
+}
+async function maybeBackup() {
+  if (!settings.driveOn || !accessToken || Date.now() > tokenExpiry) return;
+  if (state.backupAt && Date.now() - new Date(state.backupAt) < 7 * 864e5) return;
+  await backupNow(false);
+}
+
+
+/* ---------- tyre rotation ---------- */
+const ROT_PATTERNS = { fb: ['Front to back', { FL: 'RL', RL: 'FL', FR: 'RR', RR: 'FR' }], cross: ['Cross', { FL: 'RR', FR: 'RL', RL: 'FL', RR: 'FR' }], ss: ['Side to side', { FL: 'FR', FR: 'FL', RL: 'RR', RR: 'RL' }] };
+const rotList = vehId => (state.rotations || []).filter(r => r.vehicleId === vehId).sort((a, b) => (b.date + (b.odo || 0)).localeCompare(a.date + (a.odo || 0)));
+let rotCustom = {};
+function tyrePosKm(t, endOdo) {      // distance this tyre has covered on each wheel
+  const out = {}, moves = (t.moves || []).slice().sort((a, b) => (a.odo || 0) - (b.odo || 0));
+  let pos = moves.length ? moves[0].from : t.position, since = t.fittedOdo || 0;
+  moves.forEach(m => { out[pos] = (out[pos] || 0) + Math.max(0, (m.odo || 0) - since); pos = m.to; since = m.odo || since; });
+  out[pos] = (out[pos] || 0) + Math.max(0, endOdo - since); return out;
+}
+function rotMap() { const p = $('rot-pattern').value; return p === 'custom' ? Object.assign({}, rotCustom) : Object.assign({ SP: 'SP' }, ROT_PATTERNS[p][1]); }
+function openRotateModal(vehId, remId) {
+  const v = state.vehicles.find(x => x.id === (vehId || tyreVeh)); if (!v) { toast('Add a vehicle first'); return; }
+  if (state.tyres.filter(t => t.vehicleId === v.id && t.status === 'Fitted').length < 2) { toast('Add at least two fitted tyres first'); switchTab('tyres'); return; }
+  tyreVeh = v.id; $('rot-veh').value = v.id; $('rot-veh-name').textContent = `${v.make} ${v.model} (${v.reg || 'No Reg'})`;
+  $('rot-pattern').value = 'fb'; rotCustom = {}; TYRE_POS.forEach(p => rotCustom[p[0]] = p[0]);
+  $('rot-date').value = todayStr(); $('rot-odo').value = v.odometer; $('rot-note').value = ''; $('rot-wo').checked = false;
+  const rems = state.reminders.filter(r => r.vehicleId === v.id);
+  $('rot-rems').innerHTML = rems.length ? rems.map(r => `<label class="flex items-center gap-2 bg-stone-900 border border-stone-700/80 p-2.5 rounded-lg cursor-pointer"><input type="checkbox" class="rot-rem-cb w-4 h-4 accent-amber-600" value="${r.id}" ${(remId ? r.id === remId : /rotat/i.test(r.title)) ? 'checked' : ''}><span class="text-xs text-stone-200">${esc(r.title)}</span></label>`).join('') : `<p class="text-xs text-stone-500 italic">No reminders for this car.</p>`;
+  rotRender(); openModal('modal-rotate');
+}
+function rotRender() {
+  const vehId = $('rot-veh').value, custom = $('rot-pattern').value === 'custom';
+  $('rot-custom').classList.toggle('hidden', !custom);
+  if (custom) $('rot-custom-rows').innerHTML = TYRE_POS.map(([k, label]) => { const t = fittedTyre(vehId, k); return `<div><label class="lbl">${esc(label)}${t ? '' : ' (empty)'} moves to</label><select class="inp inp-sm" ${t ? '' : 'disabled'} onchange="rotCustom['${k}']=this.value;rotRender()">${TYRE_POS.map(p => `<option value="${p[0]}" ${rotCustom[k] === p[0] ? 'selected' : ''}>${esc(p[1])}</option>`).join('')}</select></div>`; }).join('');
+  const map = rotMap(), rows = TYRE_POS.map(([k]) => { const t = fittedTyre(vehId, k); return t && map[k] && map[k] !== k ? `<div class="text-xs bg-stone-900 border border-stone-700/70 rounded-lg px-3 py-2 text-stone-200"><b>${esc(t.brand)} ${esc(t.model)}</b> <span class="text-stone-400">${esc(posLabel(k))}</span> → <b class="text-amber-300">${esc(posLabel(map[k]))}</b></div>` : ''; }).join('');
+  $('rot-preview').innerHTML = rows || `<p class="text-xs text-stone-500 italic">Nothing moves with these choices.</p>`;
+}
+function saveRotation(e) {
+  e.preventDefault();
+  const vehId = $('rot-veh').value, v = state.vehicles.find(x => x.id === vehId), map = rotMap(), label = $('rot-pattern').value === 'custom' ? 'Custom' : ROT_PATTERNS[$('rot-pattern').value][0];
+  if (new Set(TYRE_POS.map(p => map[p[0]])).size !== TYRE_POS.length) { toast('Two tyres are going to the same wheel. Check the custom choices.'); return; }
+  const date = $('rot-date').value || todayStr(), odo = parseInt($('rot-odo').value) || 0;
+  { const ow = odoWarn(v, odo, false); if (ow && !confirm(ow)) return; }
+  const snap = TYRE_POS.map(([k]) => fittedTyre(vehId, k)).filter(Boolean).map(t => ({ t, from: t.position, to: map[t.position] || t.position })).filter(m => m.to !== m.from);
+  if (!snap.length) { toast('Nothing moves with these choices'); return; }
+  snap.forEach(m => { m.t.moves = (m.t.moves || []).concat([{ date, odo, from: m.from, to: m.to }]); });
+  snap.forEach(m => { m.t.position = m.to; });
+  const remIds = [...document.querySelectorAll('.rot-rem-cb:checked')].map(c => c.value);
+  remIds.forEach(id => { const r = state.reminders.find(x => x.id === id); if (r) { r.lastKm = odo || v.odometer; r.lastDate = date; } });
+  const note = $('rot-note').value.trim();
+  state.rotations = (state.rotations || []).concat([{ id: uid('rot'), vehicleId: vehId, date, odo, pattern: label, note, reminderIds: remIds, moves: snap.map(m => ({ tyreId: m.t.id, name: `${m.t.brand} ${m.t.model}`.trim(), from: m.from, to: m.to })) }]);
+  if (v && odo > v.odometer) v.odometer = odo;
+  if ($('rot-wo').checked) state.workorders.push({ id: 'wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4), vehicleId: vehId, jobTitle: `Tyre rotation (${label.toLowerCase()})`, status: 'Completed', odometer: odo, datetime: date + 'T12:00', laborSeconds: 0, doneBy: 'DIY', provider: '', costExtra: 0, checklists: [], parts: [], dtcs: [], comments: note, photos: [], resetReminderIds: remIds });
+  tyreVeh = vehId; closeModal('modal-rotate'); commit(); toast(`Tyres rotated (${label.toLowerCase()})` + (remIds.length ? `, ${remIds.length} reminder${remIds.length > 1 ? 's' : ''} reset` : ''));
+}
+function undoRotation(id) {
+  const r = (state.rotations || []).find(x => x.id === id); if (!r) return;
+  const tyres = r.moves.map(m => state.tyres.find(t => t.id === m.tyreId));
+  if (tyres.some((t, i) => !t || t.position !== r.moves[i].to)) { toast('Those tyres have moved or been replaced since, so this cannot be undone automatically.'); return; }
+  if (!confirm('Undo this rotation? The tyres go back to where they were. Reminders it reset are not changed.')) return;
+  r.moves.forEach((m, i) => { const t = tyres[i]; t.position = m.from; const k = (t.moves || []).map(x => x.date + x.from + x.to).lastIndexOf(r.date + m.from + m.to); if (k >= 0) t.moves.splice(k, 1); });
+  state.rotations = state.rotations.filter(x => x.id !== id); commit(); toast('Rotation undone');
+}
+function rotationLineHtml(v) {
+  const l = rotList(v.id)[0];
+  return `<div class="bg-stone-800 border border-stone-700 rounded-xl p-3 flex items-center justify-between gap-2 flex-wrap"><p class="text-xs text-stone-300">${l ? `Last rotated <b class="text-white">${esc(fmtDate(l.date))}</b>${l.odo ? ` at ${esc(fmtKm(l.odo))}, ${esc(fmtKm(Math.max(0, v.odometer - l.odo)))} ago` : ''} • ${esc(l.pattern.toLowerCase())}` : 'No rotations logged yet.'}</p>${l ? `<button onclick="undoRotation('${l.id}')" class="text-[11px] text-stone-400 hover:text-white underline">Undo last</button>` : ''}</div>`;
+}
+function rotationsHistoryHtml(vehId) {
+  const list = rotList(vehId); if (!list.length) return '';
+  const v = state.vehicles.find(x => x.id === vehId), gaps = list.slice(0, -1).map((r, i) => (r.odo && list[i + 1].odo) ? r.odo - list[i + 1].odo : null).filter(x => x > 0);
+  const avg = gaps.length ? gaps.reduce((a, b) => a + b, 0) / gaps.length : null;
+  return `<div class="bg-stone-800 border border-stone-700 rounded-xl p-4 space-y-2"><div><h3 class="font-bold text-white text-sm flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4 text-amber-400"></i> Tyre rotations (${list.length})</h3><p class="text-xs text-stone-400">${list[0].odo && v ? esc(fmtKm(Math.max(0, v.odometer - list[0].odo))) + ' since the last one.' : ''}${avg ? ' Usually every ' + esc(fmtKm(Math.round(avg / 100) * 100)) + '.' : ''}</p></div>
+    <ul class="space-y-1 text-xs text-stone-300">${list.map(r => `<li><span class="text-stone-400">${esc(fmtDate(r.date))}${r.odo ? ' • ' + esc(fmtKm(r.odo)) : ''} •</span> ${esc(r.pattern)}${r.note ? ' <span class="text-stone-500">— ' + esc(r.note) + '</span>' : ''}</li>`).join('')}</ul></div>`;
 }
 
 /* ---------- boot ---------- */
