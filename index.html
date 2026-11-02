@@ -1979,7 +1979,7 @@
         <button onclick="openChecklistModal()" class="btn btn-primary col-span-2 sm:col-span-1"><i data-lucide="plus" class="w-4 h-4"></i> New Checklist</button>
       </div>
     </div>
-    <p class="text-xs text-stone-400">Import a spreadsheet saved as CSV with three columns: Checklist, Category, Item. <button onclick="downloadChecklistTemplate()" class="underline text-amber-300 hover:text-amber-200">Download a template</button> to see the layout.</p>
+    <p class="text-xs text-stone-400">Import a spreadsheet saved as CSV with columns Checklist, Category, Item and, optionally, Section. <button onclick="downloadChecklistTemplate()" class="underline text-amber-300 hover:text-amber-200">Download a template</button> to see the layout.</p>
     <div id="checklists-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
   </section>
 
@@ -2204,6 +2204,7 @@
           <button type="button" onclick="addChecklistItemLine()" class="text-xs text-amber-400 hover:text-amber-300 font-medium">+ Add Line</button>
         </div>
         <div id="chk-items-container" class="space-y-2"></div>
+        <datalist id="chk-sections"><option value="Tools and Parts"></option></datalist>
       </div>
       <div class="flex justify-end gap-3 pt-4 border-t border-stone-700">
         <button type="button" onclick="closeModal('modal-checklist')" class="btn btn-secondary">Cancel</button>
@@ -4519,36 +4520,38 @@ function renderChecklists() {
           </div>
         </div>
         <ul class="mt-4 space-y-2 text-xs text-stone-300 bg-stone-900/60 p-3 rounded-xl border border-stone-700/50 max-h-48 overflow-y-auto">
-          ${c.items.map(t => `<li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i> ${esc(t)}</li>`).join('')}
+          ${chkCardItemsHtml(c)}
         </ul>
       </div>
-      <div class="text-xs text-stone-400 text-right pt-2 border-t border-stone-700/60">${c.items.length} inspection tasks</div>
+      <div class="text-xs text-stone-400 text-right pt-2 border-t border-stone-700/60">${chkCountText(c)}</div>
     </div>`).join('') : `<div class="col-span-full text-center py-12 text-stone-500">No checklist templates yet.</div>`;
 }
 function openChecklistModal(id = null) {
   $('form-checklist').reset(); $('chk-id').value = ''; $('chk-items-container').innerHTML = '';
   $('modal-checklist-title').textContent = id ? 'Edit Checklist Template' : 'New Checklist Template';
   const c = id && state.checklists.find(x => x.id === id);
-  if (c) { $('chk-id').value = c.id; $('chk-title').value = c.title; $('chk-category').value = c.category || ''; c.items.forEach(t => addChecklistItemLine(t)); }
+  if (c) { $('chk-id').value = c.id; $('chk-title').value = c.title; $('chk-category').value = c.category || ''; c.items.forEach((t, i) => addChecklistItemLine(t, (c.secs || [])[i] || '')); }
   else { addChecklistItemLine(); addChecklistItemLine(); }
   openModal('modal-checklist');
 }
-function addChecklistItemLine(value = '') {
-  const d = document.createElement('div'); d.className = 'flex items-center gap-2';
-  d.innerHTML = `<input type="text" value="${esc(value)}" placeholder="Inspection line item..." class="chk-item-input inp inp-sm flex-1"><button type="button" onclick="this.parentElement.remove()" class="p-1.5 text-stone-400 hover:text-rose-400"><i data-lucide="x" class="w-4 h-4"></i></button>`;
+function addChecklistItemLine(value = '', sec = '') {
+  const d = document.createElement('div'); d.className = 'chk-line flex items-center gap-2';
+  d.innerHTML = `<input type="text" value="${esc(value)}" placeholder="Inspection line item..." class="chk-item-input inp inp-sm flex-1 min-w-0"><input type="text" value="${esc(sec)}" placeholder="Section" aria-label="Section" list="chk-sections" class="chk-sec-input inp inp-sm" style="width:7.5rem"><button type="button" onclick="this.parentElement.remove()" class="p-1.5 text-stone-400 hover:text-rose-400"><i data-lucide="x" class="w-4 h-4"></i></button>`;
   $('chk-items-container').appendChild(d); icons();
 }
 function saveChecklist(e) {
   e.preventDefault();
   const id = $('chk-id').value;
-  const items = [...document.querySelectorAll('.chk-item-input')].map(i => i.value.trim()).filter(Boolean);
-  if (!items.length) { toast('Add at least one line'); return; }
+  const lines = [...document.querySelectorAll('.chk-line')].map(l => [l.querySelector('.chk-item-input').value.trim(), l.querySelector('.chk-sec-input').value.trim()]).filter(x => x[0]);
+  if (!lines.length) { toast('Add at least one line'); return; }
+  const items = lines.map(x => x[0]), secs = lines.map(x => x[1]);
   const data = { id: id || uid('c'), title: $('chk-title').value.trim(), category: $('chk-category').value.trim(), items };
+  if (secs.some(Boolean)) data.secs = secs;
   const i = state.checklists.findIndex(c => c.id === id);
   if (i >= 0) state.checklists[i] = data; else state.checklists.push(data);
   closeModal('modal-checklist'); commit();
 }
-function duplicateChecklist(id) { const o = state.checklists.find(c => c.id === id); if (o) { state.checklists.push({ ...o, id: uid('c'), title: o.title + ' (Copy)', items: [...o.items] }); commit(); } }
+function duplicateChecklist(id) { const o = state.checklists.find(c => c.id === id); if (o) { state.checklists.push({ ...o, id: uid('c'), title: o.title + ' (Copy)', items: [...o.items], secs: o.secs ? [...o.secs] : undefined }); commit(); } }
 function deleteChecklist(id) { if (confirm('Delete this checklist template?')) { state.checklists = state.checklists.filter(c => c.id !== id); commit(); } }
 
 /* ---------- REMINDERS ---------- */
@@ -4649,7 +4652,7 @@ function openWorkOrderModal(id = null, preVeh = null, tpl = null) {
     $('wo-odometer').value = wo.odometer || ''; $('wo-datetime').value = wo.datetime; $('wo-comments').value = wo.comments || '';
     $('wo-done-by').value = wo.doneBy || 'DIY'; $('wo-provider').value = wo.provider || ''; $('wo-cost-extra').value = wo.costExtra || '';
     timer.base = wo.laborSeconds || 0; updateTimerDisplay();
-    (wo.checklists || []).forEach(c => addWoChecklistRow(c.text, c.status, c.comment));
+    (wo.checklists || []).forEach(c => c.heading ? addWoHeadingRow(c.text) : addWoChecklistRow(c.text, c.status, c.comment));
     (wo.parts || []).forEach(p => state.inventory.some(i => i.id === p.invId) ? addWoPartRow(p.invId, p.qty) : addWoOrphanRow(p));
     (wo.dtcs || []).forEach(d => addDtcRow(d.code, d.note));
     woPhotos = [...(wo.photos || [])]; renderPhotoPreviews();
@@ -4662,7 +4665,7 @@ function openWorkOrderModal(id = null, preVeh = null, tpl = null) {
   }
   if (tpl && !wo) {
     $('wo-job-title').value = tpl.title; $('wo-done-by').value = tpl.doneBy; $('wo-provider').value = tpl.provider;
-    (tpl.parts || []).forEach(p => addWoPartRow(p.invId, p.qty)); (tpl.checklists || []).forEach(t => addWoChecklistRow(t, 'Pass', ''));
+    (tpl.parts || []).forEach(p => addWoPartRow(p.invId, p.qty)); (tpl.checklists || []).forEach(t => t.heading ? addWoHeadingRow(t.text) : addWoChecklistRow(t.text, 'Pass', ''));
     checkedIds = tpl.reset || [];
   }
   renderWoResetList(checkedIds);
@@ -4727,8 +4730,20 @@ function renderWoResetList(checked = []) {
     </label>`).join('') : `<span class="text-xs text-stone-500 italic col-span-2">No service reminders for this vehicle yet.</span>`;
 }
 function importChecklistToWO() {
-  const sel = $('wo-import-checklist-select'); const c = state.checklists.find(x => x.id === sel.value);
-  if (c) c.items.forEach(t => addWoChecklistRow(t, 'Pass', '')); sel.value = '';
+  const sel = $('wo-import-checklist-select'); const c = state.checklists.find(x => x.id === sel.value); sel.value = '';
+  if (!c) return;
+  const groups = chkGroups(c), tools = groups.find(g => g.tools);
+  if (tools) {
+    const block = `Tools and parts needed (${c.title}):\n` + tools.items.map(t => '- ' + t).join('\n'), cm = $('wo-comments');
+    if (!cm.value.includes(block)) cm.value = (cm.value.trim() ? cm.value.trim() + '\n\n' : '') + block;
+  }
+  groups.filter(g => !g.tools).forEach(g => { if (g.name) addWoHeadingRow(g.name); g.items.forEach(t => addWoChecklistRow(t, 'Pass', '')); });
+  toast(tools ? 'Checklist added. Tools and parts went into the notes.' : 'Checklist added');
+}
+function addWoHeadingRow(text) {
+  const d = document.createElement('div'); d.className = 'wo-chk-head flex items-center justify-between gap-2 px-1 pt-2'; d.dataset.text = text;
+  d.innerHTML = `<span class="text-xs font-bold uppercase tracking-wider text-amber-300">${esc(text)}</span><button type="button" onclick="this.parentElement.remove()" class="p-1 text-stone-400 hover:text-rose-400" aria-label="Remove heading"><i data-lucide="x" class="w-4 h-4"></i></button>`;
+  $('wo-checklists-container').appendChild(d); icons();
 }
 function addWoChecklistRow(text = '', status = 'Pass', comment = '') {
   const d = document.createElement('div');
@@ -4801,7 +4816,7 @@ function saveWorkOrder(e) {
   const pro = $('wo-done-by').value === 'Professional';
   const prevWo = id && state.workorders.find(w => w.id === id);
 
-  const checklists = [...document.querySelectorAll('.wo-chk-item')].map(r => ({ text: r.querySelector('.wo-chk-text').value.trim(), status: r.querySelector('.wo-chk-status').value, comment: r.querySelector('.wo-chk-comment').value.trim() })).filter(c => c.text);
+  const checklists = [...$('wo-checklists-container').children].map(r => r.classList.contains('wo-chk-head') ? { text: r.dataset.text, status: '', comment: '', heading: true } : r.classList.contains('wo-chk-item') ? { text: r.querySelector('.wo-chk-text').value.trim(), status: r.querySelector('.wo-chk-status').value, comment: r.querySelector('.wo-chk-comment').value.trim() } : null).filter(c => c && c.text);
   const parts = [...document.querySelectorAll('.wo-part-row')].map(r => {
     const inv = state.inventory.find(i => i.id === r.querySelector('.wo-part-select').value);
     const qty = parseFloat(r.querySelector('.wo-part-qty').value) || 0;
@@ -4887,7 +4902,7 @@ function renderViewer() {
       <div class="border border-stone-300 rounded p-2"><div class="text-xs text-stone-500">Total cost</div><div class="font-bold">${formatEur(c.total)}</div></div>
     </div>
     ${resetNames.length ? `<div class="text-sm"><b>Service reminders reset:</b> ${resetNames.map(esc).join(', ')}</div>` : ''}
-    <div><h3 class="font-bold mb-2">Checklist</h3>${(wo.checklists || []).length ? `<table><thead><tr><th>Item</th><th>Result</th><th>Notes</th></tr></thead><tbody>${wo.checklists.map(c => `<tr><td>${esc(c.text)}</td><td style="font-weight:700;color:${stColor[c.status] || '#000'}">${esc(c.status)}</td><td>${esc(c.comment)}</td></tr>`).join('')}</tbody></table>` : '<p class="text-sm text-stone-500 italic">No checklist items.</p>'}</div>
+    <div><h3 class="font-bold mb-2">Checklist</h3>${(wo.checklists || []).length ? `<table><thead><tr><th>Item</th><th>Result</th><th>Notes</th></tr></thead><tbody>${wo.checklists.map(c => c.heading ? `<tr><td colspan="3" style="font-weight:700;background:#f1f5f9">${esc(c.text)}</td></tr>` : `<tr><td>${esc(c.text)}</td><td style="font-weight:700;color:${stColor[c.status] || '#000'}">${esc(c.status)}</td><td>${esc(c.comment)}</td></tr>`).join('')}</tbody></table>` : '<p class="text-sm text-stone-500 italic">No checklist items.</p>'}</div>
     <div><h3 class="font-bold mb-2">Parts used</h3>${partsTable}</div>
     ${(wo.dtcs || []).length ? `<div><h3 class="font-bold mb-2">Diagnostic codes</h3><table><thead><tr><th>Code</th><th>Notes</th></tr></thead><tbody>${wo.dtcs.map(d => `<tr><td style="font-family:monospace;font-weight:700">${esc(d.code)}</td><td>${esc(d.note)}</td></tr>`).join('')}</tbody></table></div>` : ''}
     ${wo.comments ? `<div><h3 class="font-bold mb-1">Notes</h3><p class="text-sm whitespace-pre-wrap">${esc(wo.comments)}</p></div>` : ''}
@@ -6160,7 +6175,7 @@ function viewerHistory() { const id = viewId; closeModal('modal-wo-viewer'); sho
 
 function woTemplate(w, extra = {}) {
   const have = p => state.inventory.some(i => i.id === p.invId);
-  return Object.assign({ title: w.jobTitle, doneBy: w.doneBy || 'DIY', provider: w.provider || '', parts: (w.parts || []).filter(have).map(p => ({ invId: p.invId, qty: p.qty })), skipped: (w.parts || []).filter(p => !have(p)).length, checklists: (w.checklists || []).map(c => c.text), reset: (w.resetReminderIds || []).filter(id => state.reminders.some(r => r.id === id)) }, extra);
+  return Object.assign({ title: w.jobTitle, doneBy: w.doneBy || 'DIY', provider: w.provider || '', parts: (w.parts || []).filter(have).map(p => ({ invId: p.invId, qty: p.qty })), skipped: (w.parts || []).filter(p => !have(p)).length, checklists: (w.checklists || []).map(c => c.heading ? { heading: true, text: c.text } : { text: c.text }), reset: (w.resetReminderIds || []).filter(id => state.reminders.some(r => r.id === id)) }, extra);
 }
 function repeatWorkOrder(id) {
   const w = state.workorders.find(x => x.id === id); if (!w) return;
@@ -6466,47 +6481,75 @@ function parseCsv(text) {
 function checklistsFromCsv(text) {
   const rows = parseCsv(text); if (!rows.length) return [];
   const head = rows[0].map(h => h.toLowerCase()), find = re => head.findIndex(h => re.test(h));
-  let iT = find(/^(checklist|title|name|template)/), iC = find(/^(category|type|group)/), iI = find(/^(item|task|line|step|check(?!list))/), data = rows;
+  let iT = find(/^(checklist|title|name|template)/), iC = find(/^(category|type)/), iI = find(/^(item|task|line|step|check(?!list))/), iS = find(/^(section|heading|stage)/), data = rows;
   if (iT >= 0 && iI >= 0) data = rows.slice(1);
-  else if (rows[0].length >= 3) { iT = 0; iC = 1; iI = 2; }
-  else if (rows[0].length === 2) { iT = 0; iC = -1; iI = 1; }
+  else if (rows[0].length >= 3) { iT = 0; iC = 1; iI = 2; iS = rows[0].length >= 4 ? 3 : -1; }
+  else if (rows[0].length === 2) { iT = 0; iC = -1; iI = 1; iS = -1; }
   else return [];
   const map = new Map();
   data.forEach(r => {
     const title = (r[iT] || '').trim(), item = (r[iI] || '').trim(); if (!title || !item) return;
-    if (!map.has(title)) map.set(title, { title, category: iC >= 0 ? (r[iC] || '').trim() : '', items: [] });
-    const c = map.get(title); if (!c.category && iC >= 0 && r[iC]) c.category = r[iC].trim(); c.items.push(item);
+    if (!map.has(title)) map.set(title, { title, category: iC >= 0 ? (r[iC] || '').trim() : '', items: [], secs: [] });
+    const c = map.get(title); if (!c.category && iC >= 0 && r[iC]) c.category = r[iC].trim();
+    c.items.push(item); { const sec = iS >= 0 ? (r[iS] || '').trim() : ''; c.secs.push(isToolsSec(sec) ? 'Tools and Parts' : sec); }
   });
-  return [...map.values()];
+  return [...map.values()].map(c => { if (!c.secs.some(Boolean)) delete c.secs; return c; });
 }
+const isToolsSec = n => /^tools?\s*(and|&|\+)\s*parts?$/i.test((n || '').trim());
+function chkGroups(c) {                  // sections in order of first appearance, "Tools and Parts" always first
+  const groups = [], idx = new Map();
+  (c.items || []).forEach((t, i) => {
+    const name = ((c.secs || [])[i] || '').trim(), key = isToolsSec(name) ? '\u0000tools' : name.toLowerCase();
+    if (!idx.has(key)) { idx.set(key, groups.length); groups.push({ name: isToolsSec(name) ? 'Tools and Parts' : name, tools: isToolsSec(name), items: [] }); }
+    groups[idx.get(key)].items.push(t);
+  });
+  return groups.filter(g => g.tools).concat(groups.filter(g => !g.tools));
+}
+function chkCardItemsHtml(c) {
+  return chkGroups(c).map(g => (g.name ? `<li class="pt-1 text-[10px] font-bold uppercase tracking-wider ${g.tools ? 'text-amber-300' : 'text-stone-400'}">${esc(g.name)}</li>` : '') + g.items.map(t => `<li class="flex items-center gap-2"><i data-lucide="${g.tools ? 'wrench' : 'check'}" class="w-3.5 h-3.5 ${g.tools ? 'text-amber-400' : 'text-emerald-400'} shrink-0"></i> ${esc(t)}</li>`).join('')).join('');
+}
+function chkCountText(c) { const g = chkGroups(c), tools = g.filter(x => x.tools).reduce((a, x) => a + x.items.length, 0), n = c.items.length - tools; return `${n} inspection task${n === 1 ? '' : 's'}${tools ? ` + ${tools} tool${tools === 1 ? '' : 's'} / part${tools === 1 ? '' : 's'}` : ''}`; }
 let chkImport = [];
 function importChecklistFile(e) {
   const f = e.target.files[0]; e.target.value = ''; if (!f) return;
   const rd = new FileReader();
   rd.onload = () => {
     chkImport = checklistsFromCsv(String(rd.result || ''));
-    if (!chkImport.length) { toast('No checklists found. Use the template: Checklist, Category, Item.'); return; }
+    if (!chkImport.length) { toast('No checklists found. Use the template: Checklist, Category, Item, Section.'); return; }
     const have = new Set(state.checklists.map(c => c.title.trim().toLowerCase()));
-    chkImport.forEach(c => { c.dup = have.has(c.title.toLowerCase()); c.on = !c.dup; });
+    chkImport.forEach(c => { c.dup = have.has(c.title.toLowerCase()); });
     $('chk-imp-sub').textContent = `${chkImport.length} checklist${chkImport.length > 1 ? 's' : ''}, ${chkImport.reduce((a, c) => a + c.items.length, 0)} items found in ${f.name}`;
-    $('chk-imp-body').innerHTML = chkImport.map((c, i) => `<label class="flex items-start gap-3 bg-stone-900 border border-stone-700/80 rounded-lg p-3 cursor-pointer"><input type="checkbox" class="chk-imp-cb w-4 h-4 mt-0.5 accent-amber-600" data-i="${i}" ${c.on ? 'checked' : ''}><span class="min-w-0"><span class="block text-sm font-semibold text-white">${esc(c.title)}${c.category ? ' <span class="text-[11px] font-normal text-indigo-300">' + esc(c.category) + '</span>' : ''}</span><span class="block text-xs text-stone-400">${c.items.length} item${c.items.length > 1 ? 's' : ''}: ${esc(c.items.slice(0, 3).join(', '))}${c.items.length > 3 ? '...' : ''}</span>${c.dup ? '<span class="block text-[11px] text-amber-300 mt-0.5">You already have one with this name. Ticking it adds a second copy.</span>' : ''}</span></label>`).join('');
+    $('chk-imp-body').innerHTML = chkImport.map((c, i) => {
+      const secN = chkGroups(c).filter(g => g.name).length;
+      return `<div class="bg-stone-900 border border-stone-700/80 rounded-lg p-3 space-y-2"><div class="min-w-0"><span class="block text-sm font-semibold text-white">${esc(c.title)}${c.category ? ' <span class="text-[11px] font-normal text-indigo-300">' + esc(c.category) + '</span>' : ''}</span><span class="block text-xs text-stone-400">${c.items.length} item${c.items.length > 1 ? 's' : ''}${secN ? ' in ' + secN + ' section' + (secN > 1 ? 's' : '') : ''}: ${esc(c.items.slice(0, 3).join(', '))}${c.items.length > 3 ? '...' : ''}</span></div>
+        <select class="chk-imp-mode inp inp-sm" data-i="${i}">${c.dup ? '<option value="skip">You already have this one: skip it</option><option value="replace">Replace the existing checklist with this one</option><option value="copy">Add as a second copy</option>' : '<option value="add">Import as a new checklist</option><option value="skip">Skip it</option>'}</select></div>`;
+    }).join('');
     openModal('modal-chk-import');
   };
   rd.readAsText(f);
 }
 function commitChecklistImport() {
-  const ticked = [...document.querySelectorAll('.chk-imp-cb:checked')].map(cb => chkImport[+cb.dataset.i]);
-  if (!ticked.length) { toast('Nothing ticked'); return; }
-  const names = new Set(state.checklists.map(c => c.title.toLowerCase()));
-  ticked.forEach(c => { let t = c.title; if (names.has(t.toLowerCase())) t += ' (imported)'; names.add(t.toLowerCase()); state.checklists.push({ id: uid('c'), title: t, category: c.category, items: c.items }); });
-  closeModal('modal-chk-import'); commit(); toast(`${ticked.length} checklist${ticked.length > 1 ? 's' : ''} imported`);
+  const picks = [...document.querySelectorAll('.chk-imp-mode')].map(sel => ({ c: chkImport[+sel.dataset.i], mode: sel.value })).filter(p => p.mode !== 'skip');
+  if (!picks.length) { toast('Nothing to import'); return; }
+  const repl = picks.filter(p => p.mode === 'replace').length;
+  if (repl && !confirm(`${repl} existing checklist${repl > 1 ? 's' : ''} will be overwritten with the imported version. Continue?`)) return;
+  const names = new Set(state.checklists.map(c => c.title.toLowerCase())); let added = 0, replaced = 0;
+  picks.forEach(({ c, mode }) => {
+    if (mode === 'replace') {
+      const old = state.checklists.find(x => x.title.trim().toLowerCase() === c.title.toLowerCase()); if (!old) return;
+      old.items = c.items; if (c.secs) old.secs = c.secs; else delete old.secs; if (c.category) old.category = c.category; replaced++; return;
+    }
+    let t = c.title; if (names.has(t.toLowerCase())) t += ' (imported)'; names.add(t.toLowerCase());
+    const n = { id: uid('c'), title: t, category: c.category, items: c.items }; if (c.secs) n.secs = c.secs; state.checklists.push(n); added++;
+  });
+  closeModal('modal-chk-import'); commit(); toast([added ? `${added} added` : '', replaced ? `${replaced} replaced` : ''].filter(Boolean).join(', '));
 }
 function exportChecklistsCsv() {
   if (!state.checklists.length) { toast('No checklists to export'); return; }
-  downloadCsv('checklists', [['Checklist', 'Category', 'Item']].concat(state.checklists.flatMap(c => c.items.map(t => [c.title, c.category || '', t]))));
+  downloadCsv('checklists', [['Checklist', 'Category', 'Item', 'Section']].concat(state.checklists.flatMap(c => c.items.map((t, i) => [c.title, c.category || '', t, (c.secs || [])[i] || '']))));
 }
 function downloadChecklistTemplate() {
-  downloadCsv('checklist-template', [['Checklist', 'Category', 'Item'], ['General Service', 'Service', 'Drain and replace engine oil'], ['General Service', 'Service', 'Inspect air filter'], ['Pre-Trip', 'Safety', 'Check tyre pressures'], ['Pre-Trip', 'Safety', 'Check lights']]);
+  downloadCsv('checklist-template', [['Checklist', 'Category', 'Item', 'Section'], ['General Service', 'Service', '17mm socket and torque wrench', 'Tools and Parts'], ['General Service', 'Service', 'Oil filter and sump washer', 'Tools and Parts'], ['General Service', 'Service', 'Drain and replace engine oil', 'Engine'], ['General Service', 'Service', 'Inspect air filter', 'Engine'], ['Pre-Trip', 'Safety', 'Check tyre pressures', ''], ['Pre-Trip', 'Safety', 'Check lights', '']]);
 }
 
 /* ---------- fit new tyres (choose wheels, one work order) ---------- */
