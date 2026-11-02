@@ -51,6 +51,7 @@
     --container-sm: 24rem;
     --container-md: 28rem;
     --container-lg: 32rem;
+    --container-2xl: 42rem;
     --container-4xl: 56rem;
     --container-7xl: 80rem;
     --text-xs: 0.75rem;
@@ -489,6 +490,9 @@
   }
   .w-full {
     width: 100%;
+  }
+  .max-w-2xl {
+    max-width: var(--container-2xl);
   }
   .max-w-4xl {
     max-width: var(--container-4xl);
@@ -1295,6 +1299,9 @@
   .accent-amber-600 {
     accent-color: var(--color-amber-600);
   }
+  .accent-rose-500 {
+    accent-color: var(--color-rose-500);
+  }
   .opacity-70 {
     opacity: 70%;
   }
@@ -1420,6 +1427,9 @@
     .hover\:bg-stone-900:hover {
       background-color: var(--color-stone-900);
     }
+    .hover\:text-amber-200:hover {
+      color: var(--color-amber-200);
+    }
     .hover\:text-amber-300:hover {
       color: var(--color-amber-300);
     }
@@ -1437,6 +1447,9 @@
     }
   }
   @media (width >= 40rem) {
+    .sm\:col-span-1 {
+      grid-column: span 1 / span 1;
+    }
     .sm\:col-span-2 {
       grid-column: span 2 / span 2;
     }
@@ -1960,8 +1973,13 @@
   <section id="tab-checklists" class="tab-content hidden space-y-6">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <div><h2 class="text-2xl font-bold text-white">Checklist Templates</h2><p class="text-sm text-stone-400">Reusable inspection and service templates (General Service, NCT / MOT, Brakes, Pre-Trip).</p></div>
-      <button onclick="openChecklistModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> New Checklist</button>
+      <div class="grid grid-cols-2 sm:flex gap-2 w-full sm:w-auto">
+        <label class="btn btn-secondary cursor-pointer"><i data-lucide="upload" class="w-4 h-4"></i> Import CSV<input type="file" accept=".csv,text/csv,text/plain" class="hidden" onchange="importChecklistFile(event)"></label>
+        <button onclick="exportChecklistsCsv()" class="btn btn-secondary"><i data-lucide="download" class="w-4 h-4"></i> Export CSV</button>
+        <button onclick="openChecklistModal()" class="btn btn-primary col-span-2 sm:col-span-1"><i data-lucide="plus" class="w-4 h-4"></i> New Checklist</button>
+      </div>
     </div>
+    <p class="text-xs text-stone-400">Import a spreadsheet saved as CSV with three columns: Checklist, Category, Item. <button onclick="downloadChecklistTemplate()" class="underline text-amber-300 hover:text-amber-200">Download a template</button> to see the layout.</p>
     <div id="checklists-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
   </section>
 
@@ -2020,9 +2038,10 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <div><h2 class="text-2xl font-bold text-white">Tyres</h2><p class="text-sm text-stone-400">What is fitted on each wheel, tread depth readings, wear rate and age. Tyres below 3 mm show up as alerts.</p></div>
       <div class="grid grid-cols-2 sm:flex gap-2 w-full sm:w-auto">
+        <button onclick="openFitModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Fit new tyres</button>
         <button onclick="openRotateModal()" class="btn btn-secondary"><i data-lucide="refresh-cw" class="w-4 h-4"></i> Rotate tyres</button>
         <button onclick="openTreadModal()" class="btn btn-secondary"><i data-lucide="gauge" class="w-4 h-4"></i> Tread depths</button>
-        <button onclick="openTyreModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Add tyre</button>
+        <button onclick="openTyreModal()" class="btn btn-secondary"><i data-lucide="plus" class="w-4 h-4"></i> Add tyre</button>
       </div>
     </div>
     <div class="bg-stone-800 border border-stone-700 rounded-xl p-4"><label class="lbl">Vehicle</label><select id="tyre-vehicle-sel" onchange="tyreVeh=this.value;renderTyres()" class="inp"></select></div>
@@ -2492,6 +2511,50 @@
         <span class="flex gap-3 ml-auto">
         <button type="button" onclick="closeModal('modal-tyre')" class="btn btn-secondary">Cancel</button>
         <button type="submit" class="btn btn-primary">Save tyre</button></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL: IMPORT CHECKLISTS -->
+<div id="modal-chk-import" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-stone-700 pb-3">
+      <div><h3 class="text-lg font-bold text-white">Import checklists</h3><p id="chk-imp-sub" class="text-xs text-stone-400"></p></div>
+      <button onclick="closeModal('modal-chk-import')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="chk-imp-body" class="space-y-2"></div>
+    <div class="flex justify-end gap-3 pt-4 border-t border-stone-700">
+      <button type="button" onclick="closeModal('modal-chk-import')" class="btn btn-secondary">Cancel</button>
+      <button type="button" id="chk-imp-go" onclick="commitChecklistImport()" class="btn btn-primary">Import ticked</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: FIT NEW TYRES -->
+<div id="modal-fit" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[94vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-stone-700 pb-3">
+      <div><h3 class="text-lg font-bold text-white">Fit new tyres</h3><p id="fit-veh-name" class="text-xs text-stone-400"></p></div>
+      <button onclick="closeModal('modal-fit')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <form onsubmit="saveFit(event)" class="space-y-4">
+      <input type="hidden" id="fit-veh">
+      <p class="text-xs text-stone-400">Tick the wheels you are replacing. A tyre already on a wheel goes to "Tyres taken off".</p>
+      <div id="fit-wheels" class="space-y-2"></div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="lbl">Fitted on</label><input type="date" id="fit-date" class="inp"></div>
+        <div><label class="lbl">Odometer (<span class="u-d">km</span>)</label><input type="number" min="0" id="fit-odo" data-dist class="inp"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="lbl">Fitted by</label><select id="fit-by" onchange="fitByChanged()" class="inp"><option value="DIY">DIY (me)</option><option value="Professional">Garage / tyre shop</option></select></div>
+        <div id="fit-pro-wrap" class="hidden"><label class="lbl">Garage name</label><input type="text" id="fit-provider" class="inp" placeholder="e.g. Kelly Tyres"></div>
+      </div>
+      <div id="fit-charge-wrap" class="hidden"><label class="lbl">Fitting and balancing charge only (€)</label><input type="number" step="0.01" min="0" id="fit-charge" class="inp" placeholder="Leave out the tyre prices, they are on the tyres"></div>
+      <label class="flex items-center gap-2 cursor-pointer text-xs text-stone-300"><input type="checkbox" id="fit-wo" checked class="w-4 h-4 accent-amber-600"> Also log one work order for this (carries no tyre cost, so nothing is counted twice)</label>
+      <div class="flex justify-end gap-3 pt-4 border-t border-stone-700">
+        <button type="button" onclick="closeModal('modal-fit')" class="btn btn-secondary">Cancel</button>
+        <button type="submit" class="btn btn-primary">Fit tyres</button>
       </div>
     </form>
   </div>
@@ -5108,7 +5171,7 @@ function renderTyres() {
       ${removed.length ? removed.map(t => { const l = latestTread(t); return `
       <div class="bg-stone-800 border border-stone-700 rounded-xl p-4 flex items-start justify-between gap-3">
         <div class="min-w-0 space-y-1"><p class="text-sm font-semibold text-white">${esc(posLabel(t.position))}: ${esc(t.brand)} ${esc(t.model)} <span class="text-stone-400 font-normal font-mono text-xs">${esc(t.size || '')}</span></p>
-          <p class="text-xs text-stone-400">${fmtDate(t.fittedDate)} to ${fmtDate(t.removedDate)} • ${fmtKm(Math.max(0, (t.removedOdo ?? t.fittedOdo) - t.fittedOdo))}${l ? ' • last tread ' + l.mm.toFixed(1) + ' mm' : ''}${t.cost ? ' • ' + formatEur(t.cost) : ''}</p></div>
+          <p class="text-xs text-stone-400">${fmtDate(t.fittedDate)} to ${fmtDate(t.removedDate)} • ${fmtKm(Math.max(0, (t.removedOdo ?? t.fittedOdo) - t.fittedOdo))}${l ? ' • last tread ' + l.mm.toFixed(1) + ' mm' : ''}${t.cost ? ' • ' + formatEur(t.cost) : ''}${t.blowout ? ' • <span class="text-rose-300">blowout / puncture</span>' : ''}</p></div>
         <div class="shrink-0 flex gap-1">${iconBtn(`refitTyre('${t.id}')`, 'rotate-ccw', 'Put back on')}${iconBtn(`openTyreModal('${t.id}')`, 'edit-2', 'Edit')}${iconBtn(`deleteTyre('${t.id}')`, 'trash-2', 'Delete', 'hover:text-rose-400')}</div>
       </div>`; }).join('') : `<p class="text-sm text-stone-500 italic">Nothing here yet. Replaced tyres are kept as a record.</p>`}
     </div>`;
@@ -6381,6 +6444,118 @@ function rotationsHistoryHtml(vehId) {
   const avg = gaps.length ? gaps.reduce((a, b) => a + b, 0) / gaps.length : null;
   return `<div class="bg-stone-800 border border-stone-700 rounded-xl p-4 space-y-2"><div><h3 class="font-bold text-white text-sm flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4 text-amber-400"></i> Tyre rotations (${list.length})</h3><p class="text-xs text-stone-400">${list[0].odo && v ? esc(fmtKm(Math.max(0, v.odometer - list[0].odo))) + ' since the last one.' : ''}${avg ? ' Usually every ' + esc(fmtKm(Math.round(avg / 100) * 100)) + '.' : ''}</p></div>
     <ul class="space-y-1 text-xs text-stone-300">${list.map(r => `<li><span class="text-stone-400">${esc(fmtDate(r.date))}${r.odo ? ' • ' + esc(fmtKm(r.odo)) : ''} •</span> ${esc(r.pattern)}${r.note ? ' <span class="text-stone-500">— ' + esc(r.note) + '</span>' : ''}</li>`).join('')}</ul></div>`;
+}
+
+
+/* ---------- checklists: CSV import / export ---------- */
+function parseCsv(text) {
+  text = text.replace(/^﻿/, '');
+  const first = text.split(/\r?\n/, 1)[0] || '', d = (first.match(/;/g) || []).length > (first.match(/,/g) || []).length ? ';' : (first.match(/\t/g) || []).length > (first.match(/,/g) || []).length ? '\t' : ',';
+  const rows = []; let row = [], cur = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+    else if (c === '"' && cur === '') q = true;
+    else if (c === d) { row.push(cur); cur = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+    else cur += c;
+  }
+  if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+  return rows.map(r => r.map(x => x.trim())).filter(r => r.some(x => x));
+}
+function checklistsFromCsv(text) {
+  const rows = parseCsv(text); if (!rows.length) return [];
+  const head = rows[0].map(h => h.toLowerCase()), find = re => head.findIndex(h => re.test(h));
+  let iT = find(/^(checklist|title|name|template)/), iC = find(/^(category|type|group)/), iI = find(/^(item|task|line|step|check(?!list))/), data = rows;
+  if (iT >= 0 && iI >= 0) data = rows.slice(1);
+  else if (rows[0].length >= 3) { iT = 0; iC = 1; iI = 2; }
+  else if (rows[0].length === 2) { iT = 0; iC = -1; iI = 1; }
+  else return [];
+  const map = new Map();
+  data.forEach(r => {
+    const title = (r[iT] || '').trim(), item = (r[iI] || '').trim(); if (!title || !item) return;
+    if (!map.has(title)) map.set(title, { title, category: iC >= 0 ? (r[iC] || '').trim() : '', items: [] });
+    const c = map.get(title); if (!c.category && iC >= 0 && r[iC]) c.category = r[iC].trim(); c.items.push(item);
+  });
+  return [...map.values()];
+}
+let chkImport = [];
+function importChecklistFile(e) {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    chkImport = checklistsFromCsv(String(rd.result || ''));
+    if (!chkImport.length) { toast('No checklists found. Use the template: Checklist, Category, Item.'); return; }
+    const have = new Set(state.checklists.map(c => c.title.trim().toLowerCase()));
+    chkImport.forEach(c => { c.dup = have.has(c.title.toLowerCase()); c.on = !c.dup; });
+    $('chk-imp-sub').textContent = `${chkImport.length} checklist${chkImport.length > 1 ? 's' : ''}, ${chkImport.reduce((a, c) => a + c.items.length, 0)} items found in ${f.name}`;
+    $('chk-imp-body').innerHTML = chkImport.map((c, i) => `<label class="flex items-start gap-3 bg-stone-900 border border-stone-700/80 rounded-lg p-3 cursor-pointer"><input type="checkbox" class="chk-imp-cb w-4 h-4 mt-0.5 accent-amber-600" data-i="${i}" ${c.on ? 'checked' : ''}><span class="min-w-0"><span class="block text-sm font-semibold text-white">${esc(c.title)}${c.category ? ' <span class="text-[11px] font-normal text-indigo-300">' + esc(c.category) + '</span>' : ''}</span><span class="block text-xs text-stone-400">${c.items.length} item${c.items.length > 1 ? 's' : ''}: ${esc(c.items.slice(0, 3).join(', '))}${c.items.length > 3 ? '...' : ''}</span>${c.dup ? '<span class="block text-[11px] text-amber-300 mt-0.5">You already have one with this name. Ticking it adds a second copy.</span>' : ''}</span></label>`).join('');
+    openModal('modal-chk-import');
+  };
+  rd.readAsText(f);
+}
+function commitChecklistImport() {
+  const ticked = [...document.querySelectorAll('.chk-imp-cb:checked')].map(cb => chkImport[+cb.dataset.i]);
+  if (!ticked.length) { toast('Nothing ticked'); return; }
+  const names = new Set(state.checklists.map(c => c.title.toLowerCase()));
+  ticked.forEach(c => { let t = c.title; if (names.has(t.toLowerCase())) t += ' (imported)'; names.add(t.toLowerCase()); state.checklists.push({ id: uid('c'), title: t, category: c.category, items: c.items }); });
+  closeModal('modal-chk-import'); commit(); toast(`${ticked.length} checklist${ticked.length > 1 ? 's' : ''} imported`);
+}
+function exportChecklistsCsv() {
+  if (!state.checklists.length) { toast('No checklists to export'); return; }
+  downloadCsv('checklists', [['Checklist', 'Category', 'Item']].concat(state.checklists.flatMap(c => c.items.map(t => [c.title, c.category || '', t]))));
+}
+function downloadChecklistTemplate() {
+  downloadCsv('checklist-template', [['Checklist', 'Category', 'Item'], ['General Service', 'Service', 'Drain and replace engine oil'], ['General Service', 'Service', 'Inspect air filter'], ['Pre-Trip', 'Safety', 'Check tyre pressures'], ['Pre-Trip', 'Safety', 'Check lights']]);
+}
+
+/* ---------- fit new tyres (choose wheels, one work order) ---------- */
+const FIT_FIELDS = ['brand', 'model', 'size', 'type', 'dot', 'cost', 'tread'];
+function openFitModal() {
+  const v = state.vehicles.find(x => x.id === tyreVeh) || liveVehicles()[0]; if (!v) { toast('Add a vehicle first'); return; }
+  tyreVeh = v.id; $('fit-veh').value = v.id; $('fit-veh-name').textContent = `${v.make} ${v.model} (${v.reg || 'No Reg'})`;
+  $('fit-wheels').innerHTML = TYRE_POS.map(([k, label]) => {
+    const cur = fittedTyre(v.id, k), l = cur && latestTread(cur);
+    return `<div class="bg-stone-900/70 border border-stone-700/80 rounded-xl p-3">
+      <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="fit-on-${k}" onchange="fitToggle('${k}')" class="w-5 h-5 accent-amber-600"><span class="min-w-0"><span class="block text-sm font-semibold text-white">${esc(label)}</span><span class="block text-[11px] text-stone-400 truncate">${cur ? 'Now: ' + esc(cur.brand + ' ' + (cur.model || '')) + (l ? ' • ' + l.mm.toFixed(1) + ' mm' : '') : 'No tyre recorded'}</span></span></label>
+      <div id="fit-box-${k}" class="hidden pt-3 space-y-3"><div class="grid grid-cols-2 gap-3">
+        <div><label class="lbl">Brand *</label><input type="text" id="fit-${k}-brand" class="inp inp-sm" placeholder="e.g. Michelin"></div>
+        <div><label class="lbl">Model</label><input type="text" id="fit-${k}-model" class="inp inp-sm"></div>
+        <div><label class="lbl">Size</label><input type="text" id="fit-${k}-size" class="inp inp-sm" placeholder="225/40 R18"></div>
+        <div><label class="lbl">Type</label><select id="fit-${k}-type" class="inp inp-sm"><option>Summer</option><option>Winter</option><option>All-season</option></select></div>
+        <div><label class="lbl">DOT code</label><input type="text" id="fit-${k}-dot" inputmode="numeric" maxlength="4" class="inp inp-sm" placeholder="3223"></div>
+        <div><label class="lbl">Cost of this tyre (€)</label><input type="number" step="0.01" min="0" id="fit-${k}-cost" class="inp inp-sm"></div>
+        <div><label class="lbl">Tread when fitted (mm)</label><input type="number" step="0.1" min="0" max="12" id="fit-${k}-tread" class="inp inp-sm" placeholder="e.g. 8"></div>
+        ${cur ? `<label class="flex items-center gap-2 text-xs text-stone-300 self-end pb-2 cursor-pointer"><input type="checkbox" id="fit-${k}-blow" class="w-4 h-4 accent-rose-500"> Old tyre was a blowout / puncture</label>` : ''}
+      </div><button type="button" onclick="fitCopy('${k}')" class="text-[11px] text-amber-300 underline">Copy these details to the other ticked wheels</button></div></div>`;
+  }).join('');
+  $('fit-date').value = todayStr(); $('fit-odo').value = v.odometer; $('fit-by').value = 'DIY'; $('fit-provider').value = ''; $('fit-charge').value = ''; $('fit-wo').checked = true; fitByChanged();
+  openModal('modal-fit');
+}
+function fitToggle(k) { $('fit-box-' + k).classList.toggle('hidden', !$('fit-on-' + k).checked); }
+function fitByChanged() { const pro = $('fit-by').value === 'Professional'; $('fit-pro-wrap').classList.toggle('hidden', !pro); $('fit-charge-wrap').classList.toggle('hidden', !pro); }
+function fitCopy(from) {
+  let n = 0;
+  TYRE_POS.forEach(([k]) => { if (k === from || !$('fit-on-' + k).checked) return; FIT_FIELDS.forEach(f => { $(`fit-${k}-${f}`).value = $(`fit-${from}-${f}`).value; }); n++; });
+  toast(n ? `Copied to ${n} other wheel${n > 1 ? 's' : ''}` : 'Tick another wheel first');
+}
+function saveFit(e) {
+  e.preventDefault();
+  const vehId = $('fit-veh').value, v = state.vehicles.find(x => x.id === vehId), date = $('fit-date').value || todayStr(), odo = parseInt($('fit-odo').value) || 0;
+  const ticked = TYRE_POS.map(p => p[0]).filter(k => $('fit-on-' + k).checked);
+  if (!ticked.length) { toast('Tick at least one wheel'); return; }
+  const missing = ticked.find(k => !$(`fit-${k}-brand`).value.trim()); if (missing) { toast(`Enter a brand for the ${posLabel(missing).toLowerCase()} tyre`); return; }
+  { const ow = odoWarn(v, odo, false); if (ow && !confirm(ow)) return; }
+  const blow = [];
+  ticked.forEach(k => {
+    const cur = fittedTyre(vehId, k), mm = parseFloat($(`fit-${k}-tread`).value);
+    if (cur) { cur.status = 'Removed'; cur.removedDate = date; cur.removedOdo = odo || cur.fittedOdo; if ($(`fit-${k}-blow`) && $(`fit-${k}-blow`).checked) { cur.blowout = true; blow.push(posLabel(k).toLowerCase()); } }
+    state.tyres.push({ id: uid('t'), vehicleId: vehId, position: k, brand: $(`fit-${k}-brand`).value.trim(), model: $(`fit-${k}-model`).value.trim(), size: $(`fit-${k}-size`).value.trim(), type: $(`fit-${k}-type`).value, dot: $(`fit-${k}-dot`).value.trim(), fittedDate: date, fittedOdo: odo, cost: parseFloat($(`fit-${k}-cost`).value) || 0, status: 'Fitted', removedDate: '', removedOdo: null, notes: '', treadLog: isNaN(mm) ? [] : [{ date, mm, odo }] });
+  });
+  const pro = $('fit-by').value === 'Professional', n = ticked.length;
+  if ($('fit-wo').checked) state.workorders.push({ id: 'wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4), vehicleId: vehId, jobTitle: `Fitted ${n === 1 ? '1 new tyre' : n + ' new tyres'} (${ticked.map(k => posLabel(k).toLowerCase()).join(', ')})`, status: 'Completed', odometer: odo, datetime: date + 'T12:00', laborSeconds: 0, doneBy: pro ? 'Professional' : 'DIY', provider: pro ? $('fit-provider').value.trim() : '', costExtra: pro ? Math.max(0, parseFloat($('fit-charge').value) || 0) : 0, checklists: [], parts: [], dtcs: [], comments: 'Tyre cost is recorded on the Tyres page.' + (blow.length ? ' Replaced after a blowout / puncture (' + blow.join(', ') + ').' : ''), photos: [], resetReminderIds: [] });
+  if (v && odo > v.odometer) v.odometer = odo;
+  closeModal('modal-fit'); commit(); toast(`${n} tyre${n > 1 ? 's' : ''} fitted` + ($('fit-wo').checked ? ' and work order logged' : ''));
 }
 
 /* ---------- boot ---------- */
