@@ -299,6 +299,9 @@
   .left-3 {
     left: calc(var(--spacing) * 3);
   }
+  .z-10 {
+    z-index: 10;
+  }
   .z-30 {
     z-index: 30;
   }
@@ -358,6 +361,9 @@
   }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
+  }
+  .-mb-2 {
+    margin-bottom: calc(var(--spacing) * -2);
   }
   .mb-0\.5 {
     margin-bottom: calc(var(--spacing) * 0.5);
@@ -706,6 +712,10 @@
   .rounded-xl {
     border-radius: var(--radius-xl);
   }
+  .rounded-t-2xl {
+    border-top-left-radius: var(--radius-2xl);
+    border-top-right-radius: var(--radius-2xl);
+  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -1022,6 +1032,9 @@
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
+  .px-0\.5 {
+    padding-inline: calc(var(--spacing) * 0.5);
+  }
   .px-1 {
     padding-inline: var(--spacing);
   }
@@ -1066,6 +1079,9 @@
   }
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
+  }
+  .py-6 {
+    padding-block: calc(var(--spacing) * 6);
   }
   .py-8 {
     padding-block: calc(var(--spacing) * 8);
@@ -1163,6 +1179,9 @@
   }
   .text-\[10px\] {
     font-size: 10px;
+  }
+  .text-\[11\.5px\] {
+    font-size: 11.5px;
   }
   .text-\[11px\] {
     font-size: 11px;
@@ -1283,6 +1302,9 @@
   .text-white {
     color: var(--color-white);
   }
+  .normal-case {
+    text-transform: none;
+  }
   .uppercase {
     text-transform: uppercase;
   }
@@ -1304,6 +1326,9 @@
   }
   .opacity-70 {
     opacity: 70%;
+  }
+  .opacity-80 {
+    opacity: 80%;
   }
   .opacity-90 {
     opacity: 90%;
@@ -1792,6 +1817,12 @@
   svg { flex-shrink:0; }
   .icon-btn { display:inline-flex; align-items:center; justify-content:center; min-width:2.5rem; min-height:2.5rem; border-radius:.5rem; }
   .btn.hidden, .icon-btn.hidden { display:none; }
+  .pp-row { display:flex; width:100%; align-items:center; justify-content:space-between; gap:.75rem; background:#292524; border:1px solid #44403c; border-left:4px solid; border-radius:.625rem; padding:.625rem .75rem; margin-bottom:.4rem; }
+  .pp-row:active, .pp-row.pp-cur { background:#3a3532; }
+  .pp-row.r-other { opacity:.62; }
+  .pp-tag { display:inline-block; font-size:10px; font-weight:600; padding:1px 6px; border-radius:5px; vertical-align:1px; margin-left:3px; }
+  .pp-any { background:#57534e55; color:#d6d3d1; border:1px solid #57534e; }
+  .pp-car { background:#8b5cf624; color:#c4b5fd; border:1px solid #8b5cf655; font-weight:700; }
   .hl-flash { outline:2px solid #f59e0b; outline-offset:3px; box-shadow:0 0 0 6px rgba(245,158,11,.18); }
   .viz-col:hover .viz-bar, .viz-col:focus-visible .viz-bar { filter:brightness(1.3); }
   .viz-col:focus { outline:none; }
@@ -2102,6 +2133,7 @@
             <div><label class="lbl">Tyre pressures</label><input type="text" id="veh-pressures" placeholder="F 2.4 / R 2.2 bar" class="inp"></div>
           </div>
           <p class="text-[11px] uppercase tracking-wider text-amber-400 font-semibold pt-1">Notes</p>
+          <div><label class="lbl">Photo folder link (optional)</label><input type="url" id="veh-photos" placeholder="https://photos.app.goo.gl/... or a Drive folder" class="inp"><p class="text-[11px] text-stone-500 mt-1">Shown as "View photos" on the shared service report. Make sure the album itself is shared.</p></div>
           <div><label class="lbl">Other notes</label><textarea id="veh-notes" rows="2" placeholder="Owner history, modifications, known quirks..." class="inp"></textarea></div>
         </div>
       </details>
@@ -2307,7 +2339,7 @@
       <div class="space-y-3 bg-stone-900/40 p-4 rounded-xl border border-stone-700/60">
         <div class="flex justify-between items-center">
           <label class="text-xs font-bold text-stone-300 uppercase tracking-wider flex items-center gap-1.5"><i data-lucide="package" class="w-4 h-4 text-emerald-400"></i> Parts & Inventory Used</label>
-          <button type="button" onclick="addWoPartRow()" class="text-xs text-amber-400 hover:text-amber-300 font-medium">+ Add Part</button>
+          <button type="button" onclick="addWoPartAndPick()" class="text-xs text-amber-400 hover:text-amber-300 font-medium">+ Add Part</button>
         </div>
         <div id="wo-parts-container" class="space-y-2"></div>
         <p class="text-[11px] text-stone-400">Stock is deducted when you save (and restored if you edit or delete the order).</p>
@@ -2329,6 +2361,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div><label class="lbl">Work Comments / Notes</label><textarea id="wo-comments" rows="3" placeholder="Observations, future repair notes..." class="inp" style="font-size:.75rem"></textarea></div>
+        <div><label class="lbl">Photo links (optional)</label><textarea id="wo-photolinks" rows="2" placeholder="Paste web links to photos or an album, one per line" class="inp" style="font-size:.75rem"></textarea></div>
         <div>
           <label class="lbl">Photos / receipts / invoices</label>
           <input type="file" id="wo-photos-input" multiple accept="image/*" onchange="handlePhotoUpload(event)" class="w-full text-xs text-stone-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-stone-700 file:text-white file:font-medium">
@@ -2453,14 +2486,20 @@
         <div><label class="lbl">Odometer (<span class="u-d">km</span>) *</label><input type="number" min="0" id="fuel-odo" data-dist required class="inp"></div>
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <div><label class="lbl">Litres *</label><input type="number" step="0.01" min="0.1" id="fuel-litres" required oninput="fuelPreview()" class="inp"></div>
-        <div><label class="lbl">Total paid (€) *</label><input type="number" step="0.01" min="0" id="fuel-cost" required oninput="fuelPreview()" class="inp"></div>
+        <div><label class="lbl">Currency</label><select id="fuel-currency" onchange="fuelCurrencyChanged()" class="inp"><option value="EUR">EUR (€)</option><option value="GBP">GBP (£)</option><option value="USD">USD ($)</option><option value="CAD">CAD ($)</option><option value="AUD">AUD ($)</option></select></div>
+        <div><label class="lbl">Price per litre (<span class="fuel-sym">€</span>) *</label><input type="number" step="any" min="0" id="fuel-price" required oninput="fuelCalc('price')" class="inp" placeholder="e.g. 1.649"></div>
+      </div>
+      <p class="text-[11px] text-stone-400 -mb-2">Then enter either the litres or the total. The other one is worked out for you.</p>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="lbl">Litres</label><input type="number" step="0.01" min="0" id="fuel-litres" oninput="fuelCalc('litres')" class="inp"></div>
+        <div><label class="lbl">Total paid (<span class="fuel-sym">€</span>)</label><input type="number" step="0.01" min="0" id="fuel-cost" oninput="fuelCalc('cost')" class="inp"></div>
       </div>
       <p id="fuel-ppl" class="text-xs text-stone-400 min-h-[1rem]"></p>
       <label class="flex items-start gap-2 text-sm text-stone-200"><input type="checkbox" id="fuel-full" checked class="w-5 h-5 accent-amber-600 mt-0.5 shrink-0"> <span>Filled the tank right up <span class="block text-[11px] text-stone-400">Needed to work out consumption. Untick for a part fill.</span></span></label>
       <div><label class="lbl">Fuel type</label><select id="fuel-type" class="inp"></select></div>
       <label class="flex items-start gap-2 text-sm text-stone-200"><input type="checkbox" id="fuel-additive" class="w-5 h-5 accent-amber-600 mt-0.5 shrink-0"> <span id="fuel-additive-text">Fuel additive added</span></label>
-      <div><label class="lbl">Station</label><input type="text" id="fuel-station" placeholder="e.g. Circle K" class="inp"></div>
+      <div><label class="lbl">Station</label><select id="fuel-station-sel" onchange="fuelStationChanged()" class="inp"></select>
+        <div id="fuel-station-new" class="hidden pt-2"><input type="text" id="fuel-station" placeholder="Type the place name, e.g. Circle K" class="inp"></div></div>
       <div class="flex justify-between gap-3 pt-4 border-t border-stone-700">
         <button type="button" id="fuel-delete-btn" onclick="deleteFuel()" class="btn btn-danger hidden"><i data-lucide="trash-2" class="w-4 h-4"></i> Delete</button>
         <div class="flex gap-3 ml-auto">
@@ -2638,6 +2677,7 @@
       <div class="flex flex-wrap gap-2">
         <button type="button" onclick="connectDrive()" class="btn btn-primary" style="padding:.375rem .75rem;font-size:.75rem">Connect / Reconnect</button>
         <button type="button" onclick="syncNow(true)" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Sync now</button>
+        <button type="button" onclick="openRestore()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Restore a backup</button>
         <button type="button" onclick="backupNow(true)" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Back up now</button>
         <button type="button" onclick="disconnectDrive()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Disconnect</button>
       </div>
@@ -2664,6 +2704,7 @@
       <h4 class="text-sm font-bold text-white">Data</h4>
       <p id="data-size-line" class="text-xs text-stone-400"></p>
       <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="openTrash()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i> <span id="trash-btn-label">Recently deleted</span></button>
         <button type="button" onclick="shrinkAllPhotos()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="image" class="w-3.5 h-3.5"></i> Shrink saved photos</button>
         <button type="button" onclick="exportData()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="download" class="w-3.5 h-3.5"></i> Export backup</button>
         <label class="btn btn-secondary cursor-pointer" style="padding:.375rem .75rem;font-size:.75rem"><i data-lucide="upload" class="w-3.5 h-3.5"></i> Import backup<input type="file" accept="application/json,.json" class="hidden" onchange="importData(event)"></label>
@@ -2690,6 +2731,42 @@
 
 <div id="more-menu" class="hidden fixed z-50 bg-stone-800 border border-stone-600 rounded-xl shadow-2xl p-1.5 min-w-[13rem]"></div>
 <div id="viz-tip" class="hidden fixed z-[70] pointer-events-none bg-stone-950 border border-stone-600 rounded-lg px-3 py-2 text-xs shadow-xl"></div>
+<!-- MODAL: RECENTLY DELETED -->
+<div id="modal-trash" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-stone-700 pb-3">
+      <div><h3 class="text-lg font-bold text-white">Recently deleted</h3><p class="text-xs text-stone-400">Kept for 30 days, then removed for good.</p></div>
+      <button onclick="closeModal('modal-trash')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="trash-body" class="space-y-2"></div>
+  </div>
+</div>
+
+<!-- MODAL: RESTORE BACKUP -->
+<div id="modal-restore" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-stone-700 pb-3">
+      <div><h3 class="text-lg font-bold text-white">Restore a backup</h3><p class="text-xs text-stone-400">Weekly copies saved in your Drive. A safety copy of your current data is saved first.</p></div>
+      <button onclick="closeModal('modal-restore')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="restore-body" class="space-y-2"></div>
+  </div>
+</div>
+
+<!-- MODAL: PART PICKER -->
+<div id="modal-partpick" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full shadow-2xl max-h-[94vh] overflow-y-auto">
+    <div class="sticky top-0 bg-stone-800 z-10 p-4 pb-3 border-b border-stone-700 space-y-3 rounded-t-2xl">
+      <div class="flex justify-between items-center gap-2">
+        <div class="min-w-0"><h3 class="text-lg font-bold text-white">Choose a part</h3><p id="pp-sub" class="text-xs text-stone-400 truncate"></p></div>
+        <button onclick="closeModal('modal-partpick')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60 shrink-0" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="relative"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-stone-400"></i><input type="text" id="pp-search" oninput="renderPartPicker()" placeholder="Search name, brand or part number..." class="inp" style="padding-left:2.25rem"></div>
+    </div>
+    <div id="pp-list" class="p-4 pt-1"></div>
+  </div>
+</div>
+
 <div id="print-template"></div>
 <div id="toast" class="fixed bottom-24 xl:bottom-6 left-1/2 -transtone-x-1/2 z-[60] hidden bg-stone-950 border border-stone-600 text-sm text-white px-4 py-2 rounded-lg shadow-2xl max-w-[90vw]"></div>
 
@@ -4156,7 +4233,7 @@ function commit() {
 }
 function adoptState(s) {
   state = s;
-  ['vehicles', 'inventory', 'checklists', 'reminders', 'workorders', 'expiries', 'fuel', 'tyres'].forEach(k => state[k] = state[k] || []);
+  ['vehicles', 'inventory', 'checklists', 'reminders', 'workorders', 'expiries', 'fuel', 'tyres', 'rotations', 'trash'].forEach(k => state[k] = state[k] || []);
   state.unit = state.unit === 'mi' ? 'mi' : 'km';
   state.rates = Object.assign({ EUR: 1, GBP: 1.18, USD: 0.92, CAD: 0.67, AUD: 0.61 }, state.rates || {});
   // data saved by earlier versions: fill in the newer fields
@@ -4211,9 +4288,66 @@ function switchTab(tabId) {
 function openModal(id) { modalDistIn(id); $(id).classList.remove('hidden'); icons(); }
 function closeModal(id) { $(id).classList.add('hidden'); }
 
-function renderAll() { renderDashboard(); renderVehicles(); renderInventory(); renderWorkOrders(); renderHistory(); renderChecklists(); renderReminders(); renderExpiries(); renderFuel(); renderTyres(); renderWarranties(); renderShareIfOpen(); applyUnitLabels(); icons(); }
+function renderAll() { renderDashboard(); renderVehicles(); renderInventory(); renderWorkOrders(); renderHistory(); renderChecklists(); renderReminders(); renderExpiries(); renderFuel(); renderTyres(); renderWarranties(); trashLabelUpdate(); renderShareIfOpen(); applyUnitLabels(); icons(); }
 
 /* ---------- reminders engine ---------- */
+
+/* ---------- links in notes ---------- */
+const URL_RE = /https?:\/\/[^\s<>"']+/gi;
+const trimUrl = u => u.replace(/[.,;:!?)\]]+$/, '');
+const urlsIn = t => [...new Set((String(t || '').match(URL_RE) || []).map(trimUrl))];
+const urlOnly = t => { const m = String(t || '').trim().match(/^https?:\/\/\S+$/i); return m ? m[0] : ''; };
+function linkify(t) {
+  return String(t ?? '').split(/(https?:\/\/[^\s<>"']+)/gi).map((p, i) => {
+    if (i % 2 === 0) return esc(p);
+    const u = trimUrl(p), tail = p.slice(u.length);
+    return `<a href="${esc(u)}" target="_blank" rel="noopener" style="color:#d97706;text-decoration:underline;word-break:break-all">${esc(u)}</a>${esc(tail)}`;
+  }).join('');
+}
+
+/* ---------- dated mileage readings and predicted due dates ---------- */
+function logOdo(v, km, date) {
+  if (!v || !(km > 0)) return; date = date || todayStr();
+  v.odoLog = (v.odoLog || []).filter(x => x.date !== date); v.odoLog.push({ date, km });
+  v.odoLog.sort((a, b) => a.date.localeCompare(b.date)); if (v.odoLog.length > 200) v.odoLog = v.odoLog.slice(-200);
+}
+function odoReadings(v) {
+  const m = new Map(), add = (d, k) => { d = String(d || '').slice(0, 10); k = +k; if (!/^\d{4}-\d\d-\d\d$/.test(d) || !(k > 0)) return; if (!m.has(d) || k > m.get(d)) m.set(d, k); };
+  (v.odoLog || []).forEach(x => add(x.date, x.km));
+  state.workorders.filter(w => w.vehicleId === v.id && w.status === 'Completed').forEach(w => add(w.datetime, w.odometer));
+  state.fuel.filter(f => f.vehicleId === v.id).forEach(f => add(f.date, f.odometer));
+  state.tyres.filter(t => t.vehicleId === v.id).forEach(t => { add(t.fittedDate, t.fittedOdo); add(t.removedDate, t.removedOdo); (t.treadLog || []).forEach(l => add(l.date, l.odo)); });
+  (state.rotations || []).filter(r => r.vehicleId === v.id).forEach(r => add(r.date, r.odo));
+  const out = []; [...m].map(([d, k]) => ({ d, t: new Date(d + 'T00:00:00').getTime(), k })).sort((a, b) => a.t - b.t).forEach(r => { if (!out.length || r.k >= out[out.length - 1].k) out.push(r); });
+  return out;
+}
+/* km per day: the slower and faster of "this last month" and "the last six months" */
+function drivingPace(v) {
+  const r = odoReadings(v), DAY = 864e5; if (r.length < 2) return null;
+  const last = r[r.length - 1], first = r[0]; if ((last.t - first.t) / DAY < 28) return null;
+  const rate = (a, b) => (b.k - a.k) / Math.max(1, (b.t - a.t) / DAY);
+  let lo = r.find(x => x.t >= last.t - 183 * DAY) || first; if ((last.t - lo.t) / DAY < 28) lo = first;
+  const long = rate(lo, last), rc = r.find(x => x.t >= last.t - 35 * DAY), recent = rc && (last.t - rc.t) / DAY >= 10 ? rate(rc, last) : long;
+  const a = Math.min(long, recent), b = Math.max(long, recent); if (!(b > 0.05)) return null;
+  return { lo: Math.max(a, 0.05), hi: b, last };
+}
+function predictDue(st) {
+  if (st.remainingKm == null || st.remainingKm <= 0) return null;
+  const DAY = 864e5, p = drivingPace(st.vehicle), today = new Date().setHours(0, 0, 0, 0);
+  if (!p) return { needData: true };
+  const left = Math.max(0, st.targetKm - p.last.k);
+  let a = Math.max(today, p.last.t + left / p.hi * DAY), b = Math.max(today, p.last.t + Math.min(left / p.lo, 1095) * DAY), basis = 'distance';
+  const T = st.targetDate ? st.targetDate.getTime() : null;
+  if (T != null) { if (T <= a) { a = b = T; basis = 'time limit'; } else if (T < b) { b = T; basis = 'distance or time limit'; } }
+  return { a, b, basis, week: [p.lo * 7, p.hi * 7] };
+}
+function predLine(st) {
+  const pr = predictDue(st); if (!pr) return '';
+  if (pr.needData) return `<p class="text-[11px] text-stone-500">Estimated date: not enough mileage readings yet. It needs two about a month apart.</p>`;
+  const d = ms => fmtDate(new Date(ms)), DAY = 864e5, when = (pr.b - pr.a) / DAY <= 7 ? 'around ' + d((pr.a + pr.b) / 2) : d(pr.a) + ' to ' + d(pr.b);
+  return `<p class="text-[11px] text-stone-300"><span class="text-stone-500">Expected due:</span> <b class="text-amber-300">${when}</b> <span class="text-stone-500">(${pr.basis}; you drive about ${fmtNum(Math.round(dk(pr.week[0])))}${Math.round(dk(pr.week[0])) === Math.round(dk(pr.week[1])) ? '' : '-' + fmtNum(Math.round(dk(pr.week[1])))} ${unitName()} a week)</span></p>`;
+}
+
 function getReminderStatus(r) {
   const vehicle = state.vehicles.find(v => v.id === r.vehicleId) || { make: 'Unknown', model: '', odometer: 0, reg: '' };
   const cur = vehicle.odometer || 0;
@@ -4289,6 +4423,7 @@ function dashAlerts() {
         <span class="px-2 py-0.5 text-[10px] font-bold rounded-md shrink-0 ${st.isOverdue ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">${st.isOverdue ? 'OVERDUE' : 'DUE SOON'}</span>
       </div>
       <div class="flex gap-1.5 flex-wrap">${kmBadge(st)}${dayBadge(st)}</div>
+      ${predLine(st)}
     </div>` }));
   sortedExpiries().filter(s => s.rank < 2).forEach(s => items.push({ rank: s.rank, key: s.days, html: `
     <div onclick="switchTab('reminders')" class="bg-stone-900/60 p-3 rounded-lg border ${s.rank === 0 ? 'border-rose-500/40' : 'border-stone-700/60'} cursor-pointer space-y-1.5">
@@ -4355,23 +4490,25 @@ function openVehicleModal(id = null) {
   $('form-vehicle').reset(); $('veh-id').value = '';
   $('modal-vehicle-title').textContent = id ? 'Edit Vehicle' : 'Add Vehicle';
   const v = id && state.vehicles.find(x => x.id === id);
-  if (v) { $('veh-id').value = v.id; $('veh-make').value = v.make; $('veh-model').value = v.model; $('veh-year').value = v.year || ''; $('veh-reg').value = v.reg || ''; $('veh-odometer').value = v.odometer; $('veh-vin').value = v.vin || ''; $('veh-engine').value = v.engine || ''; $('veh-colour').value = v.colour || ''; $('veh-oil').value = v.oilSpec || ''; $('veh-pressures').value = v.pressures || ''; $('veh-torque').value = v.torque || ''; $('veh-notes').value = v.notes || ''; }
+  if (v) { $('veh-id').value = v.id; $('veh-make').value = v.make; $('veh-model').value = v.model; $('veh-year').value = v.year || ''; $('veh-reg').value = v.reg || ''; $('veh-odometer').value = v.odometer; $('veh-vin').value = v.vin || ''; $('veh-engine').value = v.engine || ''; $('veh-colour').value = v.colour || ''; $('veh-oil').value = v.oilSpec || ''; $('veh-pressures').value = v.pressures || ''; $('veh-torque').value = v.torque || ''; $('veh-notes').value = v.notes || ''; $('veh-photos').value = v.photoFolder || ''; }
   document.querySelectorAll('#form-vehicle [data-spec]').forEach(el => { el.value = (v && v[el.dataset.spec]) || ''; });
   openModal('modal-vehicle');
 }
 function saveVehicle(e) {
   e.preventDefault();
   const id = $('veh-id').value;
-  const data = { id: id || uid('v'), make: $('veh-make').value.trim(), model: $('veh-model').value.trim(), year: parseInt($('veh-year').value) || '', reg: $('veh-reg').value.trim(), odometer: parseInt($('veh-odometer').value) || 0, vin: $('veh-vin').value.trim(), engine: $('veh-engine').value.trim(), colour: $('veh-colour').value.trim(), oilSpec: $('veh-oil').value.trim(), pressures: $('veh-pressures').value.trim(), torque: $('veh-torque').value.trim(), notes: $('veh-notes').value.trim() };
+  const data = { id: id || uid('v'), make: $('veh-make').value.trim(), model: $('veh-model').value.trim(), year: parseInt($('veh-year').value) || '', reg: $('veh-reg').value.trim(), odometer: parseInt($('veh-odometer').value) || 0, vin: $('veh-vin').value.trim(), engine: $('veh-engine').value.trim(), colour: $('veh-colour').value.trim(), oilSpec: $('veh-oil').value.trim(), pressures: $('veh-pressures').value.trim(), torque: $('veh-torque').value.trim(), notes: $('veh-notes').value.trim(), photoFolder: urlOnly($('veh-photos').value) };
   document.querySelectorAll('#form-vehicle [data-spec]').forEach(el => { data[el.dataset.spec] = el.value.trim(); });
   const i = state.vehicles.findIndex(v => v.id === id);
+  const oldOdo = i >= 0 ? state.vehicles[i].odometer : null;
   if (i >= 0) state.vehicles[i] = Object.assign({}, state.vehicles[i], data); else state.vehicles.push(data);
+  if (data.odometer && data.odometer !== oldOdo) logOdo(state.vehicles.find(v => v.id === data.id), data.odometer);
   closeModal('modal-vehicle'); commit();
 }
 function deleteVehicle(id) {
   const gone = state.vehicles.find(v => v.id === id), sh = gone && shareOf(gone);
-  if (!confirm('Delete this vehicle together with its reminders and work orders?' + (sh && sh.fileId ? ' Its shared QR report will be removed from your Drive too, so printed QR codes stop working.' : ''))) return;
-  if (sh && sh.fileId && settings.driveOn) retireReport(sh.fileId);
+  if (!confirm('Delete this vehicle together with its reminders, work orders, fuel and tyre records?\n\nIt goes to Recently deleted (Settings) for 30 days, so you can bring it back.' + (sh && sh.fileId ? ' Its shared QR report stays online until then, and is removed when the car is deleted for good.' : ''))) return;
+  trashAdd('vehicle', `${gone.make} ${gone.model} (${gone.reg || 'No Reg'})`, { vehicle: gone, reminders: state.reminders.filter(r => r.vehicleId === id), workorders: state.workorders.filter(w => w.vehicleId === id), expiries: state.expiries.filter(x => x.vehicleId === id), fuel: state.fuel.filter(f => f.vehicleId === id), tyres: state.tyres.filter(t => t.vehicleId === id), rotations: (state.rotations || []).filter(r => r.vehicleId === id) });
   state.vehicles = state.vehicles.filter(v => v.id !== id);
   state.reminders = state.reminders.filter(r => r.vehicleId !== id);
   state.workorders = state.workorders.filter(w => w.vehicleId !== id);
@@ -4392,7 +4529,7 @@ function saveQuickOdometer(e) {
   const val = parseInt($('odo-new-value').value);
   if (isNaN(val)) return;
   { const ow = odoWarn(v, val); if (ow && !confirm(ow)) return; }
-  v.odometer = val; closeModal('modal-odometer'); commit(); toast('Odometer updated, countdowns recalculated');
+  v.odometer = val; logOdo(v, val); closeModal('modal-odometer'); commit(); toast('Odometer updated, countdowns recalculated');
 }
 
 /* ---------- INVENTORY ---------- */
@@ -4503,7 +4640,7 @@ function saveInventory(e) {
 }
 function deleteInventory(id) {
   const i = state.inventory.find(x => x.id === id); if (!i) return;
-  if (confirm(`Delete "${i.name}" completely?\n\nTip: parts that have run out stay in the "Out of stock" list as a re-order history, so you usually want to keep them. Deleting also removes that history.`)) { state.inventory = state.inventory.filter(x => x.id !== id); commit(); }
+  if (confirm(`Delete "${i.name}" completely?\n\nTip: parts that have run out stay in the "Out of stock" list as a re-order history, so you usually want to keep them. Deleting also removes that history. It goes to Recently deleted for 30 days.`)) { trashAdd('part', i.name, { part: i }); state.inventory = state.inventory.filter(x => x.id !== id); commit(); }
 }
 
 /* ---------- CHECKLISTS ---------- */
@@ -4552,7 +4689,7 @@ function saveChecklist(e) {
   closeModal('modal-checklist'); commit();
 }
 function duplicateChecklist(id) { const o = state.checklists.find(c => c.id === id); if (o) { state.checklists.push({ ...o, id: uid('c'), title: o.title + ' (Copy)', items: [...o.items], secs: o.secs ? [...o.secs] : undefined }); commit(); } }
-function deleteChecklist(id) { if (confirm('Delete this checklist template?')) { state.checklists = state.checklists.filter(c => c.id !== id); commit(); } }
+function deleteChecklist(id) { const c0 = state.checklists.find(c => c.id === id); if (c0 && confirm('Delete this checklist template? It goes to Recently deleted for 30 days.')) { trashAdd('checklist', c0.title, { checklist: c0 }); state.checklists = state.checklists.filter(c => c.id !== id); commit(); } }
 
 /* ---------- REMINDERS ---------- */
 let remVeh = 'all';
@@ -4587,6 +4724,7 @@ function renderReminders() {
         <div class="space-y-1.5"><span class="text-stone-400 block text-[10px] uppercase font-semibold">Time target</span>
           <strong class="text-amber-400 text-sm font-mono block">${st.targetDate ? fmtDate(st.targetDate) : 'No time interval'}</strong>${dayBadge(st)}</div>
       </div>
+      ${predLine(st)}
       <div class="space-y-2">
         ${st.remainingKm != null ? `<div><div class="flex justify-between text-[11px] text-stone-400 mb-1"><span>Distance • last ${fmtKm(r.lastKm)}</span><span>every ${fmtKm(r.intervalKm)}</span></div>${bar(st.kmPct, st.remainingKm <= 0, st.remainingKm <= 1500)}</div>` : ''}
         ${st.daysRemaining != null ? `<div><div class="flex justify-between text-[11px] text-stone-400 mb-1"><span>Time • last ${fmtDate(r.lastDate)}</span><span>every ${r.intervalMonths} mo</span></div>${bar(st.timePct, st.daysRemaining <= 0, st.daysRemaining <= 30)}</div>` : ''}
@@ -4620,7 +4758,7 @@ function saveReminder(e) {
   if (i >= 0) state.reminders[i] = data; else state.reminders.push(data);
   closeModal('modal-reminder'); commit();
 }
-function deleteReminder(id) { if (confirm('Delete this service reminder?')) { state.reminders = state.reminders.filter(r => r.id !== id); commit(); } }
+function deleteReminder(id) { const r0 = state.reminders.find(r => r.id === id); if (r0 && confirm('Delete this service reminder? It goes to Recently deleted for 30 days.')) { trashAdd('reminder', `${r0.title} (${vehName(r0.vehicleId)})`, { reminder: r0 }); state.reminders = state.reminders.filter(r => r.id !== id); commit(); } }
 
 /* ---------- WORK ORDERS ---------- */
 let activeWoFilter = 'all';
@@ -4649,7 +4787,7 @@ function openWorkOrderModal(id = null, preVeh = null, tpl = null) {
   if (wo) {
     $('wo-id').value = wo.id; $('modal-wo-title').textContent = 'Edit Work Order ' + wo.id;
     $('wo-vehicle-id').value = wo.vehicleId; $('wo-job-title').value = wo.jobTitle; $('wo-status').value = wo.status;
-    $('wo-odometer').value = wo.odometer || ''; $('wo-datetime').value = wo.datetime; $('wo-comments').value = wo.comments || '';
+    $('wo-odometer').value = wo.odometer || ''; $('wo-datetime').value = wo.datetime; $('wo-comments').value = wo.comments || ''; $('wo-photolinks').value = (wo.photoLinks || []).join('\n');
     $('wo-done-by').value = wo.doneBy || 'DIY'; $('wo-provider').value = wo.provider || ''; $('wo-cost-extra').value = wo.costExtra || '';
     timer.base = wo.laborSeconds || 0; updateTimerDisplay();
     (wo.checklists || []).forEach(c => c.heading ? addWoHeadingRow(c.text) : addWoChecklistRow(c.text, c.status, c.comment));
@@ -4704,7 +4842,7 @@ function updateWoCost() {
 function handleWoVehicleChange() {
   if (!$('wo-id').value) setKmInput('wo-odometer', state.vehicles.find(v => v.id === $('wo-vehicle-id').value)?.odometer || '');
   renderWoResetList([]);
-  document.querySelectorAll('.wo-part-select').forEach(sel => { const cur = sel.value; sel.innerHTML = partOptions($('wo-vehicle-id').value, cur); });
+  document.querySelectorAll('.wo-part-row').forEach(refreshPartBtn);
   updateWoCost(); renderWoSpecs();
 }
 // parts for this vehicle (and shared ones) first, other vehicles' parts tucked in a separate group
@@ -4761,11 +4899,11 @@ function addWoPartRow(invId = '', qty = 1) {
   const d = document.createElement('div');
   d.className = 'wo-part-row flex flex-col sm:flex-row gap-2 items-stretch sm:items-center bg-stone-900/80 p-2 rounded-lg border border-stone-700/70';
   d.innerHTML = `
-    <select class="wo-part-select inp inp-sm flex-1">${partOptions($('wo-vehicle-id').value, invId)}</select>
+    <button type="button" class="wo-part-btn inp inp-sm flex-1 min-w-0 text-left flex items-center justify-between gap-2" onclick="openPartPicker(this.closest('.wo-part-row'))"></button><input type="hidden" class="wo-part-select" value="${invId}">
     <div class="flex items-center gap-2"><label class="text-[10px] text-stone-400">Qty</label>
       <input type="number" step="0.01" min="0" value="${qty}" class="wo-part-qty inp inp-sm" style="width:5rem">
       <button type="button" onclick="this.closest('.wo-part-row').remove();updateWoCost()" class="icon-btn text-stone-300 hover:text-rose-400 bg-stone-700/60" aria-label="Remove part"><i data-lucide="x" class="w-4 h-4"></i></button></div>`;
-  $('wo-parts-container').appendChild(d); icons();
+  $('wo-parts-container').appendChild(d); refreshPartBtn(d); icons();
 }
 function parseDtcData() {
   const raw = $('wo-raw-dtc').value; if (!raw.trim()) return;
@@ -4827,7 +4965,7 @@ function saveWorkOrder(e) {
   const dtcs = [...document.querySelectorAll('.wo-dtc-row')].map(r => ({ code: r.querySelector('.wo-dtc-code').textContent.trim(), note: r.querySelector('.wo-dtc-note').value.trim() }));
   const resetIds = [...document.querySelectorAll('.wo-reset-rem-cb:checked')].map(c => c.value);
 
-  const wo = { id: id || ('wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4)), vehicleId: vehId, jobTitle: $('wo-job-title').value.trim(), status, odometer: odo, datetime: $('wo-datetime').value || nowLocalInput(), laborSeconds: pro ? 0 : timerSecs() + manualSecs(), doneBy: pro ? 'Professional' : 'DIY', provider: pro ? $('wo-provider').value.trim() : '', costExtra: Math.max(0, parseFloat($('wo-cost-extra').value) || 0), checklists, parts, dtcs, comments: $('wo-comments').value.trim(), photos: [...woPhotos], resetReminderIds: resetIds };
+  const wo = { id: id || ('wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4)), vehicleId: vehId, jobTitle: $('wo-job-title').value.trim(), status, odometer: odo, datetime: $('wo-datetime').value || nowLocalInput(), laborSeconds: pro ? 0 : timerSecs() + manualSecs(), doneBy: pro ? 'Professional' : 'DIY', provider: pro ? $('wo-provider').value.trim() : '', costExtra: Math.max(0, parseFloat($('wo-cost-extra').value) || 0), checklists, parts, dtcs, comments: $('wo-comments').value.trim(), photoLinks: urlsIn($('wo-photolinks').value), photos: [...woPhotos], resetReminderIds: resetIds };
 
   // inventory: give back the previous deduction when editing, then deduct the new one
   const prev = id && state.workorders.find(w => w.id === id);
@@ -4851,6 +4989,7 @@ function deleteWorkOrder() {
   const id = $('wo-id').value; const wo = state.workorders.find(w => w.id === id); if (!wo) return;
   if (!confirm('Delete this work order? Parts it used go back into stock. Reminders that it reset are not changed.')) return;
   (wo.parts || []).forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) i.qty = +(i.qty + p.qty).toFixed(2); });
+  trashAdd('workorder', `${wo.jobTitle} (${fmtDate(wo.datetime)})`, { workorder: wo });
   state.workorders = state.workorders.filter(w => w.id !== id);
   closeWorkOrderModal(); commit();
 }
@@ -4905,7 +5044,8 @@ function renderViewer() {
     <div><h3 class="font-bold mb-2">Checklist</h3>${(wo.checklists || []).length ? `<table><thead><tr><th>Item</th><th>Result</th><th>Notes</th></tr></thead><tbody>${wo.checklists.map(c => c.heading ? `<tr><td colspan="3" style="font-weight:700;background:#f1f5f9">${esc(c.text)}</td></tr>` : `<tr><td>${esc(c.text)}</td><td style="font-weight:700;color:${stColor[c.status] || '#000'}">${esc(c.status)}</td><td>${esc(c.comment)}</td></tr>`).join('')}</tbody></table>` : '<p class="text-sm text-stone-500 italic">No checklist items.</p>'}</div>
     <div><h3 class="font-bold mb-2">Parts used</h3>${partsTable}</div>
     ${(wo.dtcs || []).length ? `<div><h3 class="font-bold mb-2">Diagnostic codes</h3><table><thead><tr><th>Code</th><th>Notes</th></tr></thead><tbody>${wo.dtcs.map(d => `<tr><td style="font-family:monospace;font-weight:700">${esc(d.code)}</td><td>${esc(d.note)}</td></tr>`).join('')}</tbody></table></div>` : ''}
-    ${wo.comments ? `<div><h3 class="font-bold mb-1">Notes</h3><p class="text-sm whitespace-pre-wrap">${esc(wo.comments)}</p></div>` : ''}
+    ${wo.comments ? `<div><h3 class="font-bold mb-1">Notes</h3><p class="text-sm whitespace-pre-wrap">${linkify(wo.comments)}</p></div>` : ''}
+    ${(wo.photoLinks || []).length ? `<div><h3 class="font-bold mb-1">Photos (${wo.photoLinks.length})</h3><div class="flex flex-wrap gap-2">${wo.photoLinks.map((u, k) => `<a href="${esc(u)}" target="_blank" rel="noopener" class="btn btn-secondary" style="padding:.3rem .7rem;font-size:.75rem;text-decoration:none">Open photos${wo.photoLinks.length > 1 ? ' ' + (k + 1) : ''}</a>`).join('')}</div></div>` : ''}
     ${(wo.photos || []).length ? `<div><h3 class="font-bold mb-2">Photos / receipts</h3><div class="grid grid-cols-3 gap-2">${wo.photos.map(p => `<img src="${p}" style="width:100%;border-radius:6px;border:1px solid #cbd5e1">`).join('')}</div></div>` : ''}`;
 }
 function printDocument() { $('print-template').innerHTML = `<div class="paper p-4 space-y-5">${$('wo-printable-area').innerHTML}</div>`; window.print(); }
@@ -4990,7 +5130,7 @@ function saveExpiry(e) {
   if (i >= 0) state.expiries[i] = data; else state.expiries.push(data);
   closeModal('modal-expiry'); commit();
 }
-function deleteExpiry(id) { if (confirm('Delete this expiry date and its renewal records?')) { state.expiries = state.expiries.filter(x => x.id !== id); commit(); } }
+function deleteExpiry(id) { const x0 = state.expiries.find(x => x.id === id); if (x0 && confirm('Delete this expiry date and its renewal records? It goes to Recently deleted for 30 days.')) { trashAdd('expiry', `${expiryName(x0)} (${vehName(x0.vehicleId)})`, { expiry: x0 }); state.expiries = state.expiries.filter(x => x.id !== id); commit(); } }
 function openRenewModal(id) {
   const x = state.expiries.find(e => e.id === id); if (!x) return;
   const base = x.dueDate > todayStr() ? x.dueDate : todayStr();
@@ -5082,7 +5222,7 @@ function renderFuel() {
         <div class="min-w-0 space-y-1">
           <p class="text-[11px] text-stone-400">${fmtDate(e.date)} • ${fmtKm(e.odometer)}${e.station ? ' • ' + esc(e.station) : ''}${e.full ? '' : ' • part fill'}</p>
           ${(e.fuelType || e.additive) ? `<p class="flex flex-wrap gap-1.5">${e.fuelType ? `<span class="inline-block text-[10px] font-bold px-1.5 py-0.5 rounded border bg-stone-700/50 text-stone-200 border-stone-600">${esc(e.fuelType)}</span>` : ''}${e.additive ? `<span class="inline-block text-[10px] font-bold px-1.5 py-0.5 rounded border bg-amber-500/15 text-amber-300 border-amber-500/30">+ ${esc(e.additiveName || 'Additive')}</span>` : ''}</p>` : ''}
-          <p class="text-sm text-white font-semibold">${e.litres.toFixed(1)} L <span class="text-stone-400 font-normal">at €${(e.cost / e.litres).toFixed(3)}/L</span> • ${formatEur(e.cost)}</p>
+          <p class="text-sm text-white font-semibold">${e.litres.toFixed(1)} L <span class="text-stone-400 font-normal">at ${fuelPplText(e)}</span> • ${fuelTotalText(e)}</p>
           <p class="text-xs text-stone-400">${c ? `<span class="text-amber-300 font-semibold">${c.lp100.toFixed(1)} L/100 km</span> over ${fmtKm(c.km)}` : e.full ? 'First full tank (nothing earlier to compare with)' : 'Counted in the next full tank'}</p>
         </div>
         <div class="shrink-0">${iconBtn(`openFuelModal('${e.id}')`, 'edit-2', 'Edit')}</div>
@@ -5097,9 +5237,9 @@ function openFuelModal(id = null) {
   $('fuel-type').innerHTML = FUEL_TYPES.map(t => `<option>${t}</option>`).join('');
   const f = id && state.fuel.find(x => x.id === id);
   $('fuel-delete-btn').classList.toggle('hidden', !f);
-  if (f) { $('fuel-id').value = f.id; $('fuel-form-vehicle').value = f.vehicleId; $('fuel-date').value = f.date; $('fuel-odo').value = f.odometer; $('fuel-litres').value = f.litres; $('fuel-cost').value = f.cost; $('fuel-full').checked = !!f.full; $('fuel-station').value = f.station || ''; $('fuel-type').value = f.fuelType || fuelDefaults(f.vehicleId).type; $('fuel-additive').checked = !!f.additive; fuelAdditiveLabel(f.vehicleId); }
-  else { $('fuel-form-vehicle').value = fuelVeh || (liveVehicles()[0] || {}).id; $('fuel-date').value = todayStr(); fuelFormVehicleChanged(); }
-  fuelPreview(); openModal('modal-fuel');
+  if (f) { $('fuel-id').value = f.id; $('fuel-form-vehicle').value = f.vehicleId; $('fuel-date').value = f.date; $('fuel-odo').value = f.odometer; $('fuel-currency').value = f.currency || 'EUR'; $('fuel-price').value = f.price != null ? f.price : (f.litres ? +(f.cost / f.litres).toFixed(4) : ''); $('fuel-litres').value = f.litres; $('fuel-cost').value = f.costLocal != null ? f.costLocal : f.cost; fuelLast = 'litres'; $('fuel-full').checked = !!f.full; fuelStationFill(f.station || '', f.vehicleId); $('fuel-type').value = f.fuelType || fuelDefaults(f.vehicleId).type; $('fuel-additive').checked = !!f.additive; fuelAdditiveLabel(f.vehicleId); }
+  else { $('fuel-form-vehicle').value = fuelVeh || (liveVehicles()[0] || {}).id; $('fuel-date').value = todayStr(); $('fuel-currency').value = 'EUR'; fuelLast = 'litres'; fuelFormVehicleChanged(); fuelStationFill('', $('fuel-form-vehicle').value); }
+  fuelCurrencyChanged(true); openModal('modal-fuel');
 }
 function fuelDefaults(vehId) {
   const v = state.vehicles.find(x => x.id === vehId) || {}, last = fuelEntries(vehId).filter(e => e.fuelType).pop();
@@ -5110,18 +5250,62 @@ function fuelFormVehicleChanged() {
   const vid = $('fuel-form-vehicle').value; fuelAdditiveLabel(vid);
   if (!$('fuel-id').value) { setKmInput('fuel-odo', state.vehicles.find(v => v.id === vid)?.odometer || ''); const d = fuelDefaults(vid); $('fuel-type').value = d.type; $('fuel-additive').checked = !!d.additive; }
 }
-function fuelPreview() { const l = parseFloat($('fuel-litres').value), c = parseFloat($('fuel-cost').value); $('fuel-ppl').textContent = l > 0 && c >= 0 ? `That is €${(c / l).toFixed(3)} per litre` : ''; }
+const FUEL_SYM = { EUR: '\u20ac', GBP: '\u00a3', USD: '$', CAD: 'CA$', AUD: 'A$' };
+let fuelLast = 'litres';
+function fuelCurrencyChanged(keep) { const c = $('fuel-currency').value; document.querySelectorAll('.fuel-sym').forEach(e => e.textContent = FUEL_SYM[c] || ''); if (!keep) fuelCalc('price'); else fuelCalc(); }
+function fuelCalc(src) {
+  const ppl = parseFloat($('fuel-price').value), cur = $('fuel-currency').value, lv = $('fuel-litres').value, cv = $('fuel-cost').value;
+  if (src === 'litres' || src === 'cost') fuelLast = src;
+  if (ppl > 0) {
+    const useL = fuelLast === 'litres' ? parseFloat(lv) > 0 : !(parseFloat(cv) > 0);
+    if (useL) { const l = parseFloat(lv); if (l > 0) $('fuel-cost').value = +(l * ppl).toFixed(2); }
+    else { const t = parseFloat(cv); if (t > 0) $('fuel-litres').value = +(t / ppl).toFixed(2); }
+  }
+  const l = parseFloat($('fuel-litres').value), t = parseFloat($('fuel-cost').value), rate = state.rates[cur] || 1;
+  $('fuel-ppl').textContent = ppl > 0 && cur !== 'EUR' ? `About \u20ac${(ppl * rate).toFixed(3)} per litre${t > 0 ? ', \u20ac' + (t * rate).toFixed(2) + ' in total' : ''} at your saved exchange rate` : (l > 0 && t >= 0 ? `Total ${FUEL_SYM[cur]}${t.toFixed(2)} for ${l.toFixed(2)} litres` : '');
+}
+const fuelPplText = e => (e.currency && e.currency !== 'EUR' && e.price != null) ? `${FUEL_SYM[e.currency] || ''}${(+e.price).toFixed(3)}/L (\u20ac${(e.cost / e.litres).toFixed(3)})` : `\u20ac${(e.cost / e.litres).toFixed(3)}/L`;
+const fuelTotalText = e => (e.currency && e.currency !== 'EUR' && e.costLocal != null) ? `${FUEL_SYM[e.currency] || ''}${(+e.costLocal).toFixed(2)} (${formatEur(e.cost)})` : formatEur(e.cost);
+function fuelStations() {          // most used first, then most recent; spellings merged ignoring case
+  const m = new Map();
+  state.fuel.forEach(f => { const n = (f.station || '').trim(); if (!n) return; const k = n.toLowerCase(), r = m.get(k) || { name: n, count: 0, last: '' }; r.count++; if ((f.date || '') >= r.last) { r.last = f.date || ''; r.name = n; } m.set(k, r); });
+  return [...m.values()].sort((a, b) => b.count - a.count || b.last.localeCompare(a.last));
+}
+function fuelStationFill(cur, vehId) {
+  const list = fuelStations(), sel = $('fuel-station-sel');
+  sel.innerHTML = list.map(r => `<option value="${esc(r.name)}">${esc(r.name)}</option>`).join('') + `<option value="__other">Other (type it in)</option>`;
+  let pick = cur ? (list.find(r => r.name.toLowerCase() === cur.toLowerCase()) || {}).name : null;
+  if (!cur && list.length) { const last = state.fuel.filter(f => f.vehicleId === vehId && f.station).sort((a, b) => (a.date || '').localeCompare(b.date || '')).pop(); pick = last ? (list.find(r => r.name.toLowerCase() === last.station.trim().toLowerCase()) || {}).name : list[0].name; }
+  if (cur && !pick) { sel.value = '__other'; $('fuel-station').value = cur; }
+  else if (pick) { sel.value = pick; $('fuel-station').value = ''; }
+  else { sel.value = '__other'; $('fuel-station').value = ''; }
+  fuelStationChanged();
+}
+function fuelStationChanged() {
+  const other = $('fuel-station-sel').value === '__other'; $('fuel-station-new').classList.toggle('hidden', !other);
+  const name = other ? '' : $('fuel-station-sel').value, last = name ? state.fuel.filter(f => (f.station || '').trim().toLowerCase() === name.toLowerCase() && f.price != null || (f.station || '').trim().toLowerCase() === name.toLowerCase() && f.litres).sort((a, b) => (a.date || '').localeCompare(b.date || '')).pop() : null;
+  $('fuel-price').placeholder = last ? `last here: ${fuelPplText(last).replace(/ \(.*\)$/, '')}` : 'e.g. 1.649';
+}
 function saveFuel(e) {
   e.preventDefault();
   const id = $('fuel-id').value, vehId = $('fuel-form-vehicle').value, odo = parseInt($('fuel-odo').value) || 0;
+  const cur = $('fuel-currency').value, rate = state.rates[cur] || 1, ppl = parseFloat($('fuel-price').value);
+  let litres = parseFloat($('fuel-litres').value), total = parseFloat($('fuel-cost').value);
+  if (!(ppl > 0)) { toast('Enter the price per litre'); return; }
+  if (!(litres > 0) && total > 0) litres = +(total / ppl).toFixed(2);
+  if (!(litres > 0)) { toast('Enter either the litres or the total paid'); return; }
+  if (!(total >= 0) || isNaN(total)) total = +(litres * ppl).toFixed(2);
   { const fw = odoWarn(state.vehicles.find(v => v.id === vehId), odo, false); if (fw && !confirm(fw)) return; }
-  const data = { id: id || uid('f'), vehicleId: vehId, date: $('fuel-date').value || todayStr(), odometer: odo, litres: parseFloat($('fuel-litres').value) || 0, cost: parseFloat($('fuel-cost').value) || 0, full: $('fuel-full').checked, station: $('fuel-station').value.trim(), note: '', fuelType: $('fuel-type').value, additive: $('fuel-additive').checked, additiveName: fuelDefaults(vehId).additive };
+  const sel = $('fuel-station-sel').value, station = sel === '__other' ? $('fuel-station').value.trim() : sel;
+  const old = state.fuel.find(x => x.id === id);
+  const data = Object.assign({}, old || {}, { id: id || uid('f'), vehicleId: vehId, date: $('fuel-date').value || todayStr(), odometer: odo, litres, cost: +(total * rate).toFixed(2), full: $('fuel-full').checked, station, note: '', fuelType: $('fuel-type').value, additive: $('fuel-additive').checked, additiveName: fuelDefaults(vehId).additive });
+  if (cur !== 'EUR') { data.currency = cur; data.price = ppl; data.costLocal = total; } else { data.currency = 'EUR'; data.price = ppl; delete data.costLocal; }
   const i = state.fuel.findIndex(x => x.id === id);
   if (i >= 0) state.fuel[i] = data; else state.fuel.push(data);
   const veh = state.vehicles.find(v => v.id === vehId); if (veh && odo > veh.odometer) veh.odometer = odo;
   fuelVeh = vehId; closeModal('modal-fuel'); commit();
 }
-function deleteFuel() { const id = $('fuel-id').value; if (id && confirm('Delete this fill-up?')) { state.fuel = state.fuel.filter(f => f.id !== id); closeModal('modal-fuel'); commit(); } }
+function deleteFuel() { const id = $('fuel-id').value; if (id && confirm('Delete this fill-up? It goes to Recently deleted for 30 days.')) { { const f0 = state.fuel.find(f => f.id === id); if (f0) trashAdd('fuel', `${fmtDate(f0.date)} fill-up (${vehName(f0.vehicleId)})`, { fuel: f0 }); } state.fuel = state.fuel.filter(f => f.id !== id); closeModal('modal-fuel'); commit(); } }
 
 /* ---------- TYRES ---------- */
 const TYRE_POS = [['FL', 'Front left'], ['FR', 'Front right'], ['RL', 'Rear left'], ['RR', 'Rear right'], ['SP', 'Spare']];
@@ -5236,7 +5420,7 @@ function removeTyre(id) {
   if (!confirm(`Take off the ${posLabel(t.position).toLowerCase()} tyre (${t.brand} ${t.model})? It stays in the history.`)) return;
   t.status = 'Removed'; t.removedDate = todayStr(); t.removedOdo = v ? v.odometer : t.fittedOdo; commit();
 }
-function deleteTyreFromModal() { const id = $('tyre-id').value; if (id && confirm('Delete this tyre record for good? Its cost is removed from your totals.')) { state.tyres = state.tyres.filter(t => t.id !== id); closeModal('modal-tyre'); commit(); } }
+function deleteTyreFromModal() { const id = $('tyre-id').value; if (id && confirm('Delete this tyre record? Its cost is removed from your totals. It goes to Recently deleted for 30 days.')) { trashTyre(id); state.tyres = state.tyres.filter(t => t.id !== id); closeModal('modal-tyre'); commit(); } }
 function refitTyre(id) {
   const t = state.tyres.find(x => x.id === id); if (!t) return;
   const cur = fittedTyre(t.vehicleId, t.position);
@@ -5244,7 +5428,7 @@ function refitTyre(id) {
   if (!confirm(`Put this ${t.brand} ${t.model} back on the ${posLabel(t.position).toLowerCase()} wheel?`)) return;
   t.status = 'Fitted'; t.removedDate = ''; t.removedOdo = null; commit(); toast('Tyre is back on');
 }
-function deleteTyre(id) { if (confirm('Delete this tyre record for good?')) { state.tyres = state.tyres.filter(t => t.id !== id); commit(); } }
+function deleteTyre(id) { if (confirm('Delete this tyre record? It goes to Recently deleted for 30 days.')) { trashTyre(id); state.tyres = state.tyres.filter(t => t.id !== id); commit(); } }
 function openTreadModal() {
   const v = state.vehicles.find(x => x.id === tyreVeh); if (!v) { toast('Add a vehicle first'); return; }
   const fitted = TYRE_POS.map(p => fittedTyre(v.id, p[0])).filter(Boolean);
@@ -5369,7 +5553,7 @@ function buildHistoryReport(vehId, withCosts, withPhotos = false) {
   const rows = jobs.map(w => {
     const c = woCosts(w), pro = isPro(w), parts = (w.parts || []).map(p => `${esc(p.name)} ×${p.qty}`).join(', ');
     return `<tr><td style="white-space:nowrap">${fmtDate(w.datetime)}</td><td style="white-space:nowrap">${w.odometer ? fmtKm(w.odometer) : ''}</td>
-      <td><b>${esc(w.jobTitle)}</b>${parts ? `<div style="font-size:.72rem;color:#475569">Parts: ${parts}</div>` : ''}${w.comments ? `<div style="font-size:.72rem;color:#475569">${esc(w.comments)}</div>` : ''}</td>
+      <td><b>${esc(w.jobTitle)}</b>${parts ? `<div style="font-size:.72rem;color:#475569">Parts: ${parts}</div>` : ''}${w.comments ? `<div style="font-size:.72rem;color:#475569">${linkify(w.comments)}</div>` : ''}${(w.photoLinks || []).length ? `<div style="font-size:.72rem;color:#475569">Photos: ${w.photoLinks.map(u => linkify(u)).join(' ')}</div>` : ''}</td>
       <td>${pro ? 'Garage' + (w.provider ? ': ' + esc(w.provider) : '') : 'DIY'}</td>${withCosts ? `<td style="text-align:right;white-space:nowrap">${formatEur(c.total)}</td>` : ''}</tr>`;
   }).join('');
   const nctRows = state.expiries.filter(x => x.vehicleId === vehId && x.type === 'NCT / MOT').flatMap(x => (x.log || []).map(l => ({ ...l, name: expiryName(x) }))).sort((a, b) => (b.doneOn || '').localeCompare(a.doneOn || ''));
@@ -5450,8 +5634,8 @@ function exportCsv(kind) {
   const veh = id => state.vehicles.find(v => v.id === id) || {};
   if (kind === 'workorders') downloadCsv('jobs', [['Date', 'Vehicle', 'Reg', 'Job', 'Status', 'Odometer (km)', 'Done by', 'Garage', 'Parts EUR', 'Garage / other EUR', 'Total EUR', 'Parts used', 'Notes']].concat(
     state.workorders.slice().sort((a, b) => (a.datetime || '').localeCompare(b.datetime || '')).map(w => { const c = woCosts(w), v = veh(w.vehicleId); return [(w.datetime || '').slice(0, 10), `${v.make || ''} ${v.model || ''}`.trim(), v.reg, w.jobTitle, w.status, w.odometer || '', isPro(w) ? 'Garage' : 'DIY', w.provider, c.parts.toFixed(2), c.extra.toFixed(2), c.total.toFixed(2), (w.parts || []).map(p => `${p.qty} x ${p.name}`).join('; '), w.comments]; })));
-  else if (kind === 'fuel') downloadCsv('fuel', [['Date', 'Vehicle', 'Odometer (km)', 'Litres', 'Total EUR', 'EUR per litre', 'Full tank', 'Fuel type', 'Additive', 'Station']].concat(
-    state.fuel.slice().sort((a, b) => (a.date || '').localeCompare(b.date || '')).map(f => [f.date, vehName(f.vehicleId), f.odometer, f.litres, (+f.cost).toFixed(2), f.litres ? (f.cost / f.litres).toFixed(3) : '', f.full ? 'yes' : 'no', f.fuelType || '', f.additive ? (f.additiveName || 'yes') : '', f.station])));
+  else if (kind === 'fuel') downloadCsv('fuel', [['Date', 'Vehicle', 'Odometer (km)', 'Litres', 'Total EUR', 'EUR per litre', 'Full tank', 'Fuel type', 'Additive', 'Station', 'Currency', 'Price per litre (paid)']].concat(
+    state.fuel.slice().sort((a, b) => (a.date || '').localeCompare(b.date || '')).map(f => [f.date, vehName(f.vehicleId), f.odometer, f.litres, (+f.cost).toFixed(2), f.litres ? (f.cost / f.litres).toFixed(3) : '', f.full ? 'yes' : 'no', f.fuelType || '', f.additive ? (f.additiveName || 'yes') : '', f.station, f.currency || 'EUR', f.price != null ? f.price : ''])));
   else if (kind === 'renewals') downloadCsv('nct-tax-insurance', [['Vehicle', 'Type', 'Done on', 'Valid until', 'Result', 'Cost EUR', 'Note']].concat(
     state.expiries.flatMap(x => (x.log || []).map(l => [vehName(x.vehicleId), expiryName(x), l.doneOn, l.dueTo, l.result || '', l.cost ? (+l.cost).toFixed(2) : '', l.note]))));
   else if (kind === 'tyres') downloadCsv('tyres', [['Vehicle', 'Wheel', 'Brand', 'Model', 'Size', 'Type', 'DOT', 'Fitted', 'Fitted at (km)', 'Removed', 'Cost EUR', 'Status', 'Latest tread mm']].concat(
@@ -5533,13 +5717,13 @@ async function findRemoteFile() {
   return f;
 }
 async function driveDownload(id) { return (await driveFetch(`${DRIVE_API}/files/${id}?alt=media`)).json(); }
-async function driveCreate() {
+async function driveCreate(snap = JSON.stringify(state)) {
   const b = 'garageops' + Date.now();
-  const body = `--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({ name: DRIVE_FILE_NAME, mimeType: 'application/json' })}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(state)}\r\n--${b}--`;
+  const body = `--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({ name: DRIVE_FILE_NAME, mimeType: 'application/json' })}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${snap}\r\n--${b}--`;
   const f = await (await driveFetch(`${DRIVE_UPLOAD}/files?uploadType=multipart&fields=id`, { method: 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + b }, body })).json();
   settings.fileId = f.id; saveSettingsLocal();
 }
-async function driveUpdate(id) { await driveFetch(`${DRIVE_UPLOAD}/files/${id}?uploadType=media`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(state) }); }
+async function driveUpdate(id, snap = JSON.stringify(state)) { await driveFetch(`${DRIVE_UPLOAD}/files/${id}?uploadType=media`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: snap }); }
 
 async function syncNow(manual = false) {
   if (!settings.driveOn) { if (manual) toast('Connect Google Drive first'); return; }
@@ -5547,15 +5731,25 @@ async function syncNow(manual = false) {
   syncing = true; setSync('syncing');
   try {
     const f = await findRemoteFile();
-    if (!f) { await driveCreate(); }
+    let baseNow = null, note = '';
+    const upload = async () => { const snap = JSON.stringify(state), at = state.updatedAt; if (f) await driveUpdate(f.id, snap); else await driveCreate(snap); baseNow = { at, json: snap }; idbSet('force', false); };
+    if (!f) { await upload(); }
     else {
-      const remote = await driveDownload(f.id);
-      const rt = remote.updatedAt || EPOCH;
-      if (rt > state.updatedAt) {
-        if (dirty && !confirm('Google Drive has newer data from another device, but this device has unsynced changes.\n\nOK = use the Drive version (discard local changes)\nCancel = overwrite Drive with this device')) await driveUpdate(f.id);
-        else { adoptState(remote); toast('Loaded newer data from Drive'); }
-      } else if (state.updatedAt > rt) { await driveUpdate(f.id); }
+      const remote = await driveDownload(f.id), rt = remote.updatedAt || EPOCH, baseRec = await idbGet('base');
+      let action = 'none';
+      if (baseRec) { const changed = rt !== baseRec.at; action = changed ? (dirty ? 'merge' : 'adopt') : (dirty || state.updatedAt > rt ? 'upload' : 'none'); }
+      else action = rt > state.updatedAt ? (dirty ? 'merge' : 'adopt') : state.updatedAt > rt ? 'upload' : 'none';
+      if (await idbGet('force')) action = 'upload';   // a restored backup replaces what is in Drive, it is never merged back
+      if (action === 'adopt') { const rj = JSON.stringify(remote); adoptState(remote); baseNow = { at: rt, json: rj }; note = 'Loaded newer data from Drive'; }
+      else if (action === 'merge') {
+        const merged = mergeStates(baseRec ? JSON.parse(baseRec.json) : {}, state, remote);
+        adoptState(merged.state); await upload(); note = `Merged changes from another device${merged.conflicts ? ' (' + merged.conflicts + ' item' + (merged.conflicts > 1 ? 's' : '') + ' edited on both, newest kept)' : ''}`;
+      }
+      else if (action === 'upload') await upload();
+      else baseNow = { at: rt, json: JSON.stringify(state) };
     }
+    if (baseNow) idbSet('base', baseNow);
+    if (note) toast(note);
     dirty = false; idbSet('dirty', false); lastSyncAt = Date.now(); setSync('synced');
     if (manual) toast('Synced with Google Drive');
   } catch (e) {
@@ -5564,7 +5758,7 @@ async function syncNow(manual = false) {
     setSync(needAuth ? 'reconnect' : 'error', e.message);
     if (manual) toast('Sync failed: ' + e.message);
   } finally { syncing = false; }
-  if (syncState === 'synced') { await refreshReports(); maybeBackup(); }
+  if (syncState === 'synced') { purgeTrash(); await refreshReports(); maybeBackup(); }
 }
 async function connectDrive() {
   if (!$('modal-settings').classList.contains('hidden')) { const v = $('set-client-id').value.trim(); if (v !== settings.clientId) { settings.clientId = v; tokenClient = null; saveSettingsLocal(); } }
@@ -5647,7 +5841,7 @@ function reportModel(v) {
       return n;
     });
     const pro = isPro(w);
-    return { date: (w.datetime || '').slice(0, 10), odo: w.odometer ? km(w.odometer) : '', title: w.jobTitle || 'Job', items, notes: o.showNotes ? String(w.comments || '').trim().slice(0, 300) : '', by: pro ? (w.provider || 'Garage') : 'Owner', pro, cost: o.showCosts ? woCosts(w).total : 0 };
+    return { date: (w.datetime || '').slice(0, 10), odo: w.odometer ? km(w.odometer) : '', title: w.jobTitle || 'Job', items, notes: o.showNotes ? String(w.comments || '').trim().slice(0, 300) : '', links: o.showNotes ? urlsIn((w.photoLinks || []).join(' ') + ' ' + (w.comments || '')).slice(0, 3) : [], by: pro ? (w.provider || 'Garage') : 'Owner', pro, cost: o.showCosts ? woCosts(w).total : 0 };
   });
   const nctAll = [];
   let nctDue = '';
@@ -5688,7 +5882,7 @@ function reportModel(v) {
     title: `${v.make} ${v.model}`.trim() + (v.year ? ` (${v.year})` : '') + (v.engine ? ' · ' + v.engine : ''),
     reg: v.reg || '', vin: o.showVin ? (v.vin || '') : '', colour: v.colour || '', unit: U, costs: !!o.showCosts, contact: (o.contact || '').trim(),
     cards: [['Odometer now', km(v.odometer || 0) + ' ' + U], [nctLast && nctLast.result === 'Fail' ? 'NCT / MOT status' : 'NCT valid until', nctUntil], ['Next service due', nextSvc], ['Records', entries.length + (entries.length === 1 ? ' job' : ' jobs')]],
-    facts, entries, nct: o.showNct ? nctRows : null, tyres: o.showTyres ? tyreRows : null, tech: o.showTech ? groups : null
+    photos: urlOnly(v.photoFolder), facts, entries, nct: o.showNct ? nctRows : null, tyres: o.showTyres ? tyreRows : null, tech: o.showTech ? groups : null
   };
   m.hash = hashStr(JSON.stringify(m));
   return m;
@@ -5730,8 +5924,9 @@ function pdfWrap(s, size, bold, maxW) {
   return lines.length ? lines : [''];
 }
 class PdfDoc {
-  constructor() { this.W = 595.28; this.H = 841.89; this.pages = []; this.ops = null; }
-  page() { this.ops = []; this.pages.push(this.ops); }
+  constructor() { this.W = 595.28; this.H = 841.89; this.pages = []; this.ops = null; this.pl = []; this.cl = null; }
+  page() { this.ops = []; this.pages.push(this.ops); this.cl = []; this.pl.push(this.cl); }
+  link(x, y, w, h, url) { this.cl.push({ r: [x, this.H - y - h, x + w, this.H - y].map(n => this.f(n)).join(' '), u: String(url).replace(/[^\x21-\x7e]/g, '').replace(/([()\\])/g, '\\$1') }); }
   static col(h) { h = h.replace('#', ''); return [0, 2, 4].map(i => (parseInt(h.substr(i, 2), 16) / 255).toFixed(3)).join(' '); }
   f(n) { return (+n).toFixed(2); }
   rect(x, y, w, h, fill) { this.ops.push(`${PdfDoc.col(fill)} rg ${this.f(x)} ${this.f(this.H - y - h)} ${this.f(w)} ${this.f(h)} re f`); }
@@ -5754,9 +5949,11 @@ class PdfDoc {
     objs[3] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
     objs[4] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
     objs[5] = `<< /Title (${String(title).replace(/[^\x20-\x7e]/g, '').replace(/([()\\])/g, '\\$1')}) /Producer (DriveLog) /Creator (DriveLog) >>`;
+    let nxt = 6 + 2 * n;
     this.pages.forEach((ops, i) => {
-      const body = ops.join('\n');
-      objs[6 + 2 * i] = `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${this.f(this.W)} ${this.f(this.H)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${7 + 2 * i} 0 R >>`;
+      const body = ops.join('\n'), ids = [];
+      this.pl[i].forEach(a => { ids.push(nxt + ' 0 R'); objs[nxt++] = `<< /Type /Annot /Subtype /Link /Rect [${a.r}] /Border [0 0 0] /A << /S /URI /URI (${a.u}) >> >>`; });
+      objs[6 + 2 * i] = `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${this.f(this.W)} ${this.f(this.H)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${7 + 2 * i} 0 R${ids.length ? ' /Annots [' + ids.join(' ') + ']' : ''} >>`;
       objs[7 + 2 * i] = `<< /Length ${body.length} >>\nstream\n${body}\nendstream`;
     });
     let out = '%PDF-1.4\n'; const off = [];
@@ -5818,6 +6015,7 @@ function buildReportPdf(m) {
   });
   y += 8;
   if (m.contact) { y += 12; d.text(L, y, 'Questions about this car:', 8.6, true, CH); d.text(L + pdfW('Questions about this car: ', 8.6, true), y, m.contact, 8.6, false, CH); y += 4; }
+  if (m.photos) { y += 12; const lab = 'Photos of this car:  ', vw = pdfW('View photos', 8.6, true); d.text(L, y, lab, 8.6, true, CH); d.text(L + pdfW(lab, 8.6, true), y, 'View photos', 8.6, true, '#1d4ed8'); d.line(L + pdfW(lab, 8.6, true), y + 1.6, L + pdfW(lab, 8.6, true) + vw, y + 1.6, '#1d4ed8', 0.6); d.link(L + pdfW(lab, 8.6, true), y - 9, vw, 12, m.photos); y += 4; }
   y += 6;
 
   // ---- helpers for section bars and tables
@@ -5845,6 +6043,7 @@ function buildReportPdf(m) {
     pdfWrap(e.title, 8.7, true, workW).forEach(t => lines.push({ t, b: true, h: LH }));
     e.items.forEach(it => pdfWrap(it, 8.7, false, workW - 10).forEach((t, k) => lines.push({ t, bullet: k === 0, ind: true, h: LH })));
     if (e.notes) pdfWrap('Notes: ' + e.notes, 8.2, false, workW).forEach(t => lines.push({ t, small: true, h: 10.8 }));
+    (e.links || []).forEach((u, k) => lines.push({ t: 'Photos / link' + (e.links.length > 1 ? ' ' + (k + 1) : '') + ' (tap to open)', link: u, small: true, h: 10.8 }));
     const by = pdfWrap(e.by, 8.7, false, 140 - 12), byH = by.length * LH + 14;
     let i = 0, first = true;
     while (i < lines.length || first) {
@@ -5872,7 +6071,8 @@ function buildReportPdf(m) {
       lines.slice(i, i + n).forEach(ln => {
         const base = ly + (ln.small ? 8 : 8.4);
         if (ln.bullet) d.circle(wx + 3, base - 2.9, 1.7, AM);
-        d.text(wx + (ln.ind ? 10 : 0), base, ln.t, ln.small ? 8.2 : 8.7, !!ln.b, ln.small ? '#57534e' : CH);
+        d.text(wx + (ln.ind ? 10 : 0), base, ln.t, ln.small ? 8.2 : 8.7, !!ln.b, ln.link ? '#1d4ed8' : ln.small ? '#57534e' : CH);
+        if (ln.link) d.link(wx, base - 8, pdfW(ln.t, 8.2, false), 10, ln.link);
         ly += ln.h;
       });
       d.line(L, y + rh, R, y + rh, LINE);
@@ -6098,7 +6298,7 @@ function quickMileage(id) {
   const raw = parseFloat(el.value); if (isNaN(raw)) { toast('Type the odometer reading first'); return; }
   const km = Math.round(kd(raw)), w = odoWarn(v, km);
   if (w && !confirm(w)) return;
-  v.odometer = km; commit(); toast('Odometer updated, countdowns recalculated');
+  v.odometer = km; logOdo(v, km); commit(); toast('Odometer updated, countdowns recalculated');
 }
 
 /* ---------- archive a sold car ---------- */
@@ -6375,10 +6575,10 @@ function updateDataSizeLine() {
   el.textContent = `Your data file is ${(all / 1e6).toFixed(2)} MB, of which photos are ${(photos / 1e6).toFixed(2)} MB. Small files sync faster.`;
 }
 const BACKUP_PREFIX = 'DriveLog-backup-';
-async function backupNow(manual = false) {
-  if (!settings.driveOn) { if (manual) toast('Connect Google Drive first'); return; }
+async function backupNow(manual = false, suffix = '') {
+  if (!settings.driveOn) { if (manual) toast('Connect Google Drive first'); return false; }
   try {
-    const name = `${BACKUP_PREFIX}${todayStr()}.json`, b = 'dlbak' + Date.now();
+    const name = `${BACKUP_PREFIX}${todayStr()}${suffix}.json`, b = 'dlbak' + Date.now();
     const body = `--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({ name, mimeType: 'application/json' })}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(state)}\r\n--${b}--`;
     await driveFetch(`${DRIVE_UPLOAD}/files?uploadType=multipart&fields=id`, { method: 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + b }, body });
     const qs = new URLSearchParams({ q: `name contains '${BACKUP_PREFIX}' and trashed=false`, fields: 'files(id,name,createdTime)', orderBy: 'createdTime desc', pageSize: '50' });
@@ -6386,7 +6586,8 @@ async function backupNow(manual = false) {
     for (const f of list.slice(8)) await driveFetch(`${DRIVE_API}/files/${f.id}`, { method: 'DELETE' });
     state.backupAt = new Date().toISOString(); commit();
     if (manual) toast('Backup saved to your Drive');
-  } catch (e) { console.warn('Backup failed', e); if (manual) toast('Backup failed: ' + e.message); }
+    return true;
+  } catch (e) { console.warn('Backup failed', e); if (manual) toast('Backup failed: ' + e.message); return false; }
 }
 async function maybeBackup() {
   if (!settings.driveOn || !accessToken || Date.now() > tokenExpiry) return;
@@ -6599,6 +6800,133 @@ function saveFit(e) {
   if ($('fit-wo').checked) state.workorders.push({ id: 'wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4), vehicleId: vehId, jobTitle: `Fitted ${n === 1 ? '1 new tyre' : n + ' new tyres'} (${ticked.map(k => posLabel(k).toLowerCase()).join(', ')})`, status: 'Completed', odometer: odo, datetime: date + 'T12:00', laborSeconds: 0, doneBy: pro ? 'Professional' : 'DIY', provider: pro ? $('fit-provider').value.trim() : '', costExtra: pro ? Math.max(0, parseFloat($('fit-charge').value) || 0) : 0, checklists: [], parts: [], dtcs: [], comments: 'Tyre cost is recorded on the Tyres page.' + (blow.length ? ' Replaced after a blowout / puncture (' + blow.join(', ') + ').' : ''), photos: [], resetReminderIds: [] });
   if (v && odo > v.odometer) v.odometer = odo;
   closeModal('modal-fit'); commit(); toast(`${n} tyre${n > 1 ? 's' : ''} fitted` + ($('fit-wo').checked ? ' and work order logged' : ''));
+}
+
+
+/* ---------- part picker (work orders) ---------- */
+const stockBadge = i => i.qty <= 0 ? ['OUT', 'bg-rose-500/20 text-rose-300 border-rose-500/40'] : stockOf(i) === 'low' ? [`LOW • ${i.qty} ${i.unit}`, 'bg-amber-500/20 text-amber-300 border-amber-500/40'] : [`${i.qty} ${i.unit}`, 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'];
+function refreshPartBtn(row) {
+  const inv = state.inventory.find(i => i.id === row.querySelector('.wo-part-select').value), b = row.querySelector('.wo-part-btn');
+  if (!inv) { b.innerHTML = `<span class="text-amber-300 font-semibold">Choose a part...</span><i data-lucide="chevron-down" class="w-4 h-4 text-stone-400 shrink-0"></i>`; icons(); return; }
+  const [t, c] = stockBadge(inv);
+  b.innerHTML = `<span class="min-w-0 truncate"><b class="text-white">${esc(inv.name)}</b><span class="block text-[10px] text-stone-400 truncate">${esc([inv.brand, inv.code].filter(Boolean).join(' • '))}</span></span><span class="text-[10px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${c}">${esc(t)}</span>`;
+}
+function addWoPartAndPick() { addWoPartRow(); const rows = document.querySelectorAll('.wo-part-row'); openPartPicker(rows[rows.length - 1]); }
+let ppRow = null;
+function openPartPicker(row) {
+  ppRow = row; const vid = $('wo-vehicle-id').value;
+  $('pp-sub').textContent = `For ${vehName(vid) || 'this car'}${$('wo-job-title').value ? ' • ' + $('wo-job-title').value : ''}`;
+  $('pp-search').value = ''; renderPartPicker(); openModal('modal-partpick');
+}
+function renderPartPicker() {
+  const vid = $('wo-vehicle-id').value, toks = $('pp-search').value.trim().toLowerCase().split(/\s+/).filter(Boolean), cur = ppRow && ppRow.querySelector('.wo-part-select').value;
+  const match = i => !toks.length || toks.every(t => [i.name, i.brand, i.code, i.vendor, i.batch].some(f => (f || '').toLowerCase().includes(t)));
+  const byName = (a, b) => a.name.localeCompare(b.name);
+  const mine = state.inventory.filter(i => (!ownedByVehicle(i) || i.vehicleId === vid) && match(i));
+  const groups = [
+    ['In stock for this car', 'text-emerald-300', mine.filter(i => i.qty > 0).sort(byName), 'r-in'],
+    ['Out of stock', 'text-rose-300', mine.filter(i => i.qty <= 0).sort(byName), 'r-out'],
+    ['For other cars', 'text-stone-400', state.inventory.filter(i => ownedByVehicle(i) && i.vehicleId !== vid && match(i)).sort(byName), 'r-other']
+  ];
+  const row = (i, kind) => {
+    const [t, c] = stockBadge(i), tag = !ownedByVehicle(i) ? `<span class="pp-tag pp-any">Any car</span>` : (kind === 'r-other' ? `<span class="pp-tag pp-car">${esc(vehName(i.vehicleId))}</span>` : '');
+    const border = kind === 'r-out' ? '#f43f5e' : kind === 'r-other' ? '#78716c' : stockOf(i) === 'low' ? '#f59e0b' : '#10b981';
+    const price = kind === 'r-out' ? 'last ' + formatCurrency(i.price, i.currency).replace(/ [A-Z]{3}$/, '') : formatCurrency(i.price, i.currency).replace(/ [A-Z]{3}$/, '') + (BULK_UNITS.includes(i.unit) ? ' /' + i.unit.replace(/s$/, '').replace('litre', 'L') : '');
+    return `<button type="button" onclick="pickPart('${i.id}')" class="pp-row ${kind} ${i.id === cur ? 'pp-cur' : ''}" style="border-left-color:${border}">
+      <span class="min-w-0 text-left"><span class="block text-sm font-bold text-white leading-tight">${esc(i.name)} ${tag}</span><span class="block text-[11.5px] text-stone-400 mt-0.5">${esc([i.brand, i.code ? (i.brand ? '' : 'Part no. ') + i.code : ''].filter(Boolean).join(' • ')) || '&nbsp;'}</span></span>
+      <span class="text-right shrink-0"><span class="block text-[11px] font-bold px-2 py-0.5 rounded-md border ${c}">${esc(t)}</span><span class="block text-[11px] text-stone-400 mt-1">${esc(price)}</span></span></button>`;
+  };
+  $('pp-list').innerHTML = groups.map(([label, tone, items, kind]) => items.length ? `<div class="flex items-center gap-2 mt-4 mb-2 px-0.5 text-[11px] font-bold uppercase tracking-wider ${tone}"><span class="w-2 h-2 rounded-full" style="background:currentColor"></span>${label}<span class="ml-auto normal-case font-semibold opacity-80">${items.length} item${items.length > 1 ? 's' : ''}</span></div>${items.map(i => row(i, kind)).join('')}` : '').join('') || `<p class="text-sm text-stone-400 py-6 text-center">${state.inventory.length ? 'No part matches that search.' : 'No inventory yet. Add parts in Inventory first.'}</p>`;
+}
+function pickPart(id) {
+  if (!ppRow) return;
+  ppRow.querySelector('.wo-part-select').value = id; refreshPartBtn(ppRow); closeModal('modal-partpick'); updateWoCost();
+  const q = ppRow.querySelector('.wo-part-qty'); if (q) { q.focus(); q.select(); }
+}
+
+
+/* ---------- sync: merge changes made on two devices ---------- */
+const MERGE_KEYS = ['vehicles', 'inventory', 'checklists', 'reminders', 'workorders', 'expiries', 'fuel', 'tyres', 'rotations', 'trash'];
+function mergeStates(base, local, remote) {
+  const newerRemote = (remote.updatedAt || '') > (local.updatedAt || '');
+  const out = JSON.parse(JSON.stringify(newerRemote ? remote : local)); let conflicts = 0;
+  const idMap = a => { const m = new Map(); (a || []).forEach(x => m.set(x.id, x)); return m; }, ser = x => x == null ? null : JSON.stringify(x);
+  MERGE_KEYS.forEach(k => {
+    const B = idMap(base[k]), L = idMap(local[k]), R = idMap(remote[k]), ids = [...new Set([...(newerRemote ? [...R.keys(), ...L.keys()] : [...L.keys(), ...R.keys()]), ...B.keys()])], res = [];
+    ids.forEach(id => {
+      const b = B.get(id), l = L.get(id), r = R.get(id), sb = ser(b), sl = ser(l), sr = ser(r); let pick;
+      if (sl === sr) pick = l;
+      else if (sl === sb) pick = r;
+      else if (sr === sb) pick = l;
+      else {
+        conflicts++;
+        pick = l == null ? r : r == null ? l : (newerRemote ? r : l);
+        if (k === 'inventory' && b && l && r) { pick = Object.assign({}, pick, { qty: Math.max(0, +((b.qty || 0) + ((l.qty || 0) - (b.qty || 0)) + ((r.qty || 0) - (b.qty || 0))).toFixed(2)) }); }
+      }
+      if (pick != null) res.push(JSON.parse(JSON.stringify(pick)));
+    });
+    out[k] = res;
+  });
+  out.updatedAt = new Date().toISOString();
+  return { state: out, conflicts };
+}
+
+/* ---------- recently deleted ---------- */
+const TRASH_DAYS = 30;
+function trashAdd(kind, label, data) { state.trash = state.trash || []; state.trash.push({ id: uid('x'), kind, label, deletedAt: new Date().toISOString(), data }); }
+function trashTyre(id) { const t = state.tyres.find(x => x.id === id); if (t) trashAdd('tyre', `${posLabel(t.position)}: ${t.brand} ${t.model} (${vehName(t.vehicleId)})`, { tyre: t }); }
+const TRASH_KIND = { vehicle: 'Car', workorder: 'Job', tyre: 'Tyre', part: 'Part', reminder: 'Reminder', checklist: 'Checklist', fuel: 'Fill-up', expiry: 'Renewal' };
+function openTrash() {
+  const list = (state.trash || []).slice().sort((a, b) => b.deletedAt.localeCompare(a.deletedAt));
+  $('trash-body').innerHTML = list.length ? list.map(t => { const days = Math.floor((Date.now() - new Date(t.deletedAt)) / 864e5), left = Math.max(0, TRASH_DAYS - days);
+    return `<div class="bg-stone-900 border border-stone-700/80 rounded-lg p-3 flex items-center justify-between gap-3"><div class="min-w-0"><span class="text-[10px] font-bold uppercase tracking-wider text-amber-300">${esc(TRASH_KIND[t.kind] || t.kind)}</span><p class="text-sm font-semibold text-white truncate">${esc(t.label)}</p><p class="text-[11px] text-stone-400">deleted ${days === 0 ? 'today' : days + ' day' + (days > 1 ? 's' : '') + ' ago'} • ${left} day${left === 1 ? '' : 's'} left${t.kind === 'vehicle' ? ' • includes its jobs, fuel and tyres' : ''}</p></div>
+      <div class="flex gap-1.5 shrink-0"><button onclick="restoreTrash('${t.id}')" class="btn btn-secondary" style="padding:.35rem .65rem;font-size:.75rem">Restore</button><button onclick="purgeTrashItem('${t.id}')" class="icon-btn text-stone-400 hover:text-rose-400 bg-stone-700/60" aria-label="Delete for good"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></div>`; }).join('') : `<p class="text-sm text-stone-400 py-6 text-center">Nothing deleted recently.</p>`;
+  openModal('modal-trash');
+}
+function trashLabelUpdate() { const n = (state.trash || []).length, el = $('trash-btn-label'); if (el) el.textContent = n ? `Recently deleted (${n})` : 'Recently deleted'; }
+function restoreTrash(id) {
+  const t = (state.trash || []).find(x => x.id === id); if (!t) return; const d = t.data; let note = '';
+  const addAll = (key, arr) => { (arr || []).forEach(x => { if (!state[key].some(y => y.id === x.id)) state[key].push(x); }); };
+  if (t.kind === 'vehicle') { addAll('vehicles', [d.vehicle]); addAll('reminders', d.reminders); addAll('workorders', d.workorders); addAll('expiries', d.expiries); addAll('fuel', d.fuel); addAll('tyres', d.tyres); addAll('rotations', d.rotations); }
+  else if (t.kind === 'workorder') {
+    if (!state.vehicles.some(v => v.id === d.workorder.vehicleId)) { toast('Its car has been deleted. Restore the car first.'); return; }
+    addAll('workorders', [d.workorder]); (d.workorder.parts || []).forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) i.qty = Math.max(0, +(i.qty - p.qty).toFixed(2)); }); note = ' Parts it used were taken out of stock again.';
+  }
+  else if (t.kind === 'tyre') { const x = d.tyre; if (x.status === 'Fitted' && fittedTyre(x.vehicleId, x.position)) { x.status = 'Removed'; x.removedDate = todayStr(); x.removedOdo = (state.vehicles.find(v => v.id === x.vehicleId) || {}).odometer || x.fittedOdo; note = ' That wheel has a tyre now, so it came back under "Tyres taken off".'; } addAll('tyres', [x]); }
+  else if (t.kind === 'part') addAll('inventory', [d.part]);
+  else if (t.kind === 'reminder') addAll('reminders', [d.reminder]);
+  else if (t.kind === 'checklist') addAll('checklists', [d.checklist]);
+  else if (t.kind === 'fuel') addAll('fuel', [d.fuel]);
+  else if (t.kind === 'expiry') addAll('expiries', [d.expiry]);
+  state.trash = state.trash.filter(x => x.id !== id); commit(); openTrash(); toast('Restored.' + note);
+}
+function purgeTrashItem(id) {
+  const t = (state.trash || []).find(x => x.id === id); if (!t || !confirm('Delete this for good? It cannot be brought back.')) return;
+  retireTrashReport(t); state.trash = state.trash.filter(x => x.id !== id); commit(); openTrash();
+}
+function retireTrashReport(t) { const fid = t.kind === 'vehicle' && t.data.vehicle && t.data.vehicle.share && t.data.vehicle.share.fileId; if (fid && settings.driveOn) retireReport(fid); }
+function purgeTrash() {
+  const old = (state.trash || []).filter(t => Date.now() - new Date(t.deletedAt) > TRASH_DAYS * 864e5); if (!old.length) return;
+  old.forEach(retireTrashReport); const ids = new Set(old.map(t => t.id)); state.trash = state.trash.filter(t => !ids.has(t.id)); commit();
+}
+
+/* ---------- restore a Drive backup ---------- */
+async function openRestore() {
+  if (!settings.driveOn) { toast('Connect Google Drive first'); return; }
+  $('restore-body').innerHTML = `<p class="text-sm text-stone-400 py-6 text-center">Looking in your Drive...</p>`; openModal('modal-restore');
+  try {
+    const qs = new URLSearchParams({ q: `name contains '${BACKUP_PREFIX}' and trashed=false`, fields: 'files(id,name,createdTime,size)', orderBy: 'createdTime desc', pageSize: '20' });
+    const list = (await (await driveFetch(`${DRIVE_API}/files?${qs}`)).json()).files || [];
+    $('restore-body').innerHTML = list.length ? list.map(f => `<div class="bg-stone-900 border border-stone-700/80 rounded-lg p-3 flex items-center justify-between gap-3"><div class="min-w-0"><p class="text-sm font-semibold text-white">${esc(fmtDateTime(f.createdTime))}</p><p class="text-[11px] text-stone-400 truncate">${esc(f.name)}${f.size ? ' • ' + (f.size / 1e6).toFixed(2) + ' MB' : ''}</p></div><button onclick="restoreBackup('${f.id}')" class="btn btn-secondary shrink-0" style="padding:.35rem .65rem;font-size:.75rem">Restore</button></div>`).join('') : `<p class="text-sm text-stone-400 py-6 text-center">No backups yet. The first one is saved automatically about a week after you connect, or tap "Back up now".</p>`;
+  } catch (e) { $('restore-body').innerHTML = `<p class="text-sm text-rose-300 py-6 text-center">Could not read your Drive: ${esc(e.message)}</p>`; }
+}
+async function restoreBackup(id) {
+  if (!confirm('Replace everything in the app with this backup?\\n\\nYour current data is saved as a safety backup first, so you can undo this from the same list.')) return;
+  try {
+    if (!(await backupNow(false, '-before-restore')) && !confirm('The safety copy could not be saved. Restore anyway?')) return;
+    const data = await driveDownload(id); if (!data || !Array.isArray(data.vehicles)) throw new Error('That file is not a DriveLog backup');
+    adoptState(data); idbSet('force', true); commit(); closeModal('modal-restore'); closeModal('modal-settings'); toast('Backup restored');
+  } catch (e) { toast('Restore failed: ' + e.message); }
 }
 
 /* ---------- boot ---------- */
