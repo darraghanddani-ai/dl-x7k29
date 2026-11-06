@@ -4907,16 +4907,27 @@ function addWoPartRow(invId = '', qty = 1) {
 }
 function parseDtcData() {
   const raw = $('wo-raw-dtc').value; if (!raw.trim()) return;
-  const seen = new Set(); let added = 0;
+  const seen = new Set(); let added = 0, group = '', cur = null; const found = [];
+  // one fault per line: "P15A100 - description" (7 characters), "00470 - description" (5 digits, VW group) or a standard "P0300"
+  const head = /^\s*([PCBU][0-9A-F]{4,6}|\d{5})\s*(?:[-\u2013\u2014:]\s*(.*))?$/i;
   raw.split(/\r?\n/).forEach(line => {
-    const codes = [...line.matchAll(/\b([PCBU][0-3][0-9A-F]{3})\b/gi)].map(m => m[1].toUpperCase());
-    codes.forEach(code => {
-      if (seen.has(code)) return; seen.add(code);
-      let note = codes.length === 1 ? line.replace(new RegExp(code, 'i'), '').replace(/^[\s:\-–—,;|]+|\s+$/g, '') : '';
-      addDtcRow(code, note || 'Imported from scan log'); added++;
-    });
+    const h = line.match(head);
+    if (h && (h[2] || /^[PCBU]/i.test(h[1]))) { cur = { code: h[1].toUpperCase(), note: (h[2] || '').trim(), group, n: null }; found.push(cur); return; }
+    const hd = line.match(/^(\S[^:]*?)\s*:\s*$/);
+    if (hd && !/freeze/i.test(hd[1])) { group = hd[1].trim(); cur = null; return; }
+    const fc = line.match(/malfunction frequency counter\s*:\s*(\d+)/i);
+    if (fc && cur && cur.n == null) cur.n = +fc[1];
+    if (!h && !fc && /^\s*\S/.test(line) === false) return;
+    if (!h && !cur) {   // loose standard codes anywhere in free text
+      [...line.matchAll(/\b([PCBU][0-3][0-9A-F]{3})\b/gi)].forEach((m, _, all) => found.push({ code: m[1].toUpperCase(), note: all.length === 1 ? line.replace(new RegExp(m[1], 'i'), '').replace(/^[\s:\-\u2013\u2014,;|]+|\s+$/g, '') : '', group: '', n: null }));
+    }
   });
-  if (!added) { toast('No standard OBD codes (e.g. P0300) found'); return; }
+  found.forEach(f => {
+    const key = f.code + '|' + f.note; if (seen.has(key)) return; seen.add(key);
+    const note = (f.group ? '[' + f.group + '] ' : '') + (f.note || 'Imported from scan log') + (f.n ? ` (seen ${f.n}x)` : '');
+    addDtcRow(f.code, note); added++;
+  });
+  if (!added) { toast('No fault codes found. Paste the scan report text (e.g. P0300 or 00470 - description)'); return; }
   $('wo-raw-dtc').value = ''; toast(`${added} code${added > 1 ? 's' : ''} extracted`);
 }
 function addDtcRow(code = '', note = '') {
