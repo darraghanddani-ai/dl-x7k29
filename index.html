@@ -371,6 +371,9 @@
   .mb-1 {
     margin-bottom: var(--spacing);
   }
+  .mb-1\.5 {
+    margin-bottom: calc(var(--spacing) * 1.5);
+  }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
   }
@@ -394,6 +397,9 @@
   }
   .block {
     display: block;
+  }
+  .contents {
+    display: contents;
   }
   .flex {
     display: flex;
@@ -586,6 +592,9 @@
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
+  }
+  .gap-2\.5 {
+    gap: calc(var(--spacing) * 2.5);
   }
   .gap-3 {
     gap: calc(var(--spacing) * 3);
@@ -1239,9 +1248,6 @@
   .whitespace-pre-line {
     white-space: pre-line;
   }
-  .whitespace-pre-wrap {
-    white-space: pre-wrap;
-  }
   .text-amber-200 {
     color: var(--color-amber-200);
   }
@@ -1324,6 +1330,12 @@
   .accent-rose-500 {
     accent-color: var(--color-rose-500);
   }
+  .opacity-50 {
+    opacity: 50%;
+  }
+  .opacity-60 {
+    opacity: 60%;
+  }
   .opacity-70 {
     opacity: 70%;
   }
@@ -1389,6 +1401,10 @@
   }
   .file\:text-white::file-selector-button {
     color: var(--color-white);
+  }
+  .last\:border-0:last-child {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
   }
   @media (hover: hover) {
     .hover\:border-amber-500\/50:hover {
@@ -1827,6 +1843,65 @@
   .viz-col:hover .viz-bar, .viz-col:focus-visible .viz-bar { filter:brightness(1.3); }
   .viz-col:focus { outline:none; }
   .viz-col:focus-visible { outline:2px solid #a8a29e; outline-offset:-2px; border-radius:4px; }
+  /* printed / on-screen job sheets and the folder cover */
+  .paper .ps{font:12.5px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1c1917;background:#fff;padding:28px 32px 22px;-webkit-print-color-adjust:exact;print-color-adjust:exact;text-align:left}
+  .paper.ps-wrap{padding:0 !important}
+  .paper .ps .ps-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding-bottom:10px;border-bottom:3px solid #f59e0b}
+  .paper .ps .ps-brand{display:flex;align-items:center;gap:8px;color:#78716c;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .paper .ps .ps-logo{width:22px;height:22px;border-radius:6px;background:#1c1917;display:inline-grid;place-items:center;flex:none}
+  .paper .ps .ps-title{font-size:23px;font-weight:700;letter-spacing:-.01em;line-height:1.15;margin:0}
+  .paper .ps .ps-car{color:#b45309;font-weight:700;font-size:13px;margin-top:2px}
+  .paper .ps .ps-ref{text-align:right;color:#78716c;font-size:11px;flex:none}
+  .paper .ps .ps-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0;border-bottom:1px solid #e7e0d3;padding-bottom:10px}
+  .paper .ps small{display:block;color:#78716c;font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700}
+  .paper .ps .ps-facts b{font-size:13px}
+  .paper .ps .ps-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+  .paper .ps .ps-card{border:1px solid #d6cfc2;border-radius:8px;padding:5px 12px}
+  .paper .ps .ps-card.tot{border:2px solid #1c1917}
+  .paper .ps .ps-card b{font-size:17px;font-family:ui-monospace,Menlo,monospace}
+  .paper .ps .ps-h2{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:#b45309;font-weight:800;display:flex;gap:10px;align-items:center;margin:0 0 6px}
+  .paper .ps .ps-h2:after{content:"";flex:1;height:1px;background:#e7e0d3}
+  .paper .ps .ps-sec{margin-bottom:10px;break-inside:avoid}
+  .paper .ps .ps-strip{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap}
+  .paper .ps .ps-pill{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:99px;border:1px solid;white-space:nowrap}
+  .paper .ps .ps-pill.pass{background:#e8f7ef;color:#047857;border-color:#a7e3c4}
+  .paper .ps .ps-pill.warn{background:#fff1d6;color:#92580a;border-color:#f1c777}
+  .paper .ps .ps-pill.fail{background:#fde8ec;color:#be123c;border-color:#f3b0be}
+  .paper .ps table{width:100%;border-collapse:collapse;font-size:inherit}
+  .paper .ps th{background:none;border:0;border-bottom:1.5px solid #1c1917;font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:#78716c;text-align:left;padding:4px 6px}
+  .paper .ps td{border:0;border-bottom:1px solid #eee7da;padding:3px 6px;vertical-align:top}
+  .paper .ps tr{break-inside:avoid}
+  .paper .ps tr.grp td{font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;background:#f5efe3;padding:3px 6px}
+  .paper .ps .r{text-align:right}
+  .paper .ps .ps-code{color:#78716c;font-size:10.5px}
+  .paper .ps tr.tt td{border-bottom:0;font-weight:700;padding-top:6px}
+  .paper .ps .ps-rem{display:grid;grid-template-columns:1fr 1fr;gap:12px;border:1px solid #d6cfc2;border-radius:7px;padding:6px 12px;margin-bottom:6px}
+  .paper .ps .ps-rem b{font-size:12.5px}
+  .paper .ps .ps-dtc{display:flex;gap:10px;border:1px solid #d6cfc2;border-radius:7px;padding:6px 10px;margin-bottom:5px}
+  .paper .ps .ps-dtc b{font-family:ui-monospace,Menlo,monospace;background:#1c1917;color:#fff;border-radius:4px;padding:0 7px;height:fit-content}
+  .paper .ps .ps-notes{border-left:3px solid #f59e0b;padding:6px 12px;white-space:pre-line}
+  .paper .ps .ps-notes a{color:#b45309}
+  .paper .ps .ps-two{display:flex;gap:18px;align-items:flex-start;justify-content:space-between}
+  .paper .ps .ps-thumbs{display:flex;gap:8px;flex-wrap:wrap}
+  .paper .ps .ps-thumbs img{width:104px;height:62px;object-fit:cover;border-radius:5px;border:1px solid #d6cfc2}
+  .paper .ps .ps-qrs{display:flex;gap:12px}
+  .paper .ps .ps-qr{display:block;text-align:center;font-size:9.5px;color:#57534e;text-decoration:none}
+  .paper .ps .ps-qr svg{width:78px;height:78px;border:1px solid #d6cfc2;border-radius:4px;margin:0 auto 2px}
+  .paper .ps .ps-foot{display:flex;justify-content:space-between;color:#78716c;font-size:9.5px;border-top:1px solid #e7e0d3;padding-top:5px;margin-top:14px}
+  .paper .ps .ps-kf{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+  .paper .ps .ps-kf div{border:1px solid #d6cfc2;border-radius:7px;padding:7px 12px}
+  .paper .ps .ps-kf b{font-size:12.5px}
+  .paper .ps .ps-intro{color:#57534e;max-width:560px;margin-top:6px}
+  .ps-page{break-after:page}
+  .ps-page:last-child{break-after:auto}
+  @media screen and (max-width:639px) {
+    .paper .ps{padding:16px}
+    .paper .ps .ps-facts,.paper .ps .ps-sum{grid-template-columns:1fr 1fr}
+    .paper .ps .ps-rem,.paper .ps .ps-kf{grid-template-columns:1fr}
+    .paper .ps .ps-two{flex-direction:column}
+    .paper .ps table{font-size:11px}
+    .paper .ps .ps-title{font-size:19px}
+  }
   #print-template { display:none; }
   @media (max-width:639px) {
     .modal { padding:.5rem; align-items:flex-end; }
@@ -1843,10 +1918,13 @@
     .resp-table td.actions { justify-content:flex-end; }
     .resp-table td.actions::before { content:none; }
   }
+  @page { size:A4; margin:12mm; }
   @media print {
+    .paper .ps { padding:0 !important; }
     body > *:not(#print-template) { display:none !important; }
     #print-template { display:block !important; background:#fff; color:#000; }
-    body { background:#fff !important; }
+    html { color-scheme:light !important; }
+    html, body { background:#fff !important; }
     .paper table, .paper tr, .paper img { break-inside: avoid; }
   }
 </style>
@@ -2041,7 +2119,7 @@
       <div><h2 class="text-2xl font-bold text-white">Vehicle History & Costs</h2><p class="text-sm text-stone-400">Every completed job on one vehicle, DIY and garage, with a full cost breakdown. Built from your work orders, so there is nothing extra to enter.</p></div>
       <div class="grid grid-cols-2 sm:flex gap-2 w-full sm:w-auto sm:shrink-0 whitespace-nowrap">
         <button onclick="printHistory()" class="btn btn-secondary"><i data-lucide="printer" class="w-4 h-4"></i> Print history</button>
-        <button onclick="printSalePack()" class="btn btn-primary"><i data-lucide="file-text" class="w-4 h-4"></i> Sale pack</button>
+        <button onclick="openPrintFolder()" class="btn btn-primary"><i data-lucide="file-text" class="w-4 h-4"></i> Print folder</button>
       </div>
     </div>
     <div class="bg-stone-800 border border-stone-700 rounded-xl p-4 grid gap-3 sm:grid-cols-3 sm:items-end">
@@ -2411,6 +2489,7 @@
         <button onclick="closeModal('modal-wo-viewer')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-6 h-6"></i></button>
       </div>
     </div>
+    <div id="vm-opts-wrap"><div class="text-[11px] uppercase tracking-wider text-stone-400 font-semibold mb-1.5">Include on the sheet (remembered)</div><div id="vm-opts" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div></div>
     <div id="wo-printable-area" class="paper p-6 rounded-xl space-y-5"></div>
   </div>
 </div>
@@ -2731,6 +2810,21 @@
 
 <div id="more-menu" class="hidden fixed z-50 bg-stone-800 border border-stone-600 rounded-xl shadow-2xl p-1.5 min-w-[13rem]"></div>
 <div id="viz-tip" class="hidden fixed z-[70] pointer-events-none bg-stone-950 border border-stone-600 rounded-lg px-3 py-2 text-xs shadow-xl"></div>
+<!-- MODAL: PRINT FOLDER -->
+<div id="modal-printfolder" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-stone-700 pb-3">
+      <div><h3 class="text-lg font-bold text-white">Print service history</h3><p id="pf-car" class="text-xs text-stone-400"></p></div>
+      <button onclick="closeModal('modal-printfolder')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div><div class="text-[11px] uppercase tracking-wider text-stone-400 font-semibold mb-1.5">Include on the sheets (remembered)</div><div id="pf-opts" class="grid grid-cols-2 gap-2"></div></div>
+    <div><div class="flex justify-between items-center mb-1.5"><div id="pf-count" class="text-[11px] uppercase tracking-wider text-stone-400 font-semibold"></div><button type="button" id="pf-toggle" onclick="pfToggleAll()" class="text-xs font-semibold text-amber-400"></button></div>
+      <div id="pf-jobs" class="bg-stone-900 border border-stone-700 rounded-lg overflow-hidden"></div>
+      <p class="text-[11px] text-stone-400 mt-2">Newest first. A cover page with a contents list is added automatically.</p></div>
+    <div class="flex gap-2"><button type="button" onclick="closeModal('modal-printfolder')" class="btn btn-secondary flex-1">Cancel</button><button type="button" onclick="printFolder()" class="btn btn-primary flex-1">Print or save as PDF</button></div>
+  </div>
+</div>
+
 <!-- MODAL: RECENTLY DELETED -->
 <div id="modal-trash" class="modal hidden">
   <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
@@ -5012,6 +5106,7 @@ function setViewMode(m) { viewMode = m; renderViewer(); }
 function renderViewer() {
   const wo = state.workorders.find(w => w.id === viewId); if (!wo) return;
   $('vm-history').classList.toggle('hidden', wo.status !== 'Completed');
+  $('vm-opts-wrap').classList.toggle('hidden', viewMode === 'invoice'); renderPrintOpts();
   $('vm-report').className = 'px-3 py-1.5 ' + (viewMode === 'report' ? 'bg-amber-500 text-stone-900' : 'bg-stone-900 text-stone-300');
   $('vm-invoice').className = 'px-3 py-1.5 ' + (viewMode === 'invoice' ? 'bg-amber-500 text-stone-900' : 'bg-stone-900 text-stone-300');
   const v = state.vehicles.find(x => x.id === wo.vehicleId) || { make: 'Unknown', model: '' };
@@ -5041,25 +5136,19 @@ function renderViewer() {
     <tr><td style="font-weight:700">Total cost</td><td style="text-align:right;font-weight:700">${formatEur(c.total)}</td></tr></tbody></table>`;
 
   if (viewMode === 'invoice') {
+    $('wo-printable-area').className = 'paper p-6 rounded-xl space-y-5';
     $('wo-printable-area').innerHTML = head + `<div><h3 class="font-bold mb-2">Parts</h3>${partsTable}</div><div><h3 class="font-bold mb-2">Cost breakdown</h3>${costTable}</div><p class="text-xs text-stone-500">DIY labour is not charged. Foreign-currency prices are converted to EUR at the rate saved with this order.</p>`;
     return;
   }
-  $('wo-printable-area').innerHTML = head + `
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-      <div class="border border-stone-300 rounded p-2"><div class="text-xs text-stone-500">${pro ? 'Garage' : 'Labor time'}</div><div class="font-bold">${pro ? esc(wo.provider || 'Professional') : fmtHMS(wo.laborSeconds || 0)}</div></div>
-      <div class="border border-stone-300 rounded p-2"><div class="text-xs text-stone-500">Parts</div><div class="font-bold">${parts.length} items</div></div>
-      <div class="border border-stone-300 rounded p-2"><div class="text-xs text-stone-500">${pro ? 'Garage invoice' : 'Other costs'}</div><div class="font-bold">${formatEur(c.extra)}</div></div>
-      <div class="border border-stone-300 rounded p-2"><div class="text-xs text-stone-500">Total cost</div><div class="font-bold">${formatEur(c.total)}</div></div>
-    </div>
-    ${resetNames.length ? `<div class="text-sm"><b>Service reminders reset:</b> ${resetNames.map(esc).join(', ')}</div>` : ''}
-    <div><h3 class="font-bold mb-2">Checklist</h3>${(wo.checklists || []).length ? `<table><thead><tr><th>Item</th><th>Result</th><th>Notes</th></tr></thead><tbody>${wo.checklists.map(c => c.heading ? `<tr><td colspan="3" style="font-weight:700;background:#f1f5f9">${esc(c.text)}</td></tr>` : `<tr><td>${esc(c.text)}</td><td style="font-weight:700;color:${stColor[c.status] || '#000'}">${esc(c.status)}</td><td>${esc(c.comment)}</td></tr>`).join('')}</tbody></table>` : '<p class="text-sm text-stone-500 italic">No checklist items.</p>'}</div>
-    <div><h3 class="font-bold mb-2">Parts used</h3>${partsTable}</div>
-    ${(wo.dtcs || []).length ? `<div><h3 class="font-bold mb-2">Diagnostic codes</h3><table><thead><tr><th>Code</th><th>Notes</th></tr></thead><tbody>${wo.dtcs.map(d => `<tr><td style="font-family:monospace;font-weight:700">${esc(d.code)}</td><td>${esc(d.note)}</td></tr>`).join('')}</tbody></table></div>` : ''}
-    ${wo.comments ? `<div><h3 class="font-bold mb-1">Notes</h3><p class="text-sm whitespace-pre-wrap">${linkify(wo.comments)}</p></div>` : ''}
-    ${(wo.photoLinks || []).length ? `<div><h3 class="font-bold mb-1">Photos (${wo.photoLinks.length})</h3><div class="flex flex-wrap gap-2">${wo.photoLinks.map((u, k) => `<a href="${esc(u)}" target="_blank" rel="noopener" class="btn btn-secondary" style="padding:.3rem .7rem;font-size:.75rem;text-decoration:none">Open photos${wo.photoLinks.length > 1 ? ' ' + (k + 1) : ''}</a>`).join('')}</div></div>` : ''}
-    ${(wo.photos || []).length ? `<div><h3 class="font-bold mb-2">Photos / receipts</h3><div class="grid grid-cols-3 gap-2">${wo.photos.map(p => `<img src="${p}" style="width:100%;border-radius:6px;border:1px solid #cbd5e1">`).join('')}</div></div>` : ''}`;
+  $('wo-printable-area').className = 'paper ps-wrap rounded-xl overflow-hidden';
+  $('wo-printable-area').innerHTML = woSheetHtml(wo, printOpts, '');
 }
-function printDocument() { $('print-template').innerHTML = `<div class="paper p-4 space-y-5">${$('wo-printable-area').innerHTML}</div>`; window.print(); }
+function printDocument() {
+  const wo = state.workorders.find(w => w.id === viewId); if (!wo) return;
+  const rep = viewMode !== 'invoice';
+  $('print-template').innerHTML = rep ? `<div class="paper ps-wrap">${$('wo-printable-area').innerHTML}</div>` : `<div class="paper p-4 space-y-5">${$('wo-printable-area').innerHTML}</div>`;
+  printWithTitle(pdfName(wo.jobTitle + (rep ? '' : ' - Cost summary'), wo.vehicleId, (wo.datetime || '').slice(0, 10)));
+}
 
 /* ---------- small shared helpers for the new tabs ---------- */
 const vehicleOptionsHtml = () => liveVehicles().map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')})</option>`).join('');
@@ -5596,7 +5685,7 @@ function buildHistoryReport(vehId, withCosts, withPhotos = false) {
 function printHistory() {
   if (!histVeh) return toast('Add a vehicle first');
   $('print-template').innerHTML = `<div class="paper p-4 space-y-5">${buildHistoryReport(histVeh, $('hist-costs').checked, $('hist-photos').checked)}</div>`;
-  window.print();
+  printWithTitle(pdfName('Service Summary', histVeh, todayStr()));
 }
 
 /* DriveLog mark for printouts (SVG prints even when the browser drops background colours) */
@@ -6558,7 +6647,7 @@ function printReorder() {
   const rows = reorderRows(); if (!rows.length) return;
   $('print-template').innerHTML = `<div class="paper p-4 space-y-5"><div class="flex justify-between items-start border-b-2 border-stone-800 pb-3 gap-3"><div><h2 class="text-2xl font-extrabold">Parts reorder list</h2><p class="text-sm text-stone-600">${esc(fmtDate(todayStr()))}</p></div>${printBrand('Vehicle maintenance log')}</div>
     <table><thead><tr><th>Item</th><th>Part no.</th><th>For</th><th>In stock</th><th>Last bought</th></tr></thead><tbody>${rows.map(({ i, last }) => `<tr><td><b>${esc(i.name)}</b>${i.brand ? `<div style="font-size:.72rem;color:#475569">${esc(i.brand)}</div>` : ''}</td><td>${esc(i.code || '')}</td><td>${ownedByVehicle(i) ? esc(vehName(i.vehicleId)) : 'Any'}</td><td>${i.qty} ${esc(i.unit)}</td><td>${last ? esc(fmtDate(last.date)) + '<div style="font-size:.72rem;color:#475569">' + esc(last.vendor || '') + ' ' + esc(formatCurrency(last.price, last.currency)) + '</div>' : esc(i.vendor || '')}</td></tr>`).join('')}</tbody></table></div>`;
-  window.print();
+  printWithTitle(`${dmyShort(todayStr())} - Parts Reorder List - DriveLog`);
 }
 
 /* ---------- storage: photo shrinking, backups ---------- */
@@ -6938,6 +7027,125 @@ async function restoreBackup(id) {
     const data = await driveDownload(id); if (!data || !Array.isArray(data.vehicles)) throw new Error('That file is not a DriveLog backup');
     adoptState(data); idbSet('force', true); commit(); closeModal('modal-restore'); closeModal('modal-settings'); toast('Backup restored');
   } catch (e) { toast('Restore failed: ' + e.message); }
+}
+
+
+/* ---------- printing: PDF file names, print options, job sheets, service folder ---------- */
+const BASE_TITLE = document.title;
+const dmyShort = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ''); return m ? `${m[3]}.${m[2]}.${m[1].slice(2)}` : ''; };
+// "11.11.26 - Brake Pads Replacement - Skoda Superb 3T4 2016 - DriveLog"
+function pdfName(job, vehId, iso) {
+  const v = state.vehicles.find(x => x.id === vehId) || {}, car = [v.make, v.model, v.year].filter(Boolean).join(' ');
+  return [dmyShort(iso || todayStr()), job, car, 'DriveLog'].filter(Boolean).join(' - ');
+}
+function printWithTitle(name) {
+  document.title = String(name).replace(/[\\/:*?"<>|]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 150) || BASE_TITLE;
+  const back = () => { document.title = BASE_TITLE; window.removeEventListener('afterprint', back); };
+  window.addEventListener('afterprint', back); setTimeout(back, 120000);
+  window.print();
+}
+const PRINT_DEFAULTS = { costs: false, notes: true, dtc: false, photos: true };
+let printOpts = Object.assign({}, PRINT_DEFAULTS);
+try { printOpts = Object.assign(printOpts, JSON.parse(localStorage.getItem('drivelog.printopts') || '{}')); } catch (e) {}
+const PO_LIST = [['costs', 'Costs', 'Prices, totals and cost cards'], ['notes', 'Notes', 'Job notes'], ['dtc', 'Diagnostic codes', 'Fault codes from scans'], ['photos', 'Photos', 'Thumbnails and QR for photo links']];
+const printOptsHtml = () => PO_LIST.map(([k, l, d]) => `<label class="flex items-start gap-2.5 bg-stone-900 border ${printOpts[k] ? 'border-amber-500/40' : 'border-stone-700'} rounded-lg px-3 py-2 cursor-pointer"><input type="checkbox" data-po="${k}" ${printOpts[k] ? 'checked' : ''} onchange="setPrintOpt('${k}',this.checked)" class="w-5 h-5 mt-0.5 accent-amber-600 shrink-0"><span><b class="block text-sm text-white">${l}</b><span class="text-[11px] text-stone-400">${d}</span></span></label>`).join('');
+function renderPrintOpts() { ['vm-opts', 'pf-opts'].forEach(id => { const el = $(id); if (el) el.innerHTML = printOptsHtml(); }); }
+function setPrintOpt(k, on) {
+  printOpts[k] = !!on; try { localStorage.setItem('drivelog.printopts', JSON.stringify(printOpts)); } catch (e) {}
+  if (!$('modal-wo-viewer').classList.contains('hidden')) renderViewer(); else renderPrintOpts();
+}
+
+const fmtHm = sec => { sec = Math.round(sec || 0); const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60); return h ? `${h}h ${String(m).padStart(2, '0')}m` : m ? `${m}m` : sec ? '<1m' : '—'; };
+const PS_LOGO = '<span class="ps-logo"><svg width="14" height="14" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 36C128 70 146 92 146 116a46 46 0 0 1-92 0C54 92 72 70 100 36z" fill="#f59e0b"/></svg></span>';
+const psQr = (url, cap) => { try { return `<a class="ps-qr" href="${esc(url)}" target="_blank" rel="noopener">${qrSvgString(url, 2)}${cap}</a>`; } catch (e) { return ''; } };
+const addMonthsIso = (iso, m) => { const d = new Date(iso + 'T00:00:00'); d.setMonth(d.getMonth() + m); return d.toISOString().slice(0, 10); };
+
+function woSheetHtml(wo, o, foot) {
+  const v = state.vehicles.find(x => x.id === wo.vehicleId) || { make: 'Unknown', model: '' }, parts = wo.parts || [], c = woCosts(wo), pro = isPro(wo);
+  const pillOf = st => ({ 'Pass': ['pass', '&#10003; Pass'], 'Needs Attention': ['warn', '! Needs attention'], 'Fail': ['fail', '&#10007; Fail'] }[st] || ['', esc(st || '—')]);
+  const items = (wo.checklists || []).filter(x => !x.heading), n = k => items.filter(x => x.status === k).length;
+  const pill = st => { const p = pillOf(st); return `<span class="ps-pill ${p[0]}">${p[1]}</span>`; };
+  const card = (l, val, cls = '') => `<div class="ps-card ${cls}"><small>${l}</small><b>${val}</b></div>`;
+  const sum = o.costs
+    ? [pro ? card('Garage', esc(wo.provider || 'Professional')) : card('Labour time', fmtHm(wo.laborSeconds)), card('Parts', `${parts.length} item${parts.length === 1 ? '' : 's'}`), card(pro ? 'Garage invoice' : 'Other costs', formatEur(c.extra)), card('Total cost', formatEur(c.total), 'tot')]
+    : [pro ? card('Garage', esc(wo.provider || 'Professional')) : card('Labour time', fmtHm(wo.laborSeconds)), card('Parts', `${parts.length} item${parts.length === 1 ? '' : 's'}`), card('Done by', pro ? 'Garage' : 'DIY'), card('Odometer', wo.odometer ? fmtKm(wo.odometer) : '—')];
+  const sec = (title, body) => `<div class="ps-sec"><div class="ps-h2">${title}</div>${body}</div>`;
+  const chk = items.length || (wo.checklists || []).length ? sec('Checklist', `<div class="ps-strip"><span class="ps-pill pass">&#10003; ${n('Pass')} passed</span><span class="ps-pill warn">! ${n('Needs Attention')} needs attention</span><span class="ps-pill fail">&#10007; ${n('Fail')} failed</span></div>
+    <table><thead><tr><th style="width:38%">Item</th><th style="width:24%">Result</th><th>Notes</th></tr></thead><tbody>${(wo.checklists || []).map(x => x.heading ? `<tr class="grp"><td colspan="3">${esc(x.text)}</td></tr>` : `<tr><td>${esc(x.text)}</td><td>${pill(x.status)}</td><td>${esc(x.comment || '')}</td></tr>`).join('')}</tbody></table>`) : '';
+  const partRow = p => {
+    const inv = state.inventory.find(i => i.id === p.invId), sub = [inv && inv.brand, p.code].filter(Boolean).map(esc).join(' &middot; '), we = warrantyEnd(wo, p), eu = p.eurUnit ?? convertToEuro(p.price, p.currency);
+    return `<tr><td>${esc(p.name)}${sub ? `<div class="ps-code">${sub}</div>` : ''}${we ? `<div class="ps-code">Warranty to ${fmtDate(we)}</div>` : ''}</td><td class="r">${p.qty} ${esc(p.unit || '')}</td>${o.costs ? `<td class="r">${formatEur(eu)}</td><td class="r">${formatEur(p.qty * eu)}</td>` : ''}</tr>`;
+  };
+  const tot = o.costs ? `<tr class="tt"><td colspan="3" class="r">Parts</td><td class="r">${formatEur(c.parts)}</td></tr>${c.extra ? `<tr class="tt"><td colspan="3" class="r">${pro ? 'Garage invoice' : 'Other costs'}</td><td class="r">${formatEur(c.extra)}</td></tr>` : ''}<tr class="tt"><td colspan="3" class="r">Total cost</td><td class="r" style="font-size:15px">${formatEur(c.total)}</td></tr>` : '';
+  const partsSec = sec('Parts used', parts.length ? `<table><thead><tr><th>Part</th><th class="r">Qty</th>${o.costs ? '<th class="r">Unit</th><th class="r">Total</th>' : ''}</tr></thead><tbody>${parts.map(partRow).join('')}${tot}</tbody></table>` : `<div style="color:#78716c;font-style:italic">No parts used from stock.${o.costs && c.extra ? ' Total cost ' + formatEur(c.total) + '.' : ''}</div>`);
+  const date = (wo.datetime || '').slice(0, 10);
+  const rems = (wo.resetReminderIds || []).map(id => state.reminders.find(r => r.id === id)).filter(Boolean).map(r => {
+    const same = r.lastDate === date, bits = [];
+    if (same && r.intervalKm > 0) bits.push(fmtKm((r.lastKm || 0) + r.intervalKm));
+    if (same && r.intervalMonths > 0) bits.push(fmtDate(addMonthsIso(r.lastDate, r.intervalMonths)));
+    return `<div class="ps-rem"><div><small>Reset by this job</small><b>${esc(r.title)}</b></div><div><small>Next due</small><b>${bits.length ? 'at ' + bits.join(' or ') : '—'}</b></div></div>`;
+  });
+  const dtc = o.dtc && (wo.dtcs || []).length ? sec('Diagnostic codes', wo.dtcs.map(d => `<div class="ps-dtc"><b>${esc(d.code)}</b><span>${esc(d.note || '')}</span></div>`).join('')) : '';
+  const notes = o.notes && wo.comments ? sec('Notes', `<div class="ps-notes">${linkify(wo.comments)}</div>`) : '';
+  const imgs = (wo.photos || []).slice(0, 6), links = (wo.photoLinks || []).slice(0, 3);
+  const qrs = links.map((u, k) => psQr(u, links.length > 1 ? `Scan for photos ${k + 1}` : 'Scan for more photos')).join('');
+  const photos = o.photos && (imgs.length || qrs) ? sec('Photos', `<div class="ps-two"><div class="ps-thumbs">${imgs.map(p => `<img src="${p}" alt="">`).join('')}</div>${qrs ? `<div class="ps-qrs">${qrs}</div>` : ''}</div>`) : '';
+  return `<div class="ps ps-page">
+    <div class="ps-head"><div><div class="ps-brand">${PS_LOGO}DriveLog &middot; Work order</div><h2 class="ps-title">${esc(wo.jobTitle)}</h2><div class="ps-car">${esc(v.make)} ${esc(v.model)} ${esc(v.year || '')}${v.reg ? ' &middot; ' + esc(v.reg) : ''}</div></div><div class="ps-ref">${esc(wo.id)}<br>${fmtDateTime(wo.datetime)}</div></div>
+    <div class="ps-facts"><div><small>Status</small><b>${esc(wo.status)}</b></div><div><small>Odometer</small><b>${wo.odometer ? fmtKm(wo.odometer) : '—'}</b></div><div><small>Done by</small><b>${pro ? 'Garage' : 'DIY'}</b></div><div><small>VIN</small><b style="font-size:11px">${esc(v.vin || '—')}</b></div></div>
+    <div class="ps-sum">${sum.join('')}</div>
+    ${chk}${partsSec}${rems.length ? sec('Service reminders', rems.join('')) : ''}${dtc}${notes}${photos}
+    <div class="ps-foot"><span>Printed from DriveLog</span><span>${esc(wo.id)}${foot ? ' &middot; ' + esc(foot) : ''}</span></div></div>`;
+}
+
+function psCover(v, jobs, o) {
+  const t = historyTotals(jobs), sh = shareOf(v), live = sh.enabled && sh.public && sh.fileId ? driveLink(sh.fileId) : '';
+  const find = re => jobs.find(w => re.test([w.jobTitle].concat((w.parts || []).map(p => p.name)).join(' ')));
+  const when = w => w ? fmtDate(w.datetime) + (w.odometer ? ' at ' + fmtKm(w.odometer) : '') : '';
+  const kf = []; const belt = find(/timing belt|cam ?belt|timing chain/i), oil = find(/\boil\b/i);
+  if (belt) kf.push(['Timing belt / chain', when(belt)]);
+  if (oil) kf.push(['Last oil service', when(oil)]);
+  const fitted = TYRE_POS.map(p => fittedTyre(v.id, p[0])).filter(Boolean), newest = fitted.map(x => x.fittedDate).filter(Boolean).sort().pop();
+  if (newest) kf.push(['Tyres fitted', fmtDate(newest)]);
+  const nct = []; state.expiries.filter(x => x.vehicleId === v.id && x.type === 'NCT / MOT').forEach(x => (x.log || []).forEach(l => nct.push(l))); nct.sort((a, b) => (a.doneOn || '').localeCompare(b.doneOn || ''));
+  const nl = nct[nct.length - 1], due = state.expiries.filter(x => x.vehicleId === v.id && x.type === 'NCT / MOT' && x.dueDate).map(x => x.dueDate).sort().pop();
+  if (nl) kf.push([nl.result === 'Fail' ? 'NCT / MOT status' : 'NCT valid until', nl.result === 'Fail' ? 'Retest by ' + fmtDate(nl.dueTo) : fmtDate(nl.dueTo)]); else if (due) kf.push(['NCT valid until', fmtDate(due)]);
+  if (o.costs && t.total) kf.push(['Total recorded spend', formatEur(t.total)]);
+  const rows = jobs.map((w, i) => `<tr><td style="white-space:nowrap">${fmtDate(w.datetime)}</td><td class="r" style="white-space:nowrap">${w.odometer ? fmtKm(w.odometer) : ''}</td><td><b>${esc(w.jobTitle)}</b></td><td>${isPro(w) ? 'Garage' : 'DIY'}</td><td class="r">${i + 1}</td></tr>`).join('');
+  const tyreRows = fitted.map(x => { const l = latestTread(x), age = /^\d{4}$/.test(x.dot || '') ? tyreAgeYears(x) : null; return `<tr><td>${esc(posLabel(x.position))}</td><td>${esc([x.brand, x.model, x.size].filter(Boolean).join(' '))}</td><td>${x.dot ? esc(x.dot) + (age != null ? ` (${age.toFixed(1)} yrs)` : '') : '—'}</td><td class="r">${l ? l.mm.toFixed(1) + ' mm' : '—'}</td></tr>`; }).join('');
+  return `<div class="ps ps-page">
+    <div class="ps-head"><div><div class="ps-brand">${PS_LOGO}DriveLog &middot; Service history</div><h2 class="ps-title" style="font-size:28px">${esc(v.make)} ${esc(v.model)} ${esc(v.year || '')}</h2><div class="ps-car" style="font-size:15px">${esc(v.reg || '')}</div></div><div class="ps-ref">Printed ${fmtDate(new Date())}</div></div>
+    <div class="ps-facts" style="margin-top:16px"><div><small>Odometer</small><b>${fmtKm(v.odometer)}</b></div><div><small>Records</small><b>${jobs.length} job${jobs.length === 1 ? '' : 's'}</b></div><div><small>DIY / garage</small><b>${t.diy} / ${t.pro}</b></div><div><small>VIN</small><b style="font-size:11px">${esc(v.vin || '—')}</b></div></div>
+    <div class="ps-sec ps-two" style="margin-top:6px"><div style="flex:1;min-width:0"><div class="ps-h2">Contents</div><table><thead><tr><th>Date</th><th class="r">Odometer</th><th>Job</th><th>By</th><th class="r">Sheet</th></tr></thead><tbody>${rows}</tbody></table></div>${live ? `<div class="ps-qr" style="margin-top:20px">${(() => { try { return qrSvgString(live, 2); } catch (e) { return ''; } })()}Scan for the live digital service report</div>` : ''}</div>
+    ${kf.length ? `<div class="ps-sec" style="margin-top:14px"><div class="ps-h2">Key facts</div><div class="ps-kf">${kf.map(k => `<div><small>${esc(k[0])}</small><b>${esc(k[1])}</b></div>`).join('')}</div></div>` : ''}
+    ${tyreRows ? `<div class="ps-sec" style="margin-top:14px"><div class="ps-h2">Tyres fitted now</div><table><thead><tr><th>Wheel</th><th>Tyre</th><th>DOT</th><th class="r">Tread</th></tr></thead><tbody>${tyreRows}</tbody></table></div>` : ''}
+    <div class="ps-intro">Each job in this folder has its own sheet with the checklist, parts used and notes, newest first.</div>
+    <div class="ps-foot"><span>Printed from DriveLog</span><span>Service history &middot; Cover</span></div></div>`;
+}
+
+let pfVeh = '', pfSel = new Set();
+function openPrintFolder(vehId) {
+  pfVeh = vehId || histVeh || (liveVehicles()[0] || {}).id; if (!pfVeh) { toast('Add a vehicle first'); return; }
+  pfSel = new Set(historyJobs(pfVeh).map(w => w.id)); pfRender(); openModal('modal-printfolder');
+}
+function pfRender() {
+  const v = state.vehicles.find(x => x.id === pfVeh); if (!v) return;
+  const done = historyJobs(pfVeh), open = state.workorders.filter(w => w.vehicleId === pfVeh && w.status !== 'Completed');
+  $('pf-car').textContent = `${v.make} ${v.model}${v.year ? ' ' + v.year : ''} • ${v.reg || 'No Reg'}`;
+  renderPrintOpts();
+  $('pf-count').textContent = `Jobs in the folder (${pfSel.size} of ${done.length})`;
+  $('pf-toggle').textContent = pfSel.size ? 'Untick all' : 'Tick all';
+  $('pf-jobs').innerHTML = done.map(w => `<label class="flex items-center gap-2.5 px-3 py-2 border-b border-stone-800 last:border-0 cursor-pointer ${pfSel.has(w.id) ? '' : 'opacity-60'}"><input type="checkbox" data-pf="${w.id}" ${pfSel.has(w.id) ? 'checked' : ''} onchange="pfToggle('${w.id}',this.checked)" class="w-5 h-5 accent-amber-600 shrink-0"><span class="min-w-0 flex-1"><b class="block text-sm text-white truncate">${esc(w.jobTitle)}</b><span class="text-[11px] text-stone-400">${fmtDate(w.datetime)}${w.odometer ? ' • ' + fmtKm(w.odometer) : ''}</span></span><span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${isPro(w) ? 'border-amber-500/40 text-amber-300' : 'border-stone-600 text-stone-300'}">${isPro(w) ? 'Garage' : 'DIY'}</span></label>`).join('')
+    + open.map(w => `<div class="flex items-center gap-2.5 px-3 py-2 border-b border-stone-800 last:border-0 opacity-50"><span class="w-5 h-5 rounded border-2 border-stone-600 shrink-0"></span><span class="min-w-0 flex-1"><b class="block text-sm text-stone-400 truncate">${esc(w.jobTitle)}</b><span class="text-[11px] text-stone-500">${esc(w.status)} • not included until completed</span></span></div>`).join('')
+    || `<p class="text-sm text-stone-400 p-4 text-center">No jobs yet.</p>`;
+}
+function pfToggle(id, on) { if (on) pfSel.add(id); else pfSel.delete(id); pfRender(); }
+function pfToggleAll() { const all = historyJobs(pfVeh).map(w => w.id); pfSel = pfSel.size ? new Set() : new Set(all); pfRender(); }
+function printFolder() {
+  const v = state.vehicles.find(x => x.id === pfVeh), jobs = historyJobs(pfVeh).filter(w => pfSel.has(w.id));
+  if (!v) return; if (!jobs.length) { toast('Tick at least one job'); return; }
+  $('print-template').innerHTML = `<div class="paper ps-wrap">${psCover(v, jobs, printOpts)}${jobs.map((w, i) => woSheetHtml(w, printOpts, `Sheet ${i + 1} of ${jobs.length}`)).join('')}</div>`;
+  printWithTitle(pdfName('Service History', pfVeh, todayStr()));
 }
 
 /* ---------- boot ---------- */
