@@ -25,6 +25,10 @@
     --color-emerald-400: oklch(76.5% 0.177 163.223);
     --color-emerald-500: oklch(69.6% 0.17 162.48);
     --color-emerald-600: oklch(59.6% 0.145 163.225);
+    --color-sky-200: oklch(90.1% 0.058 230.902);
+    --color-sky-300: oklch(82.8% 0.111 230.318);
+    --color-sky-400: oklch(74.6% 0.16 232.661);
+    --color-sky-500: oklch(68.5% 0.169 237.323);
     --color-indigo-300: oklch(78.5% 0.115 274.713);
     --color-indigo-400: oklch(67.3% 0.182 276.935);
     --color-indigo-500: oklch(58.5% 0.233 277.117);
@@ -242,6 +246,9 @@
   .pointer-events-none {
     pointer-events: none;
   }
+  .\!fixed {
+    position: fixed !important;
+  }
   .absolute {
     position: absolute;
   }
@@ -362,6 +369,9 @@
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
   }
+  .mr-1\.5 {
+    margin-right: calc(var(--spacing) * 1.5);
+  }
   .-mb-2 {
     margin-bottom: calc(var(--spacing) * -2);
   }
@@ -452,8 +462,8 @@
   .max-h-48 {
     max-height: calc(var(--spacing) * 48);
   }
-  .max-h-60 {
-    max-height: calc(var(--spacing) * 60);
+  .max-h-\[85vh\] {
+    max-height: 85vh;
   }
   .max-h-\[92vh\] {
     max-height: 92vh;
@@ -487,6 +497,9 @@
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
+  }
+  .w-9 {
+    width: calc(var(--spacing) * 9);
   }
   .w-10 {
     width: calc(var(--spacing) * 10);
@@ -559,6 +572,9 @@
   }
   .flex-wrap {
     flex-wrap: wrap;
+  }
+  .items-baseline {
+    align-items: baseline;
   }
   .items-center {
     align-items: center;
@@ -725,6 +741,10 @@
     border-top-left-radius: var(--radius-2xl);
     border-top-right-radius: var(--radius-2xl);
   }
+  .rounded-r {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -768,6 +788,9 @@
       border-color: color-mix(in oklab, var(--color-amber-500) 40%, transparent);
     }
   }
+  .border-emerald-500 {
+    border-color: var(--color-emerald-500);
+  }
   .border-emerald-500\/30 {
     border-color: color-mix(in srgb, oklch(69.6% 0.17 162.48) 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -798,8 +821,29 @@
       border-color: color-mix(in oklab, var(--color-rose-500) 40%, transparent);
     }
   }
+  .border-sky-500\/30 {
+    border-color: color-mix(in srgb, oklch(68.5% 0.169 237.323) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-sky-500) 30%, transparent);
+    }
+  }
+  .border-sky-500\/40 {
+    border-color: color-mix(in srgb, oklch(68.5% 0.169 237.323) 40%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-sky-500) 40%, transparent);
+    }
+  }
+  .border-sky-500\/50 {
+    border-color: color-mix(in srgb, oklch(68.5% 0.169 237.323) 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-sky-500) 50%, transparent);
+    }
+  }
   .border-stone-300 {
     border-color: var(--color-stone-300);
+  }
+  .border-stone-500 {
+    border-color: var(--color-stone-500);
   }
   .border-stone-600 {
     border-color: var(--color-stone-600);
@@ -897,6 +941,12 @@
       background-color: color-mix(in oklab, var(--color-emerald-500) 20%, transparent);
     }
   }
+  .bg-emerald-500\/30 {
+    background-color: color-mix(in srgb, oklch(69.6% 0.17 162.48) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-emerald-500) 30%, transparent);
+    }
+  }
   .bg-emerald-600\/20 {
     background-color: color-mix(in srgb, oklch(59.6% 0.145 163.225) 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -938,6 +988,18 @@
   }
   .bg-rose-600 {
     background-color: var(--color-rose-600);
+  }
+  .bg-sky-500\/15 {
+    background-color: color-mix(in srgb, oklch(68.5% 0.169 237.323) 15%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-sky-500) 15%, transparent);
+    }
+  }
+  .bg-sky-500\/20 {
+    background-color: color-mix(in srgb, oklch(68.5% 0.169 237.323) 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-sky-500) 20%, transparent);
+    }
   }
   .bg-stone-700 {
     background-color: var(--color-stone-700);
@@ -1101,6 +1163,9 @@
   .py-12 {
     padding-block: calc(var(--spacing) * 12);
   }
+  .py-px {
+    padding-block: 1px;
+  }
   .pt-1 {
     padding-top: var(--spacing);
   }
@@ -1115,9 +1180,6 @@
   }
   .pt-6 {
     padding-top: calc(var(--spacing) * 6);
-  }
-  .pr-1 {
-    padding-right: var(--spacing);
   }
   .pr-3 {
     padding-right: calc(var(--spacing) * 3);
@@ -1195,6 +1257,9 @@
   .text-\[11px\] {
     font-size: 11px;
   }
+  .text-\[13px\] {
+    font-size: 13px;
+  }
   .leading-5 {
     --tw-leading: calc(var(--spacing) * 5);
     line-height: calc(var(--spacing) * 5);
@@ -1239,6 +1304,9 @@
     --tw-tracking: var(--tracking-wider);
     letter-spacing: var(--tracking-wider);
   }
+  .break-words {
+    overflow-wrap: break-word;
+  }
   .whitespace-normal {
     white-space: normal;
   }
@@ -1280,6 +1348,9 @@
   }
   .text-rose-400 {
     color: var(--color-rose-400);
+  }
+  .text-sky-300 {
+    color: var(--color-sky-300);
   }
   .text-stone-100 {
     color: var(--color-stone-100);
@@ -1402,11 +1473,18 @@
   .file\:text-white::file-selector-button {
     color: var(--color-white);
   }
+  .first\:border-0:first-child {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
+  }
   .last\:border-0:last-child {
     border-style: var(--tw-border-style);
     border-width: 0px;
   }
   @media (hover: hover) {
+    .hover\:border-amber-400:hover {
+      border-color: var(--color-amber-400);
+    }
     .hover\:border-amber-500\/50:hover {
       border-color: color-mix(in srgb, oklch(76.9% 0.188 70.08) 50%, transparent);
     }
@@ -1431,6 +1509,9 @@
         border-color: color-mix(in oklab, var(--color-rose-500) 50%, transparent);
       }
     }
+    .hover\:border-sky-400:hover {
+      border-color: var(--color-sky-400);
+    }
     .hover\:border-stone-500:hover {
       border-color: var(--color-stone-500);
     }
@@ -1450,6 +1531,14 @@
     }
     .hover\:bg-emerald-600:hover {
       background-color: var(--color-emerald-600);
+    }
+    .hover\:bg-sky-500\/30:hover {
+      background-color: color-mix(in srgb, oklch(68.5% 0.169 237.323) 30%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-sky-500\/30:hover {
+        background-color: color-mix(in oklab, var(--color-sky-500) 30%, transparent);
+      }
     }
     .hover\:bg-stone-600:hover {
       background-color: var(--color-stone-600);
@@ -1479,6 +1568,9 @@
     }
     .hover\:text-rose-400:hover {
       color: var(--color-rose-400);
+    }
+    .hover\:text-sky-200:hover {
+      color: var(--color-sky-200);
     }
     .hover\:text-stone-900:hover {
       color: var(--color-stone-900);
@@ -1538,9 +1630,6 @@
     }
     .sm\:justify-end {
       justify-content: flex-end;
-    }
-    .sm\:self-auto {
-      align-self: auto;
     }
     .sm\:p-6 {
       padding: calc(var(--spacing) * 6);
@@ -1833,6 +1922,40 @@
   svg { flex-shrink:0; }
   .icon-btn { display:inline-flex; align-items:center; justify-content:center; min-width:2.5rem; min-height:2.5rem; border-radius:.5rem; }
   .btn.hidden, .icon-btn.hidden { display:none; }
+  .wo-seg { display:flex; border:1px solid #57534e; border-radius:.6rem; overflow:hidden; }
+  .wo-seg button { flex:1; padding:.65rem .2rem; font-size:.78rem; font-weight:700; color:#a8a29e; background:#0c0a09; }
+  .wo-seg button.on[data-s="Planning"] { background:#1e3a5f; color:#bfdbfe; } .wo-seg button.on[data-s="In Progress"] { background:#78350f; color:#fcd34d; } .wo-seg button.on[data-s="Completed"] { background:#064e3b; color:#6ee7b7; }
+  /* checklist editor */
+  .cl-box { display:flex; flex-direction:column; gap:.4rem; }
+  .cl-row { display:flex; align-items:flex-start; gap:.5rem; background:#1c1917; border:1px solid #3a3633; border-radius:.65rem; padding:.5rem .5rem .5rem .4rem; }
+  .cl-grip { flex:none; width:14px; height:26px; margin:.3rem .1rem 0 .1rem; touch-action:none; cursor:grab; background:radial-gradient(#a8a29e 1.5px, transparent 1.8px) 1px 1px / 7px 7px repeat; }
+  .cl-grip:active { cursor:grabbing; }
+  .cl-st { flex:none; width:2.5rem; height:2.5rem; border-radius:50%; border:2px solid; font-weight:800; font-size:1.05rem; line-height:1; display:flex; align-items:center; justify-content:center; }
+  .cl-st-p { background:#064e3b; border-color:#10b981; color:#6ee7b7; } .cl-st-w { background:#78350f; border-color:#f59e0b; color:#fcd34d; } .cl-st-f { background:#7f1d1d; border-color:#f43f5e; color:#fda4af; }
+  .cl-main { flex:1; min-width:0; display:flex; flex-direction:column; gap:.3rem; }
+  .cl-text { display:block; width:100%; background:transparent; border:1px solid transparent; color:#fff; font-size:.9rem; line-height:1.4; resize:none; overflow:hidden; padding:.35rem .4rem; border-radius:.45rem; min-height:2.2rem; field-sizing:content; }
+  .cl-text:focus { background:#0c0a09; border-color:#f59e0b66; outline:none; }
+  .cl-spec { display:block; width:100%; font-size:.75rem; color:#fcd34d; background:transparent; border:0; border-left:2px solid #f59e0b88; padding:.1rem .45rem; margin-left:.35rem; max-width:16rem; }
+  .cl-spec:focus { background:#0c0a09; outline:none; }
+  .cl-row:not(.has-spec) .cl-spec { display:none; } .cl-row:not(.has-note) .cl-note { display:none; }
+  .cl-more { flex:none; width:2.1rem; height:2.1rem; border-radius:.5rem; color:#d6d3d1; font-size:1.25rem; line-height:1; background:#292524; display:flex; align-items:center; justify-content:center; }
+  .cl-head { align-items:center; background:transparent; border:0; border-bottom:1px solid #57534e; border-radius:0; padding:.2rem .3rem; margin-top:.7rem; }
+  .cl-head:first-child { margin-top:0; }
+  .cl-head-text { flex:1; min-width:0; background:transparent; border:0; color:#fcd34d; font-weight:800; font-size:.75rem; letter-spacing:.09em; text-transform:uppercase; padding:.4rem .2rem; }
+  .cl-head-text:focus { background:#0c0a09; outline:none; border-radius:.4rem; }
+  .cl-head[data-tools] .cl-head-text { color:#fbbf24; } .cl-head[data-nosec] .cl-head-text { color:#a8a29e; }
+  .cl-count { font-size:.7rem; color:#a8a29e; white-space:nowrap; }
+  .cl-mv { display:none; width:2.1rem; height:2.1rem; border-radius:.5rem; background:#292524; color:#e7e5e4; font-size:.8rem; align-items:center; justify-content:center; flex:none; }
+  .cl-reorder .cl-mv { display:flex; } .cl-reorder .cl-item, .cl-reorder .cl-addrow { display:none; }
+  .cl-reorder .cl-head { background:#1c1917; border:1px solid #57534e; border-radius:.65rem; padding:.55rem .5rem; margin-top:0; }
+  .cl-onlynosec .cl-head[data-nosec] { display:none; }
+  .cl-dragging { opacity:.55; outline:2px solid #f59e0b; }
+  .cl-addrow button { font-size:.75rem; color:#fbbf24; font-weight:700; padding:.4rem .5rem; }
+  @media (min-width:768px) { .cl-job .cl-main { display:grid; grid-template-columns:minmax(0,1fr) 17rem; column-gap:.75rem; align-items:start; } .cl-job .cl-row:not(.has-note) .cl-note { display:block; } }
+  .cs-btn { display:block; width:100%; text-align:left; background:#44403c; color:#fff; font-weight:600; font-size:.9rem; padding:.7rem .9rem; border-radius:.6rem; }
+  .cs-btn span { display:block; font-weight:400; font-size:.72rem; color:#d6d3d1; margin-top:.1rem; }
+  .cs-btn.pri { background:#f59e0b; color:#1c1917; } .cs-btn.pri span { color:#44403c; } .cs-btn.danger { background:#7f1d1d; color:#fecaca; }
+  .paper .ps-spec { font-size:11px; color:#92400e; font-weight:600; margin-top:1px; }
   .pp-row { display:flex; width:100%; align-items:center; justify-content:space-between; gap:.75rem; background:#292524; border:1px solid #44403c; border-left:4px solid; border-radius:.625rem; padding:.625rem .75rem; margin-bottom:.4rem; }
   .pp-row:active, .pp-row.pp-cur { background:#3a3532; }
   .pp-row.r-other { opacity:.62; }
@@ -1968,6 +2091,7 @@
       <button onclick="openWorkOrderModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> New Work Order</button>
     </div>
 
+    <div id="dash-shop-nudge" onclick="invView='shop';switchTab('inventory')" class="hidden items-center gap-3 bg-stone-800 border border-amber-500/40 rounded-xl px-4 py-3 cursor-pointer"></div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div onclick="switchTab('vehicles')" class="bg-stone-800 border border-stone-700/80 hover:border-amber-500/50 p-4 rounded-xl cursor-pointer transition-all">
         <div class="flex items-center justify-between"><span class="text-xs font-semibold text-stone-400 uppercase tracking-wider">Vehicles</span><div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg"><i data-lucide="car" class="w-5 h-5"></i></div></div>
@@ -2032,6 +2156,9 @@
       <div><h2 class="text-2xl font-bold text-white">Parts & Consumables Inventory</h2><p class="text-sm text-stone-400">Track spare parts, fluids, batch numbers, units and stock depletion.</p></div>
       <button onclick="openInventoryModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Add Inventory Item</button>
     </div>
+    <div class="flex gap-2"><button id="inv-tab-stock" onclick="setInvView('stock')" class="inv-tab-btn">Stock</button><button id="inv-tab-shop" onclick="setInvView('shop')" class="inv-tab-btn">Shopping list</button></div>
+    <div id="inv-shop-view" class="hidden space-y-4"></div>
+    <div id="inv-stock-view" class="space-y-6">
     <div class="bg-stone-800 border border-stone-700 p-4 rounded-xl space-y-3">
       <div class="relative">
         <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-stone-400"></i>
@@ -2055,13 +2182,14 @@
         </table>
       </div>
     </div>
+      </div>
   </section>
 
   <!-- WORK ORDERS -->
   <section id="tab-workorders" class="tab-content hidden space-y-6">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <div><h2 class="text-2xl font-bold text-white">Work Orders</h2><p class="text-sm text-stone-400">Log repairs, track labor timers, auto-deduct inventory, print reports or invoices.</p></div>
-      <button onclick="openWorkOrderModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Create Work Order</button>
+      <div class="flex gap-2 flex-wrap"><button onclick="openWorkOrderModal(null,null,null,'Planning')" class="btn btn-secondary"><i data-lucide="list-checks" class="w-4 h-4"></i> Plan a job</button><button onclick="openWorkOrderModal()" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Create Work Order</button></div>
     </div>
     <div class="bg-stone-800 border border-stone-700 rounded-xl p-4 space-y-2">
       <div class="flex flex-col sm:flex-row gap-2">
@@ -2072,6 +2200,7 @@
     </div>
     <div class="flex gap-2 border-b border-stone-700 pb-2">
       <button onclick="filterWorkOrders('all')" data-f="all" class="wo-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold">All Orders</button>
+      <button onclick="filterWorkOrders('Planning')" data-f="Planning" class="wo-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold">Planning</button>
       <button onclick="filterWorkOrders('In Progress')" data-f="In Progress" class="wo-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold">In Progress</button>
       <button onclick="filterWorkOrders('Completed')" data-f="Completed" class="wo-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold">Completed</button>
     </div>
@@ -2299,7 +2428,7 @@
 
 <!-- MODAL: CHECKLIST TEMPLATE -->
 <div id="modal-checklist" class="modal hidden">
-  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
     <div class="flex justify-between items-center border-b border-stone-700 pb-3">
       <h3 id="modal-checklist-title" class="text-lg font-bold text-white">Checklist Template</h3>
       <button onclick="closeModal('modal-checklist')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -2309,12 +2438,16 @@
       <div><label class="lbl">Checklist Name *</label><input type="text" id="chk-title" required placeholder="e.g. General Service Inspection" class="inp"></div>
       <div><label class="lbl">Category / Type</label><input type="text" id="chk-category" placeholder="e.g. General, Brakes, NCT Inspection" class="inp"></div>
       <div>
-        <div class="flex justify-between items-center mb-2">
-          <label class="lbl" style="margin:0">Checklist Inspection Lines *</label>
-          <button type="button" onclick="addChecklistItemLine()" class="text-xs text-amber-400 hover:text-amber-300 font-medium">+ Add Line</button>
+        <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
+          <label class="lbl" style="margin:0">Checklist steps *</label>
+          <div class="flex gap-2">
+            <button type="button" onclick="clAddStep('chk-items-container')" class="btn btn-secondary" style="padding:.35rem .7rem;font-size:.75rem">+ Add line</button>
+            <button type="button" onclick="clAddSection('chk-items-container')" class="btn btn-secondary" style="padding:.35rem .7rem;font-size:.75rem">+ Add section</button>
+            <button type="button" id="chk-reorder-btn" onclick="clToggleReorder('chk-items-container','chk-reorder-btn')" class="btn btn-secondary" style="padding:.35rem .7rem;font-size:.75rem">Reorder</button>
+          </div>
         </div>
-        <div id="chk-items-container" class="space-y-2"></div>
-        <datalist id="chk-sections"><option value="Tools and Parts"></option></datalist>
+        <div id="chk-items-container" class="cl-box" data-mode="tpl"></div>
+        <p class="text-[11px] text-stone-400 mt-2">Tap the dots-menu on a line to add a spec (like 120 Nm), move it or remove it. Drag the grip to reorder. "Tools and Parts" is copied into the job notes as a plain list.</p>
       </div>
       <div class="flex justify-end gap-3 pt-4 border-t border-stone-700">
         <button type="button" onclick="closeModal('modal-checklist')" class="btn btn-secondary">Cancel</button>
@@ -2344,6 +2477,12 @@
         <div><label class="lbl">Last Performed Date</label><input type="date" id="rem-last-date" class="inp"></div>
       </div>
       <p class="text-[11px] text-stone-400">Leave "last performed" blank to start the countdown from today at the vehicle's current odometer.</p>
+      <div class="space-y-2 bg-stone-900/50 p-3 rounded-lg border border-stone-700/50">
+        <label class="lbl" style="margin:0">Parts this job uses (optional)</label>
+        <div id="rem-parts-container" class="space-y-2"></div>
+        <div class="flex flex-wrap gap-2"><button type="button" onclick="addRemPartAndPick()" class="btn btn-secondary" style="padding:.35rem .7rem;font-size:.75rem">+ Add part</button><button type="button" onclick="remFillFromJob()" class="btn btn-secondary" style="padding:.35rem .7rem;font-size:.75rem">Fill from a past job</button></div>
+        <p class="text-[11px] text-stone-400">Used by the shopping list, and filled in for you when you tap "Do this now".</p>
+      </div>
       <div class="flex justify-end gap-3 pt-4 border-t border-stone-700">
         <button type="button" onclick="closeModal('modal-reminder')" class="btn btn-secondary">Cancel</button>
         <button type="submit" class="btn btn-primary">Save Reminder</button>
@@ -2364,7 +2503,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div><label class="lbl">Target Vehicle *</label><select id="wo-vehicle-id" required onchange="handleWoVehicleChange()" class="inp"></select></div>
         <div><label class="lbl">Job Title *</label><input type="text" id="wo-job-title" required oninput="updateWoEstimate()" placeholder="e.g. Oil Service & Front Brake Pads" class="inp"><p id="wo-estimate" class="text-[11px] text-amber-300 mt-1"></p></div>
-        <div><label class="lbl">Status</label><select id="wo-status" class="inp"><option value="Completed">Completed</option><option value="In Progress">In Progress</option></select></div>
+        <div><label class="lbl">Status</label><select id="wo-status" class="hidden"><option value="Planning">Planning</option><option value="In Progress">In Progress</option><option value="Completed">Completed</option></select><div class="wo-seg" role="group" aria-label="Status"><button type="button" data-s="Planning" onclick="setWoStatus('Planning')">Planning</button><button type="button" data-s="In Progress" onclick="setWoStatus('In Progress')">In progress</button><button type="button" data-s="Completed" onclick="setWoStatus('Completed')">Completed</button></div></div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div><label class="lbl">Done by</label><select id="wo-done-by" onchange="toggleWoBy()" class="inp"><option value="DIY">DIY (me)</option><option value="Professional">Professional / garage</option></select></div>
@@ -2372,7 +2511,7 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div><label class="lbl">Odometer Reading on Job (<span class="u-d">km</span>)</label><input type="number" min="0" id="wo-odometer" data-dist placeholder="Current mileage" class="inp"><span class="text-[10px] text-stone-400">Raises the vehicle odometer (if higher) and sets the baseline for reset reminders</span></div>
-        <div><label class="lbl">Date & Time</label><input type="datetime-local" id="wo-datetime" class="inp"></div>
+        <div><label class="lbl" id="wo-datetime-label">Date & Time</label><input type="datetime-local" id="wo-datetime" class="inp"></div>
       </div>
 
       <details id="wo-specs" class="hidden bg-stone-900/60 border border-stone-700/70 rounded-xl p-3"><summary class="cursor-pointer text-xs font-bold text-amber-400 uppercase tracking-wider py-1">Specs &amp; torque for this car</summary><div id="wo-specs-body" class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2"></div></details>
@@ -2383,7 +2522,7 @@
           <div id="timer-display" class="text-3xl font-mono font-bold text-amber-400 mt-1">00:00:00</div>
         </div>
         <div class="flex gap-2">
-          <button type="button" onclick="startTimer()" class="btn" style="background:#059669;color:#fff;padding:.5rem .875rem;font-size:.75rem"><i data-lucide="play" class="w-3.5 h-3.5"></i> Start</button>
+          <button type="button" onclick="woStartClick()" class="btn" style="background:#059669;color:#fff;padding:.5rem .875rem;font-size:.75rem"><i data-lucide="play" class="w-3.5 h-3.5"></i> Start</button>
           <button type="button" onclick="pauseTimer()" class="btn" style="background:#d97706;color:#fff;padding:.5rem .875rem;font-size:.75rem"><i data-lucide="pause" class="w-3.5 h-3.5"></i> Pause</button>
           <button type="button" onclick="resetTimer()" class="btn btn-secondary" style="padding:.5rem .875rem;font-size:.75rem"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset</button>
         </div>
@@ -2403,24 +2542,35 @@
       </div>
 
       <div class="space-y-3">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <div class="flex items-center justify-between gap-2 flex-wrap">
           <label class="text-xs font-bold text-stone-300 uppercase tracking-wider flex items-center gap-1.5"><i data-lucide="check-square" class="w-4 h-4 text-amber-400"></i> Work & Checklist Items</label>
-          <div class="flex gap-2 w-full sm:w-auto">
-            <select id="wo-import-checklist-select" class="inp inp-sm"><option value="">Select Checklist Template...</option></select>
-            <button type="button" onclick="importChecklistToWO()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Import</button>
-            <button type="button" onclick="addWoChecklistRow()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">+ Line</button>
-          </div>
+          <div id="wo-chk-sum" class="text-[11px] text-stone-400"></div>
         </div>
-        <div id="wo-checklists-container" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+        <div class="flex flex-wrap gap-2">
+          <select id="wo-import-checklist-select" class="inp inp-sm" style="width:auto;flex:1 1 11rem"><option value="">Select Checklist Template...</option></select>
+          <button type="button" onclick="importChecklistToWO()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Import</button>
+          <button type="button" onclick="clAddStep('wo-checklists-container')" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">+ Step</button>
+          <button type="button" id="wo-allpass-btn" onclick="clAllPass()" class="btn btn-secondary hidden" style="padding:.375rem .75rem;font-size:.75rem">All Pass</button>
+          <button type="button" id="wo-reorder-btn" onclick="clToggleReorder('wo-checklists-container','wo-reorder-btn')" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Reorder</button>
+          <button type="button" onclick="updateTemplateFromJob()" class="btn btn-secondary" style="padding:.375rem .75rem;font-size:.75rem">Update template</button>
+        </div>
+        <input type="hidden" id="wo-tpl-id">
+        <div id="wo-checklists-container" class="cl-box cl-job" data-mode="job"></div>
       </div>
 
       <div class="space-y-3 bg-stone-900/40 p-4 rounded-xl border border-stone-700/60">
         <div class="flex justify-between items-center">
-          <label class="text-xs font-bold text-stone-300 uppercase tracking-wider flex items-center gap-1.5"><i data-lucide="package" class="w-4 h-4 text-emerald-400"></i> Parts & Inventory Used</label>
-          <button type="button" onclick="addWoPartAndPick()" class="text-xs text-amber-400 hover:text-amber-300 font-medium">+ Add Part</button>
+          <label class="text-xs font-bold text-stone-300 uppercase tracking-wider flex items-center gap-1.5"><i data-lucide="package" class="w-4 h-4 text-emerald-400"></i> <span id="wo-parts-label">Parts & Inventory Used</span></label>
+          <div class="flex gap-3"><button type="button" id="wo-newpart-btn" onclick="openNeedModal('wo')" class="text-xs text-sky-300 hover:text-sky-200 font-medium hidden">+ Part I don't have yet</button><button type="button" onclick="addWoPartAndPick()" class="text-xs text-amber-400 hover:text-amber-300 font-medium">+ Add Part</button></div>
         </div>
         <div id="wo-parts-container" class="space-y-2"></div>
-        <p class="text-[11px] text-stone-400">Stock is deducted when you save (and restored if you edit or delete the order).</p>
+        <p id="wo-parts-hint" class="text-[11px] text-stone-400">Stock is deducted when you save (and restored if you edit or delete the order).</p>
+      </div>
+
+      <div id="wo-shop-wrap" class="hidden space-y-2 bg-stone-900/40 p-4 rounded-xl border border-amber-500/40">
+        <label class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5"><i data-lucide="shopping-cart" class="w-4 h-4"></i> Shopping list for this job</label>
+        <div id="wo-shop-body"></div>
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-stone-700/60"><span id="wo-shop-total" class="text-xs text-stone-400"></span><div id="wo-shop-actions" class="flex gap-2"><button type="button" onclick="shopCopy('wo')" class="btn btn-secondary" style="padding:.35rem .7rem;font-size:.75rem">Copy</button><button type="button" onclick="shopPrint('wo')" class="btn btn-secondary" style="padding:.35rem .7rem;font-size:.75rem">Print</button></div></div>
       </div>
 
       <div class="bg-stone-900/40 p-4 rounded-xl border border-stone-700/60">
@@ -2447,11 +2597,13 @@
         </div>
       </div>
 
+      <div id="wo-start-wrap" class="hidden space-y-1"><button type="button" onclick="woStartClick()" class="btn w-full" style="background:#2563eb;color:#fff;padding:.85rem;font-size:.95rem"><i data-lucide="play" class="w-4 h-4"></i> Start job</button><p class="text-[11px] text-stone-400 text-center">Nothing counts as done until you complete it.</p></div>
+
       <div class="flex justify-between gap-3 pt-4 border-t border-stone-700">
         <button type="button" id="wo-delete-btn" onclick="deleteWorkOrder()" class="btn btn-danger hidden"><i data-lucide="trash-2" class="w-4 h-4"></i> Delete</button>
         <div class="flex gap-3 ml-auto">
           <button type="button" onclick="closeWorkOrderModal()" class="btn btn-secondary">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Work Order</button>
+          <button type="submit" id="wo-save-btn" class="btn btn-primary">Save Work Order</button>
         </div>
       </div>
     </form>
@@ -2858,6 +3010,39 @@
       <div class="relative"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-stone-400"></i><input type="text" id="pp-search" oninput="renderPartPicker()" placeholder="Search name, brand or part number..." class="inp" style="padding-left:2.25rem"></div>
     </div>
     <div id="pp-list" class="p-4 pt-1"></div>
+  </div>
+</div>
+
+<div id="modal-need" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-md w-full p-5 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-stone-700 pb-3"><div><h3 id="need-title" class="text-lg font-bold text-white">I need this part</h3><p id="need-sub" class="text-xs text-stone-400"></p></div><button onclick="closeModal('modal-need')" class="icon-btn text-stone-400 hover:text-white bg-stone-700/60" aria-label="Close"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <form id="form-need" onsubmit="saveNeed(event)" class="space-y-3">
+      <div><label class="lbl">Part name *</label><input id="need-name" oninput="needDup()" class="inp" placeholder="e.g. Front shock absorber" autocomplete="off"></div>
+      <div class="grid grid-cols-3 gap-3"><div><label class="lbl">Quantity</label><input id="need-qty" type="number" min="0" step="0.01" value="1" class="inp"></div><div><label class="lbl">Unit</label><select id="need-unit" class="inp"></select></div><div><label class="lbl">Rough price each (&euro;)</label><input id="need-price" type="number" min="0" step="0.01" class="inp" placeholder="optional"></div></div>
+      <div id="need-dup" class="hidden"></div>
+      <div id="need-note-wrap"><label class="lbl">Note (optional)</label><input id="need-note" class="inp" placeholder="e.g. left and right, Sachs or Bilstein"></div>
+      <div><label class="lbl">Where to buy (optional)</label><input id="need-where" class="inp" placeholder="e.g. Autodoc"></div>
+      <div id="need-for-wrap" class="hidden space-y-2"><div><label class="lbl">Car</label><select id="need-veh" onchange="needVehChanged()" class="inp"></select></div><div><label class="lbl">For</label><select id="need-job" class="inp"></select></div></div>
+      <div class="flex justify-end gap-3 pt-3 border-t border-stone-700"><button type="button" onclick="closeModal('modal-need')" class="btn btn-secondary">Cancel</button><button type="submit" id="need-save" class="btn btn-primary">Add to shopping list</button></div>
+    </form>
+  </div>
+</div>
+<div id="modal-gotit" class="modal hidden">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4">
+    <h3 id="got-title" class="text-lg font-bold text-white break-words">Bought</h3>
+    <form id="form-gotit" onsubmit="saveGot(event)" class="space-y-3">
+      <div class="grid grid-cols-2 gap-3"><div><label class="lbl">Quantity bought (<span id="got-unit"></span>)</label><input id="got-qty" type="number" min="0" step="0.01" class="inp"></div><div><label class="lbl">Total paid (&euro;)</label><input id="got-total" type="number" min="0" step="0.01" class="inp" placeholder="optional"></div></div>
+      <p id="got-hint" class="text-[11px] text-stone-400"></p>
+      <div class="flex justify-end gap-3"><button type="button" onclick="closeModal('modal-gotit')" class="btn btn-secondary">Cancel</button><button type="submit" class="btn btn-primary">Save to stock</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- small pop-up for menus and questions -->
+<div id="modal-clsheet" class="modal hidden" onclick="if(event.target===this)closeModal('modal-clsheet')">
+  <div class="bg-stone-800 border border-stone-700 rounded-2xl max-w-sm w-full p-4 shadow-2xl max-h-[85vh] overflow-y-auto" style="display:flex;flex-direction:column;gap:.75rem">
+    <div><h3 id="cs-title" class="text-base font-bold text-white break-words"></h3><p id="cs-sub" class="text-xs text-stone-400 mt-1 whitespace-pre-line"></p></div>
+    <div id="cs-body" class="space-y-2"></div>
   </div>
 </div>
 
@@ -4215,6 +4400,8 @@ const ICON_PATHS = {
   'calendar':'<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>',
   'qr-code':'<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
   'external-link':'<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+  'shopping-cart':'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+  'list-checks':'<path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/>',
   'check-circle':'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>'
 };
 function icons() {   // swaps <i data-lucide="name"> placeholders for inline SVG (no internet needed)
@@ -4327,7 +4514,7 @@ function commit() {
 }
 function adoptState(s) {
   state = s;
-  ['vehicles', 'inventory', 'checklists', 'reminders', 'workorders', 'expiries', 'fuel', 'tyres', 'rotations', 'trash'].forEach(k => state[k] = state[k] || []);
+  ['vehicles', 'inventory', 'checklists', 'reminders', 'workorders', 'expiries', 'fuel', 'tyres', 'rotations', 'trash', 'shopping'].forEach(k => state[k] = state[k] || []);
   state.unit = state.unit === 'mi' ? 'mi' : 'km';
   state.rates = Object.assign({ EUR: 1, GBP: 1.18, USD: 0.92, CAD: 0.67, AUD: 0.61 }, state.rates || {});
   // data saved by earlier versions: fill in the newer fields
@@ -4478,13 +4665,13 @@ function dayBadge(st) {
 function renderDashboard() {
   $('dash-count-vehicles').textContent = liveVehicles().length;
   $('dash-count-inventory').textContent = state.inventory.length;
-  $('dash-count-orders').textContent = state.workorders.length;
+  $('dash-count-orders').textContent = state.workorders.filter(w => w.status !== 'Planning').length; renderShopNudge();
   $('dash-count-reminders').textContent = sortedStatuses().length + sortedExpiries().length;
   const lowN = state.inventory.filter(i => stockOf(i) === 'low').length, outN = state.inventory.filter(i => stockOf(i) === 'out').length;
   const lb = $('dash-inventory-low');
   lb.textContent = (lowN || outN) ? [lowN ? `${lowN} low` : '', outN ? `${outN} out of stock` : ''].filter(Boolean).join(' • ') : 'All stock healthy';
   lb.className = lowN ? 'text-xs text-rose-400 mt-1 block font-semibold' : outN ? 'text-xs text-amber-400 mt-1 block' : 'text-xs text-emerald-400 mt-1 block';
-  $('dash-orders-in-progress').textContent = `${state.workorders.filter(w => w.status === 'In Progress').length} in progress`;
+  { const ip = state.workorders.filter(w => w.status === 'In Progress').length, pl = state.workorders.filter(w => w.status === 'Planning').length; $('dash-orders-in-progress').textContent = `${ip} in progress` + (pl ? ` \u2022 ${pl} planned` : ''); }
   const alerts = dashAlerts();
   $('dash-reminders-due').textContent = `${alerts.length} due soon / overdue`;
 
@@ -4647,6 +4834,7 @@ function inventoryBase() {
   });
 }
 function renderInventory() {
+  invViewSync();
   const sel = $('inv-vehicle-filter');
   if (invVeh && invVeh !== '__shared' && !state.vehicles.some(v => v.id === invVeh)) invVeh = '';
   sel.innerHTML = `<option value="">All vehicles</option>` + state.vehicles.map(v => `<option value="${v.id}">${esc(v.make)} ${esc(v.model)} (+ shared parts)</option>`).join('') + `<option value="__shared">Shared / any vehicle only</option>`;
@@ -4758,31 +4946,25 @@ function renderChecklists() {
     </div>`).join('') : `<div class="col-span-full text-center py-12 text-stone-500">No checklist templates yet.</div>`;
 }
 function openChecklistModal(id = null) {
-  $('form-checklist').reset(); $('chk-id').value = ''; $('chk-items-container').innerHTML = '';
+  $('form-checklist').reset(); $('chk-id').value = ''; const box = $('chk-items-container'); clReset(box);
   $('modal-checklist-title').textContent = id ? 'Edit Checklist Template' : 'New Checklist Template';
   const c = id && state.checklists.find(x => x.id === id);
-  if (c) { $('chk-id').value = c.id; $('chk-title').value = c.title; $('chk-category').value = c.category || ''; c.items.forEach((t, i) => addChecklistItemLine(t, (c.secs || [])[i] || '')); }
-  else { addChecklistItemLine(); addChecklistItemLine(); }
-  openModal('modal-checklist');
-}
-function addChecklistItemLine(value = '', sec = '') {
-  const d = document.createElement('div'); d.className = 'chk-line flex items-center gap-2';
-  d.innerHTML = `<input type="text" value="${esc(value)}" placeholder="Inspection line item..." class="chk-item-input inp inp-sm flex-1 min-w-0"><input type="text" value="${esc(sec)}" placeholder="Section" aria-label="Section" list="chk-sections" class="chk-sec-input inp inp-sm" style="width:7.5rem"><button type="button" onclick="this.parentElement.remove()" class="p-1.5 text-stone-400 hover:text-rose-400"><i data-lucide="x" class="w-4 h-4"></i></button>`;
-  $('chk-items-container').appendChild(d); icons();
+  if (c) { $('chk-id').value = c.id; $('chk-title').value = c.title; $('chk-category').value = c.category || ''; clLoadTemplate(box, c); }
+  else { box.appendChild(clItemRow(box, '', {})); box.appendChild(clItemRow(box, '', {})); }
+  clFix(box); openModal('modal-checklist'); clGrowAll(box);
 }
 function saveChecklist(e) {
   e.preventDefault();
-  const id = $('chk-id').value;
-  const lines = [...document.querySelectorAll('.chk-line')].map(l => [l.querySelector('.chk-item-input').value.trim(), l.querySelector('.chk-sec-input').value.trim()]).filter(x => x[0]);
-  if (!lines.length) { toast('Add at least one line'); return; }
-  const items = lines.map(x => x[0]), secs = lines.map(x => x[1]);
-  const data = { id: id || uid('c'), title: $('chk-title').value.trim(), category: $('chk-category').value.trim(), items };
-  if (secs.some(Boolean)) data.secs = secs;
+  const id = $('chk-id').value, d = clTemplateData($('chk-items-container'));
+  if (!d.items.length) { toast('Add at least one line'); return; }
+  const data = { id: id || uid('c'), title: $('chk-title').value.trim(), category: $('chk-category').value.trim(), items: d.items };
+  if (d.secs.some(Boolean)) data.secs = d.secs;
+  if (d.specs.some(Boolean)) data.specs = d.specs;
   const i = state.checklists.findIndex(c => c.id === id);
   if (i >= 0) state.checklists[i] = data; else state.checklists.push(data);
   closeModal('modal-checklist'); commit();
 }
-function duplicateChecklist(id) { const o = state.checklists.find(c => c.id === id); if (o) { state.checklists.push({ ...o, id: uid('c'), title: o.title + ' (Copy)', items: [...o.items], secs: o.secs ? [...o.secs] : undefined }); commit(); } }
+function duplicateChecklist(id) { const o = state.checklists.find(c => c.id === id); if (o) { state.checklists.push({ ...o, id: uid('c'), title: o.title + ' (Copy)', items: [...o.items], secs: o.secs ? [...o.secs] : undefined, specs: o.specs ? [...o.specs] : undefined }); commit(); } }
 function deleteChecklist(id) { const c0 = state.checklists.find(c => c.id === id); if (c0 && confirm('Delete this checklist template? It goes to Recently deleted for 30 days.')) { trashAdd('checklist', c0.title, { checklist: c0 }); state.checklists = state.checklists.filter(c => c.id !== id); commit(); } }
 
 /* ---------- REMINDERS ---------- */
@@ -4819,11 +5001,13 @@ function renderReminders() {
           <strong class="text-amber-400 text-sm font-mono block">${st.targetDate ? fmtDate(st.targetDate) : 'No time interval'}</strong>${dayBadge(st)}</div>
       </div>
       ${predLine(st)}
+      ${remPartsHtml(r)}
       <div class="space-y-2">
         ${st.remainingKm != null ? `<div><div class="flex justify-between text-[11px] text-stone-400 mb-1"><span>Distance • last ${fmtKm(r.lastKm)}</span><span>every ${fmtKm(r.intervalKm)}</span></div>${bar(st.kmPct, st.remainingKm <= 0, st.remainingKm <= 1500)}</div>` : ''}
         ${st.daysRemaining != null ? `<div><div class="flex justify-between text-[11px] text-stone-400 mb-1"><span>Time • last ${fmtDate(r.lastDate)}</span><span>every ${r.intervalMonths} mo</span></div>${bar(st.timePct, st.daysRemaining <= 0, st.daysRemaining <= 30)}</div>` : ''}
       </div>
       <button onclick="logFromReminder('${r.id}')" class="w-full bg-amber-600/20 hover:bg-amber-500 text-amber-300 hover:text-stone-900 border border-amber-500/30 text-xs py-2 rounded-lg font-medium flex items-center justify-center gap-1.5"><i data-lucide="wrench" class="w-3.5 h-3.5"></i> Do this now (log the job)</button>
+      <button onclick="planFromReminder('${r.id}')" class="w-full bg-sky-500/15 hover:bg-sky-500/30 text-sky-300 border border-sky-500/30 text-xs py-2 rounded-lg font-medium flex items-center justify-center gap-1.5"><i data-lucide="list-checks" class="w-3.5 h-3.5"></i> Plan this job for later</button>
       <button onclick="markReminderDone('${r.id}')" class="w-full bg-stone-700 hover:bg-stone-600 text-white text-xs py-2 rounded-lg font-medium flex items-center justify-center gap-1.5"><i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-emerald-400"></i> Mark done now (reset at ${fmtKm(st.cur)} / today)</button>
     </div>`;
   }).join('');
@@ -4840,6 +5024,7 @@ function openReminderModal(id = null) {
   $('rem-vehicle-id').innerHTML = vehOptionsLive(id && (state.reminders.find(x => x.id === id) || {}).vehicleId);
   const r = id && state.reminders.find(x => x.id === id);
   if (r) { $('rem-id').value = r.id; $('rem-vehicle-id').value = r.vehicleId; $('rem-title').value = r.title; $('rem-interval-km').value = r.intervalKm || ''; $('rem-interval-months').value = r.intervalMonths || ''; $('rem-last-km').value = r.lastKm ?? ''; $('rem-last-date').value = r.lastDate || ''; }
+  $('rem-parts-container').innerHTML = ''; ((r && r.parts) || []).forEach(p => state.inventory.some(i => i.id === p.invId) && addRemPartRow(p.invId, p.qty));
   openModal('modal-reminder');
 }
 function saveReminder(e) {
@@ -4848,6 +5033,8 @@ function saveReminder(e) {
   const lastKmRaw = $('rem-last-km').value;
   const data = { id: id || uid('r'), vehicleId: vehId, title: $('rem-title').value.trim(), intervalKm: parseInt($('rem-interval-km').value) || 0, intervalMonths: parseInt($('rem-interval-months').value) || 0, lastKm: lastKmRaw === '' ? (veh?.odometer || 0) : parseInt(lastKmRaw), lastDate: $('rem-last-date').value || todayStr() };
   if (!data.intervalKm && !data.intervalMonths) { toast('Set a distance or time interval'); return; }
+  const rp = [...document.querySelectorAll('.rem-part-row')].map(r => ({ invId: r.querySelector('.wo-part-select').value, qty: parseFloat(r.querySelector('.wo-part-qty').value) || 0 })).filter(p => p.invId && p.qty > 0);
+  if (rp.length) data.parts = rp;
   const i = state.reminders.findIndex(r => r.id === id);
   if (i >= 0) state.reminders[i] = data; else state.reminders.push(data);
   closeModal('modal-reminder'); commit();
@@ -4868,11 +5055,11 @@ function resetTimer() { pauseTimer(); timer.base = 0; updateTimerDisplay(); }
 let woPhotos = [];
 function closeWorkOrderModal() { pauseTimer(); closeModal('modal-workorder'); }
 
-function openWorkOrderModal(id = null, preVeh = null, tpl = null) {
+function openWorkOrderModal(id = null, preVeh = null, tpl = null, mode = null) {
   if (!state.vehicles.length) { toast('Add a vehicle first'); switchTab('vehicles'); return; }
   $('form-workorder').reset(); $('wo-id').value = '';
   ['wo-checklists-container', 'wo-parts-container', 'wo-dtc-parsed-container', 'wo-photos-preview'].forEach(i => $(i).innerHTML = '');
-  woPhotos = []; resetTimer();
+  woPhotos = []; resetTimer(); clReset($('wo-checklists-container')); $('wo-tpl-id').value = ''; woNeeds = [];
   $('wo-vehicle-id').innerHTML = vehOptionsLive(id ? (state.workorders.find(w => w.id === id) || {}).vehicleId : preVeh);
   $('wo-import-checklist-select').innerHTML = `<option value="">Select Checklist Template...</option>` + state.checklists.map(c => `<option value="${c.id}">${esc(c.title)}</option>`).join('');
   const wo = id && state.workorders.find(w => w.id === id);
@@ -4884,34 +5071,37 @@ function openWorkOrderModal(id = null, preVeh = null, tpl = null) {
     $('wo-odometer').value = wo.odometer || ''; $('wo-datetime').value = wo.datetime; $('wo-comments').value = wo.comments || ''; $('wo-photolinks').value = (wo.photoLinks || []).join('\n');
     $('wo-done-by').value = wo.doneBy || 'DIY'; $('wo-provider').value = wo.provider || ''; $('wo-cost-extra').value = wo.costExtra || '';
     timer.base = wo.laborSeconds || 0; updateTimerDisplay();
-    (wo.checklists || []).forEach(c => c.heading ? addWoHeadingRow(c.text) : addWoChecklistRow(c.text, c.status, c.comment));
+    $('wo-tpl-id').value = wo.tplId || '';
+    (wo.checklists || []).forEach(c => c.heading ? addWoHeadingRow(c.text) : addWoChecklistRow(c.text, c.status, c.comment, c.spec));
     (wo.parts || []).forEach(p => state.inventory.some(i => i.id === p.invId) ? addWoPartRow(p.invId, p.qty) : addWoOrphanRow(p));
     (wo.dtcs || []).forEach(d => addDtcRow(d.code, d.note));
     woPhotos = [...(wo.photos || [])]; renderPhotoPreviews();
-    checkedIds = wo.resetReminderIds || [];
+    checkedIds = wo.resetReminderIds || []; woNeeds = (wo.needs || []).map(n => Object.assign({}, n));
+    $('modal-wo-title').textContent = wo.status === 'Planning' ? 'Edit planned job' : 'Edit Work Order ' + wo.id;
   } else {
-    $('modal-wo-title').textContent = 'Create Work Order';
-    $('wo-datetime').value = nowLocalInput();
+    $('modal-wo-title').textContent = mode === 'Planning' ? 'Plan a job' : 'Create Work Order';
+    $('wo-status').value = mode === 'Planning' ? 'Planning' : 'Completed';
+    $('wo-datetime').value = mode === 'Planning' ? '' : nowLocalInput();
     if (preVeh) $('wo-vehicle-id').value = preVeh;
     $('wo-odometer').value = state.vehicles.find(v => v.id === $('wo-vehicle-id').value)?.odometer || '';
   }
   if (tpl && !wo) {
     $('wo-job-title').value = tpl.title; $('wo-done-by').value = tpl.doneBy; $('wo-provider').value = tpl.provider;
-    (tpl.parts || []).forEach(p => addWoPartRow(p.invId, p.qty)); (tpl.checklists || []).forEach(t => t.heading ? addWoHeadingRow(t.text) : addWoChecklistRow(t.text, 'Pass', ''));
+    (tpl.parts || []).forEach(p => addWoPartRow(p.invId, p.qty)); (tpl.checklists || []).forEach(t => t.heading ? addWoHeadingRow(t.text) : addWoChecklistRow(t.text, 'Pass', '', t.spec));
     checkedIds = tpl.reset || [];
   }
   renderWoResetList(checkedIds);
-  toggleWoBy();
+  toggleWoBy(); refreshWoMode();
   $('wo-specs').open = false; renderWoSpecs(); updateWoEstimate();
-  openModal('modal-workorder');
+  clFix($('wo-checklists-container')); openModal('modal-workorder'); clGrowAll($('wo-checklists-container'));
 }
 function toggleWoBy() {
   const pro = $('wo-done-by').value === 'Professional';
   $('wo-provider-wrap').classList.toggle('hidden', !pro);
-  $('wo-timer-box').classList.toggle('hidden', pro);
   $('wo-extra-label').textContent = pro ? 'Garage invoice total (€)' : 'Other costs (€)';
   $('wo-extra-hint').textContent = pro ? 'What the garage charged you. Parts taken from your own stock are counted separately.' : 'Consumables, disposal fees, tool hire... anything not in your inventory.';
   if (pro) pauseTimer();
+  refreshWoMode();
   updateWoCost(); updateWoEstimate();
 }
 // keep the price a part had when the job was done, so editing an old job never rewrites its history
@@ -4932,6 +5122,7 @@ function updateWoCost() {
   const extra = Math.max(0, parseFloat($('wo-cost-extra').value) || 0), pro = $('wo-done-by').value === 'Professional';
   $('wo-cost-total').textContent = formatEur(parts + extra);
   $('wo-cost-breakdown').textContent = `parts ${formatEur(parts)} • ${pro ? 'garage' : 'other'} ${formatEur(extra)}`;
+  if ($('wo-status').value === 'Planning') renderWoShop();
 }
 function handleWoVehicleChange() {
   if (!$('wo-id').value) setKmInput('wo-odometer', state.vehicles.find(v => v.id === $('wo-vehicle-id').value)?.odometer || '');
@@ -4969,25 +5160,9 @@ function importChecklistToWO() {
     const block = `Tools and parts needed (${c.title}):\n` + tools.items.map(t => '- ' + t).join('\n'), cm = $('wo-comments');
     if (!cm.value.includes(block)) cm.value = (cm.value.trim() ? cm.value.trim() + '\n\n' : '') + block;
   }
-  groups.filter(g => !g.tools).forEach(g => { if (g.name) addWoHeadingRow(g.name); g.items.forEach(t => addWoChecklistRow(t, 'Pass', '')); });
+  groups.filter(g => !g.tools).forEach(g => { if (g.name) addWoHeadingRow(g.name); g.items.forEach((t, i) => addWoChecklistRow(t, 'Pass', '', g.specs[i])); });
+  $('wo-tpl-id').value = c.id; clFix($('wo-checklists-container'));
   toast(tools ? 'Checklist added. Tools and parts went into the notes.' : 'Checklist added');
-}
-function addWoHeadingRow(text) {
-  const d = document.createElement('div'); d.className = 'wo-chk-head flex items-center justify-between gap-2 px-1 pt-2'; d.dataset.text = text;
-  d.innerHTML = `<span class="text-xs font-bold uppercase tracking-wider text-amber-300">${esc(text)}</span><button type="button" onclick="this.parentElement.remove()" class="p-1 text-stone-400 hover:text-rose-400" aria-label="Remove heading"><i data-lucide="x" class="w-4 h-4"></i></button>`;
-  $('wo-checklists-container').appendChild(d); icons();
-}
-function addWoChecklistRow(text = '', status = 'Pass', comment = '') {
-  const d = document.createElement('div');
-  d.className = 'wo-chk-item bg-stone-900 border border-stone-700/80 p-2.5 rounded-lg flex flex-col sm:flex-row gap-2 items-stretch sm:items-center';
-  d.innerHTML = `
-    <input type="text" value="${esc(text)}" placeholder="Inspection item..." class="wo-chk-text inp inp-sm flex-1">
-    <select class="wo-chk-status inp inp-sm" style="width:auto">
-      ${['Pass', 'Needs Attention', 'Fail'].map(s => `<option value="${s}" ${s === status ? 'selected' : ''}>${s}</option>`).join('')}
-    </select>
-    <input type="text" value="${esc(comment)}" placeholder="Notes..." class="wo-chk-comment inp inp-sm flex-1">
-    <button type="button" onclick="this.parentElement.remove()" class="p-1 text-stone-400 hover:text-rose-400 self-end sm:self-auto"><i data-lucide="x" class="w-4 h-4"></i></button>`;
-  $('wo-checklists-container').appendChild(d); icons();
 }
 function addWoPartRow(invId = '', qty = 1) {
   const d = document.createElement('div');
@@ -4995,7 +5170,7 @@ function addWoPartRow(invId = '', qty = 1) {
   d.innerHTML = `
     <button type="button" class="wo-part-btn inp inp-sm flex-1 min-w-0 text-left flex items-center justify-between gap-2" onclick="openPartPicker(this.closest('.wo-part-row'))"></button><input type="hidden" class="wo-part-select" value="${invId}">
     <div class="flex items-center gap-2"><label class="text-[10px] text-stone-400">Qty</label>
-      <input type="number" step="0.01" min="0" value="${qty}" class="wo-part-qty inp inp-sm" style="width:5rem">
+      <input type="number" step="0.01" min="0" value="${qty}" class="wo-part-qty inp inp-sm" style="width:5rem" oninput="updateWoCost()">
       <button type="button" onclick="this.closest('.wo-part-row').remove();updateWoCost()" class="icon-btn text-stone-300 hover:text-rose-400 bg-stone-700/60" aria-label="Remove part"><i data-lucide="x" class="w-4 h-4"></i></button></div>`;
   $('wo-parts-container').appendChild(d); refreshPartBtn(d); icons();
 }
@@ -5049,51 +5224,55 @@ function renderPhotoPreviews() {
   $('wo-photos-preview').innerHTML = woPhotos.map((src, i) => `<div class="relative"><img src="${src}" class="w-16 h-16 object-cover rounded-lg border border-stone-700"><button type="button" onclick="removePhoto(${i})" class="absolute -top-1.5 -right-1.5 bg-rose-600 text-white rounded-full w-5 h-5 text-xs leading-5 text-center">×</button></div>`).join('');
 }
 
-function saveWorkOrder(e) {
-  e.preventDefault(); pauseTimer();
+function saveWorkOrder(e, keep) {
+  if (e) e.preventDefault(); pauseTimer();
   const id = $('wo-id').value, vehId = $('wo-vehicle-id').value;
   const veh = state.vehicles.find(v => v.id === vehId);
   const odo = parseInt($('wo-odometer').value) || 0;
-  { const ow = odoWarn(veh, odo, false); if (ow && !confirm(ow)) return; }
-  const status = $('wo-status').value;
+  const status = $('wo-status').value, plan = status === 'Planning';
+  { const ow = plan ? '' : odoWarn(veh, odo, false); if (ow && !confirm(ow)) return false; }
+  if (!plan && woNeeds.length && !confirm(`These are still on the shopping list and will not be saved: ${woNeeds.map(n => n.name).join(', ')}. Continue?`)) return false;
   const pro = $('wo-done-by').value === 'Professional';
   const prevWo = id && state.workorders.find(w => w.id === id);
 
-  const checklists = [...$('wo-checklists-container').children].map(r => r.classList.contains('wo-chk-head') ? { text: r.dataset.text, status: '', comment: '', heading: true } : r.classList.contains('wo-chk-item') ? { text: r.querySelector('.wo-chk-text').value.trim(), status: r.querySelector('.wo-chk-status').value, comment: r.querySelector('.wo-chk-comment').value.trim() } : null).filter(c => c && c.text);
+  const checklists = clJobData($('wo-checklists-container'));
   const parts = [...document.querySelectorAll('.wo-part-row')].map(r => {
     const inv = state.inventory.find(i => i.id === r.querySelector('.wo-part-select').value);
     const qty = parseFloat(r.querySelector('.wo-part-qty').value) || 0;
     if (!inv || !(qty > 0)) return null;
-    const s = partSnapshot(inv, prevWo);
+    const s = partSnapshot(inv, prevWo && prevWo.status !== 'Planning' ? prevWo : null);
     return { invId: inv.id, code: inv.code || '', name: inv.name, qty, unit: inv.unit, price: s.price, currency: s.currency, eurUnit: s.eurUnit, warrantyMonths: ((prevWo && (prevWo.parts || []).find(x => x.invId === inv.id)) || {}).warrantyMonths ?? (inv.warrantyMonths || 0) };
   }).filter(Boolean).concat([...document.querySelectorAll('.wo-part-orphan')].map(r => JSON.parse(r.dataset.p)));
   const dtcs = [...document.querySelectorAll('.wo-dtc-row')].map(r => ({ code: r.querySelector('.wo-dtc-code').textContent.trim(), note: r.querySelector('.wo-dtc-note').value.trim() }));
   const resetIds = [...document.querySelectorAll('.wo-reset-rem-cb:checked')].map(c => c.value);
 
-  const wo = { id: id || ('wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4)), vehicleId: vehId, jobTitle: $('wo-job-title').value.trim(), status, odometer: odo, datetime: $('wo-datetime').value || nowLocalInput(), laborSeconds: pro ? 0 : timerSecs() + manualSecs(), doneBy: pro ? 'Professional' : 'DIY', provider: pro ? $('wo-provider').value.trim() : '', costExtra: Math.max(0, parseFloat($('wo-cost-extra').value) || 0), checklists, parts, dtcs, comments: $('wo-comments').value.trim(), photoLinks: urlsIn($('wo-photolinks').value), photos: [...woPhotos], resetReminderIds: resetIds };
+  const wo = { id: id || ('wo-' + (100 + state.workorders.length + 1) + '-' + Math.random().toString(36).slice(2, 4)), vehicleId: vehId, jobTitle: $('wo-job-title').value.trim(), status, odometer: odo, datetime: $('wo-datetime').value || (plan ? '' : nowLocalInput()), laborSeconds: pro ? 0 : timerSecs() + manualSecs(), doneBy: pro ? 'Professional' : 'DIY', provider: pro ? $('wo-provider').value.trim() : '', costExtra: Math.max(0, parseFloat($('wo-cost-extra').value) || 0), checklists, parts, dtcs, comments: $('wo-comments').value.trim(), photoLinks: urlsIn($('wo-photolinks').value), photos: [...woPhotos], resetReminderIds: resetIds, tplId: $('wo-tpl-id').value || '', needs: plan ? woNeeds.map(n => Object.assign({}, n)) : [] };
 
   // inventory: give back the previous deduction when editing, then deduct the new one
   const prev = id && state.workorders.find(w => w.id === id);
-  if (prev) (prev.parts || []).forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) i.qty = +(i.qty + p.qty).toFixed(2); });
+  if (prev && prev.status !== 'Planning') (prev.parts || []).forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) i.qty = +(i.qty + p.qty).toFixed(2); });
   let short = [];
-  parts.forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) { if (i.qty < p.qty) short.push(i.name); i.qty = Math.max(0, +(i.qty - p.qty).toFixed(2)); } });
+  if (!plan) parts.forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) { if (i.qty < p.qty) short.push(i.name); i.qty = Math.max(0, +(i.qty - p.qty).toFixed(2)); } });
 
   const idx = state.workorders.findIndex(w => w.id === wo.id);
   if (idx >= 0) state.workorders[idx] = wo; else state.workorders.push(wo);
 
   // odometer + reminder resets
   let resetN = 0;
-  if (veh && odo > veh.odometer) veh.odometer = odo;
+  if (veh && odo > veh.odometer && !plan) veh.odometer = odo;
   if (status === 'Completed') {
     resetIds.forEach(rid => { const r = state.reminders.find(x => x.id === rid); if (r) { r.lastKm = odo || veh?.odometer || r.lastKm; r.lastDate = wo.datetime.slice(0, 10); resetN++; } });
   }
-  closeModal('modal-workorder'); commit();
-  toast(resetN ? `Saved. ${resetN} reminder${resetN > 1 ? 's' : ''} reset.` : short.length ? 'Saved. Stock ran short for: ' + short.join(', ') : 'Work order saved');
+  if (keep) { $('wo-id').value = wo.id; $('modal-wo-title').textContent = 'Edit Work Order ' + wo.id; $('wo-delete-btn').classList.remove('hidden'); } else closeModal('modal-workorder');
+  commit();
+  if (keep) return true;
+  if (plan) toast('Plan saved'); else toast(resetN ? `Saved. ${resetN} reminder${resetN > 1 ? 's' : ''} reset.` : short.length ? 'Saved. Stock ran short for: ' + short.join(', ') : 'Work order saved');
+  return true;
 }
 function deleteWorkOrder() {
   const id = $('wo-id').value; const wo = state.workorders.find(w => w.id === id); if (!wo) return;
   if (!confirm('Delete this work order? Parts it used go back into stock. Reminders that it reset are not changed.')) return;
-  (wo.parts || []).forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) i.qty = +(i.qty + p.qty).toFixed(2); });
+  if (wo.status !== 'Planning') (wo.parts || []).forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) i.qty = +(i.qty + p.qty).toFixed(2); });
   trashAdd('workorder', `${wo.jobTitle} (${fmtDate(wo.datetime)})`, { workorder: wo });
   state.workorders = state.workorders.filter(w => w.id !== id);
   closeWorkOrderModal(); commit();
@@ -6435,8 +6614,9 @@ function renderWorkOrders() {
   const toks = ($('wo-search').value || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
   const base = state.workorders.filter(w => !woVeh || w.vehicleId === woVeh);
   const list = base.filter(w => (activeWoFilter === 'all' || w.status === activeWoFilter) && (!toks.length || toks.every(t => woSearchText(w).includes(t)))).sort((a, b) => (b.datetime || '').localeCompare(a.datetime || ''));
+  const planned = list.filter(w => w.status === 'Planning').sort(woPlanSort), others = list.filter(w => w.status !== 'Planning');
   $('wo-count').textContent = `${list.length} of ${base.length} work order${base.length === 1 ? '' : 's'}`;
-  $('workorders-list').innerHTML = list.length ? list.map(wo => {
+  $('workorders-list').innerHTML = list.length ? woPlanGroupHtml(planned, planned.length && others.length) + others.map(wo => {
     const v = state.vehicles.find(x => x.id === wo.vehicleId) || { make: 'Unknown', model: '', reg: '' };
     const c = woCosts(wo), pro = isPro(wo);
     return `
@@ -6475,7 +6655,7 @@ function viewerHistory() { const id = viewId; closeModal('modal-wo-viewer'); sho
 
 function woTemplate(w, extra = {}) {
   const have = p => state.inventory.some(i => i.id === p.invId);
-  return Object.assign({ title: w.jobTitle, doneBy: w.doneBy || 'DIY', provider: w.provider || '', parts: (w.parts || []).filter(have).map(p => ({ invId: p.invId, qty: p.qty })), skipped: (w.parts || []).filter(p => !have(p)).length, checklists: (w.checklists || []).map(c => c.heading ? { heading: true, text: c.text } : { text: c.text }), reset: (w.resetReminderIds || []).filter(id => state.reminders.some(r => r.id === id)) }, extra);
+  return Object.assign({ title: w.jobTitle, doneBy: w.doneBy || 'DIY', provider: w.provider || '', parts: (w.parts || []).filter(have).map(p => ({ invId: p.invId, qty: p.qty })), skipped: (w.parts || []).filter(p => !have(p)).length, checklists: (w.checklists || []).map(c => c.heading ? { heading: true, text: c.text } : { text: c.text, spec: c.spec || '' }), reset: (w.resetReminderIds || []).filter(id => state.reminders.some(r => r.id === id)) }, extra);
 }
 function repeatWorkOrder(id) {
   const w = state.workorders.find(x => x.id === id); if (!w) return;
@@ -6489,6 +6669,7 @@ function logFromReminder(id) {
   const prior = state.workorders.filter(w => w.vehicleId === r.vehicleId && (w.resetReminderIds || []).includes(r.id)).sort((a, b) => (b.datetime || '').localeCompare(a.datetime || ''))[0];
   const tpl = prior ? woTemplate(prior) : { title: r.title, doneBy: 'DIY', provider: '', parts: [], skipped: 0, checklists: [], reset: [] };
   tpl.reset = [...new Set([...(tpl.reset || []), r.id])];
+  if ((r.parts || []).length) tpl.parts = r.parts.filter(p => state.inventory.some(i => i.id === p.invId)).map(p => ({ invId: p.invId, qty: p.qty }));
   openWorkOrderModal(null, r.vehicleId, tpl);
   toast(prior ? `Filled in from the last time (${fmtDate(prior.datetime)}). Check the parts, then save.` : 'No earlier job found for this reminder, so the parts list starts empty.');
 }
@@ -6549,14 +6730,62 @@ function yearlyCosts(vehId) {
   const total = Object.values(by).reduce((a, b) => a + b.maint + b.fuel + b.tyres + b.renew, 0);
   return { by, span, total, perKm: span >= 500 ? total / span : null };
 }
+let costMode = 'all';
+function setCostMode(m) { costMode = m; renderHistory(); }
+function costBreakdown(vehId) {
+  const rc = runningCosts(vehId);
+  const maint = state.workorders.filter(w => w.vehicleId === vehId && w.status === 'Completed').reduce((a, w) => a + woCosts(w).total, 0);
+  const t = rc.byType, other = (t['Breakdown cover'] || 0) + (t['Other'] || 0);
+  const known = (t['Insurance'] || 0) + (t['Motor tax'] || 0) + (t['NCT / MOT'] || 0) + other, rest = Math.max(0, rc.renewals - known);
+  return [
+    { k: 'maint', label: 'Maintenance', v: maint, run: false, col: '#f59e0b' },
+    { k: 'fuel', label: 'Fuel', v: rc.fuel, run: true, col: '#38bdf8' },
+    { k: 'tyres', label: 'Tyres', v: rc.tyres, run: true, col: '#a78bfa' },
+    { k: 'ins', label: 'Insurance', v: t['Insurance'] || 0, run: true, col: '#34d399' },
+    { k: 'tax', label: 'Motor tax', v: t['Motor tax'] || 0, run: true, col: '#fb7185' },
+    { k: 'nct', label: 'NCT / MOT', v: t['NCT / MOT'] || 0, run: true, col: '#a8a29e' },
+    { k: 'oth', label: 'Other', v: other + rest, run: true, col: '#78716c' }
+  ];
+}
+function fuelLineHtml(vehId) {
+  const pts = fuelStats(vehId).series.filter(p => p.date && p.lp100 > 0); if (pts.length < 3) return '';
+  const W = 320, H = 110, L = 30, R = 8, T = 8, B = 20, vals = pts.map(p => p.lp100), lo = Math.floor(Math.min(...vals) - 0.5), hi = Math.ceil(Math.max(...vals) + 0.5);
+  const x = i => L + (W - L - R) * (pts.length === 1 ? 0.5 : i / (pts.length - 1)), y = v => T + (H - T - B) * (1 - (v - lo) / (hi - lo || 1));
+  const line = pts.map((p, i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(p.lp100).toFixed(1)).join(' ');
+  const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+  return `<div class="space-y-1"><div class="flex justify-between items-baseline"><span class="text-[11px] font-semibold text-stone-300">Fuel economy</span><span class="text-[11px] text-stone-400">L/100 km, lower is better • average ${avg.toFixed(1)}</span></div>
+    <svg viewBox="0 0 ${W} ${H}" class="w-full" role="img" aria-label="Fuel economy over time, from ${vals[0].toFixed(1)} to ${vals[vals.length - 1].toFixed(1)} litres per 100 kilometres">
+      <line x1="${L}" x2="${W - R}" y1="${y(hi).toFixed(1)}" y2="${y(hi).toFixed(1)}" stroke="#44403c" stroke-width="1"/><line x1="${L}" x2="${W - R}" y1="${y(lo).toFixed(1)}" y2="${y(lo).toFixed(1)}" stroke="#44403c" stroke-width="1"/>
+      <line x1="${L}" x2="${W - R}" y1="${y(avg).toFixed(1)}" y2="${y(avg).toFixed(1)}" stroke="#78716c" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="${L - 4}" y="${(y(hi) + 3).toFixed(1)}" text-anchor="end" font-size="9" fill="#a8a29e">${hi}</text><text x="${L - 4}" y="${(y(lo) + 3).toFixed(1)}" text-anchor="end" font-size="9" fill="#a8a29e">${lo}</text>
+      <text x="${L}" y="${H - 5}" font-size="9" fill="#a8a29e">${esc(fmtDate(pts[0].date))}</text><text x="${W - R}" y="${H - 5}" text-anchor="end" font-size="9" fill="#a8a29e">${esc(fmtDate(pts[pts.length - 1].date))}</text>
+      <path d="${line}" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      ${pts.map((p, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(p.lp100).toFixed(1)}" r="3" fill="#f59e0b" stroke="#292524" stroke-width="2"><title>${esc(fmtDate(p.date))}: ${p.lp100.toFixed(1)} L/100 km</title></circle>`).join('')}
+    </svg></div>`;
+}
 function yearlyCostsHtml(vehId) {
   const yc = yearlyCosts(vehId), years = Object.keys(yc.by).sort().reverse(); if (!years.length) return '';
   const e = n => n ? formatEur(n) : '<span class="text-stone-600">–</span>';
-  const perUnit = yc.perKm != null ? yc.total / dk(yc.span) : null;
+  const cats = costBreakdown(vehId).filter(c => costMode === 'all' || (costMode === 'running') === c.run);
+  const total = cats.reduce((a, c) => a + c.v, 0), has = costMode !== 'maint';
+  const hasFuel = cats.some(c => c.k === 'fuel');
+  const per100 = yc.span >= 500 ? total / dk(yc.span) * 100 : null;
+  // months covered: earliest dated record to today
+  const dates = [].concat(state.workorders.filter(w => w.vehicleId === vehId && w.status === 'Completed').map(w => w.datetime), state.fuel.filter(f => f.vehicleId === vehId).map(f => f.date), state.tyres.filter(t => t.vehicleId === vehId).map(t => t.fittedDate), state.expiries.filter(x => x.vehicleId === vehId).flatMap(x => (x.log || []).map(l => l.doneOn))).filter(d => /^\d{4}-\d\d-\d\d/.test(d || '')).sort();
+  const days = dates.length ? (Date.now() - new Date(dates[0].slice(0, 10))) / 864e5 : 0, perMonth = days >= 60 ? total / (days / 30.44) : null;
+  const fe = state.fuel.filter(f => f.vehicleId === vehId && f.odometer).map(f => f.odometer), fuelCover = fe.length > 1 && yc.span ? (Math.max(...fe) - Math.min(...fe)) / yc.span : 0;
+  const fuelNote = hasFuel && yc.span >= 500 && fuelCover < 0.6 ? `<p class="text-[11px] text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-lg p-2">${fe.length ? 'Your fuel log only covers part of the distance in your records' : 'No fuel logged yet'}, so the cost per ${unitName()} will look lower than it really is. Log your fill-ups to make it accurate.</p>` : '';
+  const max = Math.max(1, ...cats.map(c => c.v)), chip = (m, l) => `<button onclick="setCostMode('${m}')" class="px-3 py-1.5 rounded-full text-xs font-semibold border ${costMode === m ? 'bg-amber-500 text-stone-900 border-amber-500' : 'bg-stone-900 text-stone-300 border-stone-700'}">${l}</button>`;
   return `<div class="bg-stone-800 border border-stone-700 rounded-xl p-4 space-y-3">
-    <div><h3 class="font-bold text-white text-sm">What this car costs to run</h3><p class="text-xs text-stone-400">Maintenance, fuel, tyres, insurance, tax and NCT together.${perUnit != null ? ` Cost per ${unitName()} is the total divided by the ${fmtKm(yc.span)} covered by your records.` : ' Cost per distance appears once your records span 500 km or more.'}</p></div>
-    <div class="grid grid-cols-2 gap-3 text-xs"><div><span class="text-stone-400 block">All-in total</span><strong class="text-emerald-400 font-mono text-base">${formatEur(yc.total)}</strong></div>
-      <div><span class="text-stone-400 block">Cost per ${unitName()}</span><strong class="text-white font-mono text-base">${perUnit != null ? '€' + perUnit.toFixed(2) : '—'}</strong></div></div>
+    <div><h3 class="font-bold text-white text-sm">What this car costs to run</h3><p class="text-xs text-stone-400">Maintenance, fuel, tyres, insurance, tax and NCT together.${per100 != null ? ` Cost per ${unitName()} is the total divided by the ${fmtKm(yc.span)} covered by your records.` : ' Cost per distance appears once your records span 500 km or more.'}</p></div>
+    <div class="flex gap-2 flex-wrap">${chip('all', 'Everything')}${chip('running', 'Running')}${chip('maint', 'Maintenance')}</div>
+    <div class="grid grid-cols-3 gap-3 text-xs"><div><span class="text-stone-400 block">Total</span><strong class="text-emerald-400 font-mono text-base">${formatEur(total)}</strong></div>
+      <div><span class="text-stone-400 block">Per 100 ${unitName()}</span><strong class="text-white font-mono text-base">${per100 != null ? '€' + per100.toFixed(2) : '—'}</strong></div>
+      <div><span class="text-stone-400 block">Per month</span><strong class="text-white font-mono text-base">${perMonth != null ? '€' + perMonth.toFixed(0) : '—'}</strong>${perMonth == null ? '<span class="block text-[10px] text-stone-500">needs 2 months of records</span>' : ''}</div></div>
+    ${fuelNote}
+    <div class="space-y-1.5"><span class="text-[11px] font-semibold text-stone-300">Where it goes</span>
+      ${cats.filter(c => c.v > 0).sort((a, b) => b.v - a.v).map(c => `<div class="flex items-center gap-2 text-xs"><span class="w-20 shrink-0 text-stone-300">${c.label}</span><div class="flex-1 h-2.5 bg-stone-900 rounded-r"><div class="h-full rounded-r" style="width:${(c.v / max * 100).toFixed(1)}%;background:${c.col}"></div></div><span class="w-16 text-right font-mono text-stone-200">${formatEur(c.v)}</span><span class="w-9 text-right text-stone-500">${total ? Math.round(c.v / total * 100) : 0}%</span></div>`).join('') || '<p class="text-xs text-stone-500">Nothing logged in this group yet.</p>'}</div>
+    ${hasFuel ? fuelLineHtml(vehId) : ''}
     <div class="overflow-x-auto"><table class="w-full text-xs text-left"><thead class="text-stone-400 uppercase text-[10px]"><tr><th class="py-1.5 pr-3">Year</th><th class="py-1.5 pr-3">Maintenance</th><th class="py-1.5 pr-3">Fuel</th><th class="py-1.5 pr-3">Tyres</th><th class="py-1.5 pr-3">Ins / tax / NCT</th><th class="py-1.5 text-right">Total</th></tr></thead><tbody class="divide-y divide-stone-700/60 font-mono text-stone-200">
     ${years.map(y => { const b = yc.by[y]; return `<tr><td class="py-1.5 pr-3 text-stone-400">${esc(y)}</td><td class="pr-3">${e(b.maint)}</td><td class="pr-3">${e(b.fuel)}</td><td class="pr-3">${e(b.tyres)}</td><td class="pr-3">${e(b.renew)}</td><td class="text-right font-semibold text-white">${formatEur(b.maint + b.fuel + b.tyres + b.renew)}</td></tr>`; }).join('')}
     </tbody></table></div></div>`;
@@ -6782,32 +7011,32 @@ function parseCsv(text) {
 function checklistsFromCsv(text) {
   const rows = parseCsv(text); if (!rows.length) return [];
   const head = rows[0].map(h => h.toLowerCase()), find = re => head.findIndex(h => re.test(h));
-  let iT = find(/^(checklist|title|name|template)/), iC = find(/^(category|type)/), iI = find(/^(item|task|line|step|check(?!list))/), iS = find(/^(section|heading|stage)/), data = rows;
+  let iT = find(/^(checklist|title|name|template)/), iC = find(/^(category|type)/), iI = find(/^(item|task|line|step|check(?!list))/), iS = find(/^(section|heading|stage)/), iP = find(/^(spec|torque|value)/), data = rows;
   if (iT >= 0 && iI >= 0) data = rows.slice(1);
-  else if (rows[0].length >= 3) { iT = 0; iC = 1; iI = 2; iS = rows[0].length >= 4 ? 3 : -1; }
-  else if (rows[0].length === 2) { iT = 0; iC = -1; iI = 1; iS = -1; }
+  else if (rows[0].length >= 3) { iT = 0; iC = 1; iI = 2; iS = rows[0].length >= 4 ? 3 : -1; iP = rows[0].length >= 5 ? 4 : -1; }
+  else if (rows[0].length === 2) { iT = 0; iC = -1; iI = 1; iS = -1; iP = -1; }
   else return [];
   const map = new Map();
   data.forEach(r => {
     const title = (r[iT] || '').trim(), item = (r[iI] || '').trim(); if (!title || !item) return;
-    if (!map.has(title)) map.set(title, { title, category: iC >= 0 ? (r[iC] || '').trim() : '', items: [], secs: [] });
+    if (!map.has(title)) map.set(title, { title, category: iC >= 0 ? (r[iC] || '').trim() : '', items: [], secs: [], specs: [] });
     const c = map.get(title); if (!c.category && iC >= 0 && r[iC]) c.category = r[iC].trim();
-    c.items.push(item); { const sec = iS >= 0 ? (r[iS] || '').trim() : ''; c.secs.push(isToolsSec(sec) ? 'Tools and Parts' : sec); }
+    c.items.push(item); { const sec = iS >= 0 ? (r[iS] || '').trim() : ''; c.secs.push(isToolsSec(sec) ? 'Tools and Parts' : sec); c.specs.push(iP >= 0 ? (r[iP] || '').trim() : ''); }
   });
-  return [...map.values()].map(c => { if (!c.secs.some(Boolean)) delete c.secs; return c; });
+  return [...map.values()].map(c => { if (!c.secs.some(Boolean)) delete c.secs; if (!c.specs.some(Boolean)) delete c.specs; return c; });
 }
 const isToolsSec = n => /^tools?\s*(and|&|\+)\s*parts?$/i.test((n || '').trim());
 function chkGroups(c) {                  // sections in order of first appearance, "Tools and Parts" always first
   const groups = [], idx = new Map();
   (c.items || []).forEach((t, i) => {
     const name = ((c.secs || [])[i] || '').trim(), key = isToolsSec(name) ? '\u0000tools' : name.toLowerCase();
-    if (!idx.has(key)) { idx.set(key, groups.length); groups.push({ name: isToolsSec(name) ? 'Tools and Parts' : name, tools: isToolsSec(name), items: [] }); }
-    groups[idx.get(key)].items.push(t);
+    if (!idx.has(key)) { idx.set(key, groups.length); groups.push({ name: isToolsSec(name) ? 'Tools and Parts' : name, tools: isToolsSec(name), items: [], specs: [] }); }
+    groups[idx.get(key)].items.push(t); groups[idx.get(key)].specs.push(((c.specs || [])[i] || '').trim());
   });
   return groups.filter(g => g.tools).concat(groups.filter(g => !g.tools));
 }
 function chkCardItemsHtml(c) {
-  return chkGroups(c).map(g => (g.name ? `<li class="pt-1 text-[10px] font-bold uppercase tracking-wider ${g.tools ? 'text-amber-300' : 'text-stone-400'}">${esc(g.name)}</li>` : '') + g.items.map(t => `<li class="flex items-center gap-2"><i data-lucide="${g.tools ? 'wrench' : 'check'}" class="w-3.5 h-3.5 ${g.tools ? 'text-amber-400' : 'text-emerald-400'} shrink-0"></i> ${esc(t)}</li>`).join('')).join('');
+  return chkGroups(c).map(g => (g.name ? `<li class="pt-1 text-[10px] font-bold uppercase tracking-wider ${g.tools ? 'text-amber-300' : 'text-stone-400'}">${esc(g.name)}</li>` : '') + g.items.map((t, i) => `<li class="flex items-start gap-2"><i data-lucide="${g.tools ? 'wrench' : 'check'}" class="w-3.5 h-3.5 mt-0.5 ${g.tools ? 'text-amber-400' : 'text-emerald-400'} shrink-0"></i> <span>${esc(t)}${g.specs[i] ? ` <span class="text-amber-300">&mdash; ${esc(g.specs[i])}</span>` : ''}</span></li>`).join('')).join('');
 }
 function chkCountText(c) { const g = chkGroups(c), tools = g.filter(x => x.tools).reduce((a, x) => a + x.items.length, 0), n = c.items.length - tools; return `${n} inspection task${n === 1 ? '' : 's'}${tools ? ` + ${tools} tool${tools === 1 ? '' : 's'} / part${tools === 1 ? '' : 's'}` : ''}`; }
 let chkImport = [];
@@ -6816,7 +7045,7 @@ function importChecklistFile(e) {
   const rd = new FileReader();
   rd.onload = () => {
     chkImport = checklistsFromCsv(String(rd.result || ''));
-    if (!chkImport.length) { toast('No checklists found. Use the template: Checklist, Category, Item, Section.'); return; }
+    if (!chkImport.length) { toast('No checklists found. Use the template: Checklist, Category, Item, Section, Spec.'); return; }
     const have = new Set(state.checklists.map(c => c.title.trim().toLowerCase()));
     chkImport.forEach(c => { c.dup = have.has(c.title.toLowerCase()); });
     $('chk-imp-sub').textContent = `${chkImport.length} checklist${chkImport.length > 1 ? 's' : ''}, ${chkImport.reduce((a, c) => a + c.items.length, 0)} items found in ${f.name}`;
@@ -6838,19 +7067,19 @@ function commitChecklistImport() {
   picks.forEach(({ c, mode }) => {
     if (mode === 'replace') {
       const old = state.checklists.find(x => x.title.trim().toLowerCase() === c.title.toLowerCase()); if (!old) return;
-      old.items = c.items; if (c.secs) old.secs = c.secs; else delete old.secs; if (c.category) old.category = c.category; replaced++; return;
+      old.items = c.items; if (c.secs) old.secs = c.secs; else delete old.secs; if (c.specs) old.specs = c.specs; else delete old.specs; if (c.category) old.category = c.category; replaced++; return;
     }
     let t = c.title; if (names.has(t.toLowerCase())) t += ' (imported)'; names.add(t.toLowerCase());
-    const n = { id: uid('c'), title: t, category: c.category, items: c.items }; if (c.secs) n.secs = c.secs; state.checklists.push(n); added++;
+    const n = { id: uid('c'), title: t, category: c.category, items: c.items }; if (c.secs) n.secs = c.secs; if (c.specs) n.specs = c.specs; state.checklists.push(n); added++;
   });
   closeModal('modal-chk-import'); commit(); toast([added ? `${added} added` : '', replaced ? `${replaced} replaced` : ''].filter(Boolean).join(', '));
 }
 function exportChecklistsCsv() {
   if (!state.checklists.length) { toast('No checklists to export'); return; }
-  downloadCsv('checklists', [['Checklist', 'Category', 'Item', 'Section']].concat(state.checklists.flatMap(c => c.items.map((t, i) => [c.title, c.category || '', t, (c.secs || [])[i] || '']))));
+  downloadCsv('checklists', [['Checklist', 'Category', 'Item', 'Section', 'Spec']].concat(state.checklists.flatMap(c => c.items.map((t, i) => [c.title, c.category || '', t, (c.secs || [])[i] || '', (c.specs || [])[i] || '']))));
 }
 function downloadChecklistTemplate() {
-  downloadCsv('checklist-template', [['Checklist', 'Category', 'Item', 'Section'], ['General Service', 'Service', '17mm socket and torque wrench', 'Tools and Parts'], ['General Service', 'Service', 'Oil filter and sump washer', 'Tools and Parts'], ['General Service', 'Service', 'Drain and replace engine oil', 'Engine'], ['General Service', 'Service', 'Inspect air filter', 'Engine'], ['Pre-Trip', 'Safety', 'Check tyre pressures', ''], ['Pre-Trip', 'Safety', 'Check lights', '']]);
+  downloadCsv('checklist-template', [['Checklist', 'Category', 'Item', 'Section', 'Spec'], ['General Service', 'Service', '17mm socket and torque wrench', 'Tools and Parts', ''], ['General Service', 'Service', 'Oil filter and sump washer', 'Tools and Parts', ''], ['General Service', 'Service', 'Refit sump plug', 'Engine', '30 Nm'], ['General Service', 'Service', 'Drain and replace engine oil', 'Engine', ''], ['General Service', 'Service', 'Inspect air filter', 'Engine', ''], ['Pre-Trip', 'Safety', 'Check tyre pressures', '', ''], ['Pre-Trip', 'Safety', 'Check lights', '', '']]);
 }
 
 /* ---------- fit new tyres (choose wheels, one work order) ---------- */
@@ -6913,13 +7142,14 @@ function refreshPartBtn(row) {
 }
 function addWoPartAndPick() { addWoPartRow(); const rows = document.querySelectorAll('.wo-part-row'); openPartPicker(rows[rows.length - 1]); }
 let ppRow = null;
-function openPartPicker(row) {
-  ppRow = row; const vid = $('wo-vehicle-id').value;
-  $('pp-sub').textContent = `For ${vehName(vid) || 'this car'}${$('wo-job-title').value ? ' • ' + $('wo-job-title').value : ''}`;
+let ppCtx = 'wo', ppVeh = '';
+function openPartPicker(row, ctx = 'wo') {
+  ppRow = row; ppCtx = ctx; const vid = ppVeh = ctx === 'rem' ? $('rem-vehicle-id').value : $('wo-vehicle-id').value, ttl = ctx === 'rem' ? $('rem-title').value : $('wo-job-title').value;
+  $('pp-sub').textContent = `For ${vehName(vid) || 'this car'}${ttl ? ' • ' + ttl : ''}`;
   $('pp-search').value = ''; renderPartPicker(); openModal('modal-partpick');
 }
 function renderPartPicker() {
-  const vid = $('wo-vehicle-id').value, toks = $('pp-search').value.trim().toLowerCase().split(/\s+/).filter(Boolean), cur = ppRow && ppRow.querySelector('.wo-part-select').value;
+  const vid = ppVeh, toks = $('pp-search').value.trim().toLowerCase().split(/\s+/).filter(Boolean), cur = ppRow && ppRow.querySelector('.wo-part-select').value;
   const match = i => !toks.length || toks.every(t => [i.name, i.brand, i.code, i.vendor, i.batch].some(f => (f || '').toLowerCase().includes(t)));
   const byName = (a, b) => a.name.localeCompare(b.name);
   const mine = state.inventory.filter(i => (!ownedByVehicle(i) || i.vehicleId === vid) && match(i));
@@ -6936,17 +7166,17 @@ function renderPartPicker() {
       <span class="min-w-0 text-left"><span class="block text-sm font-bold text-white leading-tight">${esc(i.name)} ${tag}</span><span class="block text-[11.5px] text-stone-400 mt-0.5">${esc([i.brand, i.code ? (i.brand ? '' : 'Part no. ') + i.code : ''].filter(Boolean).join(' • ')) || '&nbsp;'}</span></span>
       <span class="text-right shrink-0"><span class="block text-[11px] font-bold px-2 py-0.5 rounded-md border ${c}">${esc(t)}</span><span class="block text-[11px] text-stone-400 mt-1">${esc(price)}</span></span></button>`;
   };
-  $('pp-list').innerHTML = groups.map(([label, tone, items, kind]) => items.length ? `<div class="flex items-center gap-2 mt-4 mb-2 px-0.5 text-[11px] font-bold uppercase tracking-wider ${tone}"><span class="w-2 h-2 rounded-full" style="background:currentColor"></span>${label}<span class="ml-auto normal-case font-semibold opacity-80">${items.length} item${items.length > 1 ? 's' : ''}</span></div>${items.map(i => row(i, kind)).join('')}` : '').join('') || `<p class="text-sm text-stone-400 py-6 text-center">${state.inventory.length ? 'No part matches that search.' : 'No inventory yet. Add parts in Inventory first.'}</p>`;
+  $('pp-list').innerHTML = (groups.map(([label, tone, items, kind]) => items.length ? `<div class="flex items-center gap-2 mt-4 mb-2 px-0.5 text-[11px] font-bold uppercase tracking-wider ${tone}"><span class="w-2 h-2 rounded-full" style="background:currentColor"></span>${label}<span class="ml-auto normal-case font-semibold opacity-80">${items.length} item${items.length > 1 ? 's' : ''}</span></div>${items.map(i => row(i, kind)).join('')}` : '').join('') || `<p class="text-sm text-stone-400 py-6 text-center">${state.inventory.length ? 'No part matches that search.' : 'No inventory yet. Add parts in Inventory first.'}</p>`) + ((ppCtx === 'rem' || $('wo-status').value === 'Planning') ? `<button type="button" onclick="ppAddNew()" class="pp-row" style="border-left-color:#38bdf8;margin-top:1rem"><span class="text-sm font-bold text-sky-300 text-left">+ Not in my parts yet: add ${$('pp-search').value.trim() ? '"' + esc($('pp-search').value.trim()) + '" ' : ''}as new</span></button>` : '');
 }
 function pickPart(id) {
   if (!ppRow) return;
-  ppRow.querySelector('.wo-part-select').value = id; refreshPartBtn(ppRow); closeModal('modal-partpick'); updateWoCost();
+  ppRow.querySelector('.wo-part-select').value = id; refreshPartBtn(ppRow); closeModal('modal-partpick'); if (ppCtx === 'wo') updateWoCost();
   const q = ppRow.querySelector('.wo-part-qty'); if (q) { q.focus(); q.select(); }
 }
 
 
 /* ---------- sync: merge changes made on two devices ---------- */
-const MERGE_KEYS = ['vehicles', 'inventory', 'checklists', 'reminders', 'workorders', 'expiries', 'fuel', 'tyres', 'rotations', 'trash'];
+const MERGE_KEYS = ['vehicles', 'inventory', 'checklists', 'reminders', 'workorders', 'expiries', 'fuel', 'tyres', 'rotations', 'trash', 'shopping'];
 function mergeStates(base, local, remote) {
   const newerRemote = (remote.updatedAt || '') > (local.updatedAt || '');
   const out = JSON.parse(JSON.stringify(newerRemote ? remote : local)); let conflicts = 0;
@@ -6990,7 +7220,7 @@ function restoreTrash(id) {
   if (t.kind === 'vehicle') { addAll('vehicles', [d.vehicle]); addAll('reminders', d.reminders); addAll('workorders', d.workorders); addAll('expiries', d.expiries); addAll('fuel', d.fuel); addAll('tyres', d.tyres); addAll('rotations', d.rotations); }
   else if (t.kind === 'workorder') {
     if (!state.vehicles.some(v => v.id === d.workorder.vehicleId)) { toast('Its car has been deleted. Restore the car first.'); return; }
-    addAll('workorders', [d.workorder]); (d.workorder.parts || []).forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) i.qty = Math.max(0, +(i.qty - p.qty).toFixed(2)); }); note = ' Parts it used were taken out of stock again.';
+    addAll('workorders', [d.workorder]); if (d.workorder.status !== 'Planning') (d.workorder.parts || []).forEach(p => { const i = state.inventory.find(x => x.id === p.invId); if (i) i.qty = Math.max(0, +(i.qty - p.qty).toFixed(2)); }); note = ' Parts it used were taken out of stock again.';
   }
   else if (t.kind === 'tyre') { const x = d.tyre; if (x.status === 'Fitted' && fittedTyre(x.vehicleId, x.position)) { x.status = 'Removed'; x.removedDate = todayStr(); x.removedOdo = (state.vehicles.find(v => v.id === x.vehicleId) || {}).odometer || x.fittedOdo; note = ' That wheel has a tyre now, so it came back under "Tyres taken off".'; } addAll('tyres', [x]); }
   else if (t.kind === 'part') addAll('inventory', [d.part]);
@@ -7071,7 +7301,7 @@ function woSheetHtml(wo, o, foot) {
     : [pro ? card('Garage', esc(wo.provider || 'Professional')) : card('Labour time', fmtHm(wo.laborSeconds)), card('Parts', `${parts.length} item${parts.length === 1 ? '' : 's'}`), card('Done by', pro ? 'Garage' : 'DIY'), card('Odometer', wo.odometer ? fmtKm(wo.odometer) : '—')];
   const sec = (title, body) => `<div class="ps-sec"><div class="ps-h2">${title}</div>${body}</div>`;
   const chk = items.length || (wo.checklists || []).length ? sec('Checklist', `<div class="ps-strip"><span class="ps-pill pass">&#10003; ${n('Pass')} passed</span><span class="ps-pill warn">! ${n('Needs Attention')} needs attention</span><span class="ps-pill fail">&#10007; ${n('Fail')} failed</span></div>
-    <table><thead><tr><th style="width:38%">Item</th><th style="width:24%">Result</th><th>Notes</th></tr></thead><tbody>${(wo.checklists || []).map(x => x.heading ? `<tr class="grp"><td colspan="3">${esc(x.text)}</td></tr>` : `<tr><td>${esc(x.text)}</td><td>${pill(x.status)}</td><td>${esc(x.comment || '')}</td></tr>`).join('')}</tbody></table>`) : '';
+    <table><thead><tr><th style="width:38%">Item</th><th style="width:24%">Result</th><th>Notes</th></tr></thead><tbody>${(wo.checklists || []).map(x => x.heading ? `<tr class="grp"><td colspan="3">${esc(x.text)}</td></tr>` : `<tr><td>${esc(x.text)}${x.spec ? `<div class="ps-spec">${esc(x.spec)}</div>` : ''}</td><td>${pill(x.status)}</td><td>${esc(x.comment || '')}</td></tr>`).join('')}</tbody></table>`) : '';
   const partRow = p => {
     const inv = state.inventory.find(i => i.id === p.invId), sub = [inv && inv.brand, p.code].filter(Boolean).map(esc).join(' &middot; '), we = warrantyEnd(wo, p), eu = p.eurUnit ?? convertToEuro(p.price, p.currency);
     return `<tr><td>${esc(p.name)}${sub ? `<div class="ps-code">${sub}</div>` : ''}${we ? `<div class="ps-code">Warranty to ${fmtDate(we)}</div>` : ''}</td><td class="r">${p.qty} ${esc(p.unit || '')}</td>${o.costs ? `<td class="r">${formatEur(eu)}</td><td class="r">${formatEur(p.qty * eu)}</td>` : ''}</tr>`;
@@ -7146,6 +7376,506 @@ function printFolder() {
   if (!v) return; if (!jobs.length) { toast('Tick at least one job'); return; }
   $('print-template').innerHTML = `<div class="paper ps-wrap">${psCover(v, jobs, printOpts)}${jobs.map((w, i) => woSheetHtml(w, printOpts, `Sheet ${i + 1} of ${jobs.length}`)).join('')}</div>`;
   printWithTitle(pdfName('Service History', pfVeh, todayStr()));
+}
+
+/* ---------- checklist editor: shared by jobs and the template builder ---------- */
+const CL_NEXT = { 'Pass': 'Needs Attention', 'Needs Attention': 'Fail', 'Fail': 'Pass' };
+const CL_UI = { 'Pass': ['✓', 'Pass', 'cl-st-p'], 'Needs Attention': ['!', 'Needs attention', 'cl-st-w'], 'Fail': ['✕', 'Fail', 'cl-st-f'] };
+const clRows = box => [...box.children].filter(r => r.classList.contains('cl-row'));
+const clIsHead = r => r.classList.contains('cl-head');
+function clGroups(box) {            // [{head, rows}]; the first group has no head when steps sit above the first section
+  const gs = []; let cur = null;
+  clRows(box).forEach(r => { if (clIsHead(r)) { cur = { head: r, rows: [] }; gs.push(cur); } else { if (!cur) { cur = { head: null, rows: [] }; gs.push(cur); } cur.rows.push(r); } });
+  return gs;
+}
+function clGroup(head) { const out = [head]; let n = head.nextElementSibling; while (n && !n.classList.contains('cl-head')) { if (n.classList.contains('cl-row')) out.push(n); n = n.nextElementSibling; } return out; }
+function clGrow(el) { el.style.height = 'auto'; if (el.scrollHeight) el.style.height = el.scrollHeight + 2 + 'px'; }
+function clGrowAll(box) { box.querySelectorAll('textarea.cl-text').forEach(clGrow); }
+function clPaint(row) { const b = row.querySelector('.cl-st'); if (!b) return; const u = CL_UI[row.dataset.status] || CL_UI.Pass; b.className = 'cl-st ' + u[2]; b.textContent = u[0]; b.setAttribute('aria-label', 'Status: ' + u[1] + '. Tap to change'); }
+function clHeadRow(box, text, o = {}) {
+  const d = document.createElement('div'); d.className = 'wo-chk-head cl-row cl-head'; d.dataset.text = o.nosec ? '' : text;
+  if (o.tools) d.dataset.tools = '1'; if (o.nosec) d.dataset.nosec = '1';
+  const fixed = o.tools || o.nosec;
+  d.innerHTML = `<span class="cl-grip" title="Drag to move"></span><input type="text" class="cl-head-text" value="${esc(o.nosec ? 'No section' : text)}" ${fixed ? 'readonly' : ''} aria-label="Section name" oninput="this.closest('.cl-row').dataset.text=this.value"><span class="cl-count"></span><button type="button" class="cl-mv" onclick="clMove(this.closest('.cl-row'),-1)" aria-label="Move section up">&#9650;</button><button type="button" class="cl-mv" onclick="clMove(this.closest('.cl-row'),1)" aria-label="Move section down">&#9660;</button><button type="button" class="cl-more" onclick="clMenu(this)" aria-label="Section menu">&#8942;</button>`;
+  return d;
+}
+function clItemRow(box, text, o = {}) {
+  const job = box.dataset.mode === 'job', d = document.createElement('div');
+  d.className = (job ? 'wo-chk-item' : 'chk-line') + ' cl-row cl-item' + (o.spec ? ' has-spec' : '') + (o.comment ? ' has-note' : '');
+  if (job) d.dataset.status = CL_NEXT[o.status] ? o.status : 'Pass';
+  d.innerHTML = `<span class="cl-grip" title="Drag to move"></span>${job ? `<button type="button" class="cl-st" onclick="clCycle(this)"></button>` : ''}<div class="cl-main"><div class="cl-textwrap"><textarea rows="1" class="cl-text ${job ? 'wo-chk-text' : 'chk-item-input'}" placeholder="${job ? 'Step...' : 'Checklist line...'}" aria-label="Step" oninput="clGrow(this)">${esc(text || '')}</textarea><input type="text" class="cl-spec" value="${esc(o.spec || '')}" placeholder="Spec, e.g. 120 Nm" aria-label="Spec" oninput="this.closest('.cl-row').classList.toggle('has-spec',true)"></div>${job ? `<div class="cl-note"><input type="text" class="wo-chk-comment cl-comment inp inp-sm" value="${esc(o.comment || '')}" placeholder="Note" aria-label="Note"></div>` : ''}</div><button type="button" class="cl-more" onclick="clMenu(this)" aria-label="Step menu">&#8942;</button>`;
+  if (job) clPaint(d);
+  return d;
+}
+function clAddRowEl(label, job) { const d = document.createElement('div'); d.className = 'cl-addrow'; d.innerHTML = `<button type="button" onclick="clAddAtEnd(this)">+ Add ${job ? 'step' : 'line'} to ${esc(label)}</button>`; return d; }
+function clFix(box) {
+  box.querySelectorAll('.cl-addrow').forEach(x => x.remove());
+  const tpl = box.dataset.mode === 'tpl';
+  if (tpl) {
+    let tools = null, nosec = null; const rest = [];
+    clGroups(box).forEach(g => { const h = g.head; if (h && h.dataset.tools) { if (!tools) tools = g; else tools.rows.push(...g.rows); } else if (!h || h.dataset.nosec) { if (!nosec) nosec = g; else nosec.rows.push(...g.rows); } else rest.push(g); });
+    if (nosec && !nosec.head) nosec.head = clHeadRow(box, '', { nosec: true });
+    if (nosec && !nosec.rows.length) nosec = null;
+    const order = [tools, nosec].concat(rest).filter(Boolean);
+    box.replaceChildren(...order.flatMap(g => [g.head].concat(g.rows)));
+    box.classList.toggle('cl-onlynosec', order.length === 1 && !!nosec);
+  }
+  clGroups(box).forEach(g => {
+    if (!g.head) return;
+    const n = g.rows.length; g.head.querySelector('.cl-count').textContent = n + (n === 1 ? ' step' : ' steps');
+    if (g.head.dataset.nosec) return;
+    const nm = g.head.dataset.tools ? 'Tools and Parts' : (g.head.querySelector('.cl-head-text').value.trim() || 'section');
+    (g.rows.length ? g.rows[g.rows.length - 1] : g.head).after(clAddRowEl(nm, !tpl));
+  });
+  clGrowAll(box); if (!tpl) clSummary(box);
+}
+let clFixT = new WeakMap();
+function clFixSoon(box) { if (clFixT.get(box)) return; clFixT.set(box, setTimeout(() => { clFixT.set(box, 0); clFix(box); }, 0)); }
+function clSummary(box) {
+  const el = $('wo-chk-sum'); if (!el || box.id !== 'wo-checklists-container') return;
+  const items = clRows(box).filter(r => !clIsHead(r)), n = s => items.filter(r => r.dataset.status === s).length;
+  el.innerHTML = items.length ? `${items.length} step${items.length === 1 ? '' : 's'} &bull; <span class="text-emerald-300">${n('Pass')} pass</span> &bull; <span class="text-amber-300">${n('Needs Attention')} attention</span> &bull; <span class="text-rose-300">${n('Fail')} fail</span>` : '';
+  const ap = $('wo-allpass-btn'); if (ap) ap.classList.toggle('hidden', !items.length);
+}
+function clReset(box) { box.innerHTML = ''; box.classList.remove('cl-reorder'); const b = box.id === 'wo-checklists-container' ? $('wo-reorder-btn') : $('chk-reorder-btn'); if (b) { b.textContent = 'Reorder'; b.classList.add('btn-secondary'); b.classList.remove('btn-primary'); } }
+function clToggleReorder(boxId, btnId) { const box = $(boxId), on = box.classList.toggle('cl-reorder'), b = $(btnId); b.textContent = on ? 'Done' : 'Reorder'; b.classList.toggle('btn-primary', on); b.classList.toggle('btn-secondary', !on); if (!on) clGrowAll(box); }
+function clCycle(btn) { const row = btn.closest('.cl-row'); row.dataset.status = CL_NEXT[row.dataset.status] || 'Pass'; clPaint(row); clSummary(row.parentElement); }
+function clAllPass() {
+  const box = $('wo-checklists-container'), items = clRows(box).filter(r => !clIsHead(r)), bad = items.filter(r => r.dataset.status !== 'Pass').length;
+  if (bad && !confirm(`${bad} step${bad === 1 ? ' is' : 's are'} marked Needs attention or Fail. Set every step to Pass?`)) return;
+  items.forEach(r => { r.dataset.status = 'Pass'; clPaint(r); }); clSummary(box);
+}
+function clAddStep(boxId) { const box = $(boxId), n = clItemRow(box, '', {}); box.appendChild(n); clFix(box); n.querySelector('.cl-text').focus(); }
+function clAddAtEnd(btn) { const prev = btn.parentElement.previousElementSibling, box = btn.closest('.cl-box'), n = clItemRow(box, '', {}); prev.after(n); clFix(box); n.querySelector('.cl-text').focus(); }
+function clAddSection(boxId) {
+  const box = $(boxId); clAsk('New section', '', 'Section name, e.g. Brakes', name => {
+    if (!name) return; const h = clHeadRow(box, name), n = clItemRow(box, '', {}); box.appendChild(h); box.appendChild(n); clFix(box); n.querySelector('.cl-text').focus();
+  });
+}
+/* the small pop-up used for the ⋮ menus and questions */
+let csCb = [];
+function clSheet({ title, sub = '', input = null, items = [] }) {
+  $('cs-title').textContent = title; $('cs-sub').textContent = sub; $('cs-sub').classList.toggle('hidden', !sub); csCb = [];
+  $('cs-body').innerHTML = (input ? `<input id="cs-input" type="text" class="inp" value="${esc(input.value || '')}" placeholder="${esc(input.placeholder || '')}" onkeydown="if(event.key==='Enter'){event.preventDefault();clSheetPick(${items.findIndex(x => x.cls === 'pri')})}">` : '') + items.map((it, i) => { csCb.push(it.fn); return `<button type="button" onclick="clSheetPick(${i})" class="cs-btn ${it.cls || ''}">${esc(it.label)}${it.sub ? `<span>${esc(it.sub)}</span>` : ''}</button>`; }).join('');
+  openModal('modal-clsheet'); if (input) setTimeout(() => { const e = $('cs-input'); if (e) { e.focus(); e.select(); } }, 60);
+}
+function clSheetPick(i) { if (i < 0) return; const v = $('cs-input') ? $('cs-input').value.trim() : '', fn = csCb[i]; closeModal('modal-clsheet'); if (fn) fn(v); }
+function clAsk(title, value, placeholder, cb) { clSheet({ title, input: { value, placeholder }, items: [{ label: 'Save', cls: 'pri', fn: cb }, { label: 'Cancel' }] }); }
+
+function clMenu(btn) {
+  const row = btn.closest('.cl-row'), box = row.parentElement, job = box.dataset.mode === 'job', head = clIsHead(row), it = [];
+  const act = (label, fn, cls) => it.push({ label, fn, cls });
+  if (head) {
+    const fixed = row.dataset.tools || row.dataset.nosec, nm = row.dataset.tools ? 'Tools and Parts' : (row.querySelector('.cl-head-text').value || 'Section');
+    if (!fixed) act('Rename section', () => clAsk('Rename section', row.querySelector('.cl-head-text').value, '', v => { if (v) { row.querySelector('.cl-head-text').value = v; row.dataset.text = v; clFix(box); } }));
+    act('Add a step to this section', () => { const last = clGroup(row).pop(), n = clItemRow(box, '', {}); last.after(n); clFix(box); n.querySelector('.cl-text').focus(); });
+    if (!fixed) { act('Move section up', () => clMove(row, -1)); act('Move section down', () => clMove(row, 1)); act('Move section to the top', () => clMoveTop(row)); }
+    if (!row.dataset.nosec) act('Remove section', () => clRemoveSection(row), 'danger');
+    return clSheet({ title: nm, sub: (clGroup(row).length - 1) + ' step(s)', items: it.concat([{ label: 'Close' }]) });
+  }
+  const t = row.querySelector('.cl-text').value.trim();
+  if (job) act(row.classList.contains('has-note') ? 'Edit note' : 'Add a note', () => { row.classList.add('has-note'); const i = row.querySelector('.cl-comment'); i.focus(); });
+  act(row.classList.contains('has-spec') ? 'Edit spec' : 'Add a spec (e.g. 120 Nm)', () => { row.classList.add('has-spec'); row.querySelector('.cl-spec').focus(); });
+  act('Move up', () => clMove(row, -1)); act('Move down', () => clMove(row, 1)); act('Move to top of section', () => clMoveTop(row));
+  if (clGroups(box).filter(g => g.head && !g.head.dataset.nosec).length) act('Move to another section...', () => clMoveToSection(row));
+  act('Start a new section here', () => clAsk('New section starts at this step', '', 'Section name', v => { if (!v) return; row.before(clHeadRow(box, v)); clFix(box); }));
+  if (!job) act('Duplicate line', () => { const c = clItemRow(box, row.querySelector('.cl-text').value, { spec: row.querySelector('.cl-spec').value }); row.after(c); clFix(box); });
+  act('Remove ' + (job ? 'step' : 'line'), () => { row.remove(); clFix(box); }, 'danger');
+  clSheet({ title: t ? (t.length > 60 ? t.slice(0, 58) + '...' : t) : 'Step', items: it.concat([{ label: 'Close' }]) });
+}
+const clPrevRow = r => { let n = r.previousElementSibling; while (n && !n.classList.contains('cl-row')) n = n.previousElementSibling; return n; };
+const clNextRow = r => { let n = r.nextElementSibling; while (n && !n.classList.contains('cl-row')) n = n.nextElementSibling; return n; };
+function clMove(row, dir) {
+  const box = row.parentElement; box.querySelectorAll('.cl-addrow').forEach(x => x.remove());
+  if (clIsHead(row)) {
+    const gs = clGroups(box), i = gs.findIndex(g => g.head === row), j = i + dir; if (j < 0 || j >= gs.length) { clFix(box); return; }
+    const mine = clGroup(row), other = gs[j], oFirst = other.head || other.rows[0], oLast = other.rows.length ? other.rows[other.rows.length - 1] : other.head;
+    if (dir < 0) mine.forEach(x => box.insertBefore(x, oFirst)); else mine.slice().reverse().forEach(x => oLast.after(x));
+  } else {
+    const sib = dir < 0 ? clPrevRow(row) : clNextRow(row); if (sib) { if (dir < 0) box.insertBefore(row, sib); else sib.after(row); }
+  }
+  clFix(box); const r = row.querySelector('.cl-more'); if (r) r.scrollIntoView({ block: 'nearest' });
+}
+function clMoveTop(row) {
+  const box = row.parentElement; box.querySelectorAll('.cl-addrow').forEach(x => x.remove());
+  if (clIsHead(row)) clGroup(row).slice().reverse().forEach(x => box.insertBefore(x, box.firstElementChild));
+  else { let h = clPrevRow(row); while (h && !clIsHead(h)) h = clPrevRow(h); if (h) h.after(row); else box.insertBefore(row, box.firstElementChild); }
+  clFix(box);
+}
+function clMoveToSection(row) {
+  const box = row.parentElement, gs = clGroups(box).filter(g => g.head && !g.head.dataset.nosec);
+  clSheet({ title: 'Move to which section?', items: gs.map(g => ({ label: g.head.dataset.tools ? 'Tools and Parts' : g.head.querySelector('.cl-head-text').value, sub: g.rows.length + ' steps', fn: () => { box.querySelectorAll('.cl-addrow').forEach(x => x.remove()); const last = g.rows.filter(r => r !== row).pop() || g.head; last.after(row); clFix(box); } })).concat([{ label: 'Cancel' }]) });
+}
+function clRemoveSection(head) {
+  const box = head.parentElement, g = clGroup(head), n = g.length - 1;
+  if (!n) { head.remove(); clFix(box); return; }
+  clSheet({ title: 'Remove this section?', sub: `It has ${n} step${n === 1 ? '' : 's'}.`, items: [
+    { label: `Keep the ${n} step${n === 1 ? '' : 's'}`, sub: 'They join the section above', fn: () => { head.remove(); clFix(box); } },
+    { label: `Delete the section and its ${n} step${n === 1 ? '' : 's'}`, cls: 'danger', fn: () => { g.forEach(x => x.remove()); clFix(box); } },
+    { label: 'Cancel' }] });
+}
+/* drag to reorder: grab the dots */
+function clScrollParent(el) { let p = el.parentElement; while (p && p !== document.body) { const o = getComputedStyle(p).overflowY; if ((o === 'auto' || o === 'scroll') && p.scrollHeight > p.clientHeight) return p; p = p.parentElement; } return document.scrollingElement; }
+document.addEventListener('pointerdown', e => {
+  const grip = e.target.closest && e.target.closest('.cl-grip'); if (!grip) return;
+  const row = grip.closest('.cl-row'), box = row && row.parentElement; if (!row || !box || !box.classList.contains('cl-box')) return;
+  if (row.dataset.tools || row.dataset.nosec) return;
+  e.preventDefault(); box.querySelectorAll('.cl-addrow').forEach(x => x.remove());
+  const isHead = clIsHead(row), moving = isHead ? clGroup(row) : [row], sp = clScrollParent(box);
+  moving.forEach(x => x.classList.add('cl-dragging'));
+  let y = e.clientY, raf = 0, live = true;
+  const place = () => {
+    let before = null;
+    for (const r of [...box.children].filter(r => r.classList.contains('cl-row') && !moving.includes(r) && r.offsetParent !== null)) { const b = r.getBoundingClientRect(); if (y < b.top + b.height / 2) { before = r; break; } }
+    if (isHead) while (before && (moving.includes(before) || !clIsHead(before))) before = before.nextElementSibling;
+    moving.forEach(x => box.insertBefore(x, before));
+  };
+  const tick = () => { if (!live) return; const rc = sp === document.scrollingElement ? { top: 0, bottom: innerHeight } : sp.getBoundingClientRect(); if (y < rc.top + 70) sp.scrollTop -= 14; else if (y > rc.bottom - 70) sp.scrollTop += 14; place(); raf = requestAnimationFrame(tick); };
+  const mv = ev => { y = ev.clientY; }, up = () => { live = false; cancelAnimationFrame(raf); window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up); moving.forEach(x => x.classList.remove('cl-dragging')); clFix(box); };
+  window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up); tick();
+});
+document.addEventListener('keydown', e => {   // Enter in a step adds the next one
+  const t = e.target; if (e.key !== 'Enter' || e.shiftKey || e.isComposing || !t.classList || !t.classList.contains('cl-text')) return;
+  e.preventDefault(); if (!t.value.trim()) return;
+  const row = t.closest('.cl-row'), box = row.parentElement, n = clItemRow(box, '', {}); row.after(n); clFix(box); n.querySelector('.cl-text').focus();
+});
+/* job rows <-> data */
+function addWoHeadingRow(text) { const box = $('wo-checklists-container'); box.appendChild(clHeadRow(box, text)); clFixSoon(box); }
+function addWoChecklistRow(text = '', status = 'Pass', comment = '', spec = '') { const box = $('wo-checklists-container'); box.appendChild(clItemRow(box, text, { status, comment, spec })); clFixSoon(box); }
+function clJobData(box) {
+  return clRows(box).map(r => clIsHead(r) ? { text: r.querySelector('.cl-head-text').value.trim(), status: '', comment: '', heading: true } : Object.assign({ text: r.querySelector('.wo-chk-text').value.trim(), status: r.dataset.status || 'Pass', comment: r.querySelector('.wo-chk-comment').value.trim() }, r.querySelector('.cl-spec').value.trim() ? { spec: r.querySelector('.cl-spec').value.trim() } : {})).filter(c => c.text);
+}
+/* template <-> rows */
+function clLoadTemplate(box, c) {
+  chkGroups(c).forEach(g => {
+    box.appendChild(clHeadRow(box, g.name, g.tools ? { tools: true } : g.name ? {} : { nosec: true }));
+    g.items.forEach((t, i) => box.appendChild(clItemRow(box, t, { spec: g.specs[i] })));
+  });
+}
+function clTemplateData(box) {
+  const items = [], secs = [], specs = []; let sec = '';
+  clRows(box).forEach(r => {
+    if (clIsHead(r)) sec = r.dataset.tools ? 'Tools and Parts' : r.dataset.nosec ? '' : (r.querySelector('.cl-head-text').value.trim() || 'Section');
+    else { const t = r.querySelector('.cl-text').value.trim(); if (t) { items.push(t); secs.push(isToolsSec(sec) ? 'Tools and Parts' : sec); specs.push(r.querySelector('.cl-spec').value.trim()); } }
+  });
+  return { items, secs, specs };
+}
+function updateTemplateFromJob() {
+  const d = clTemplateData($('wo-checklists-container'));
+  if (!d.items.length) { toast('Add some steps first'); return; }
+  const confirmUpdate = c => {
+    const tools = chkGroups(c).find(g => g.tools), had = c.items.length - (tools ? tools.items.length : 0);
+    clSheet({ title: `Update "${c.title}"?`, sub: `Its ${had} checklist line${had === 1 ? '' : 's'} will be replaced by this job's ${d.items.length}. Pass/fail marks and notes are not copied.${tools ? ' Tools and Parts stay as they are.' : ''}`, items: [{ label: 'Update template', cls: 'pri', fn: () => {
+      const items = [], secs = [], specs = [];
+      if (tools) tools.items.forEach((t, i) => { items.push(t); secs.push('Tools and Parts'); specs.push(tools.specs[i] || ''); });
+      d.items.forEach((t, i) => { items.push(t); secs.push(d.secs[i]); specs.push(d.specs[i]); });
+      c.items = items; if (secs.some(Boolean)) c.secs = secs; else delete c.secs; if (specs.some(Boolean)) c.specs = specs; else delete c.specs;
+      $('wo-tpl-id').value = c.id; commit(); toast(`"${c.title}" updated`);
+    } }, { label: 'Cancel' }] });
+  };
+  const cur = state.checklists.find(c => c.id === $('wo-tpl-id').value);
+  if (cur) return confirmUpdate(cur);
+  clSheet({ title: 'Update which template?', sub: 'This job was not started from a template.', items: state.checklists.map(c => ({ label: c.title, sub: c.items.length + ' lines', fn: () => confirmUpdate(c) })).concat([{ label: 'Save as a new template...', cls: 'pri', fn: () => clAsk('Name for the new template', $('wo-job-title').value.trim(), '', name => {
+    if (!name) return; const n = { id: uid('c'), title: name, category: '', items: d.items }; if (d.secs.some(Boolean)) n.secs = d.secs; if (d.specs.some(Boolean)) n.specs = d.specs;
+    state.checklists.push(n); $('wo-tpl-id').value = n.id; commit(); toast(`Saved "${name}" as a new template`);
+  }) }, { label: 'Cancel' }]) });
+}
+
+/* ---------- planning jobs, parts you need, and the shopping list ---------- */
+const shopList = () => state.shopping || (state.shopping = []);
+const eurOf = i => convertToEuro(i.price || 0, i.currency || 'EUR');
+const fmtQty = n => String(+(+n).toFixed(2));
+const unitShort = u => ({ litres: 'L', mls: 'ml', grams: 'g' }[u] || u || '');
+function shopSummarize(needs) {          // needs: [{invId?, name, unit, qty, price?, note?, where?, id?, src?}]
+  const byInv = new Map(), lines = [];
+  needs.forEach(n => {
+    const inv = n.invId && state.inventory.find(i => i.id === n.invId);
+    if (inv) { if (!byInv.has(inv.id)) { const l = { kind: 'stock', inv, need: 0, have: inv.qty, srcs: [] }; byInv.set(inv.id, l); lines.push(l); } const l = byInv.get(inv.id); l.need += +n.qty || 0; l.srcs.push(n); }
+    else lines.push({ kind: 'new', n, need: +n.qty || 0, have: 0, srcs: [n] });
+  });
+  lines.forEach(l => { l.buy = l.kind === 'stock' ? Math.max(0, +(l.need - l.have).toFixed(2)) : l.need; l.est = l.kind === 'stock' ? l.buy * eurOf(l.inv) : l.buy * (+l.n.price || 0); l.cost = l.kind === 'stock' ? l.need * eurOf(l.inv) : l.need * (+l.n.price || 0); });
+  return lines;
+}
+const woNeedList = wo => (wo.parts || []).filter(p => +p.qty > 0).map(p => ({ invId: p.invId, name: p.name, unit: p.unit, qty: +p.qty, src: { kind: 'job', id: wo.id } })).concat((wo.needs || []).map(n => Object.assign({ src: { kind: 'job', id: wo.id } }, n)));
+function woPlanStats(wo) {
+  const lines = shopSummarize(woNeedList(wo));
+  return { buy: lines.filter(l => l.buy > 0).length, ok: lines.filter(l => l.buy <= 0).length, est: lines.reduce((a, l) => a + l.cost, 0), steps: (wo.checklists || []).filter(c => !c.heading).length };
+}
+const lastPaidText = inv => inv.price > 0 ? ` • last paid ${formatCurrency(inv.price, inv.currency).replace(/ [A-Z]{3}$/, '')}${BULK_UNITS.includes(inv.unit) ? '/' + unitShort(inv.unit) : ''}` : '';
+const tagCls = { r: 'bg-rose-500/20 text-rose-300 border-rose-500/40', g: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', a: 'bg-amber-500/20 text-amber-300 border-amber-500/40' };
+const tagHtml = (t, c) => `<span class="text-[11px] font-bold px-2 py-0.5 rounded-md border whitespace-nowrap shrink-0 ${tagCls[c]}">${esc(t)}</span>`;
+function shopRowHtml(l, i, ctx) {
+  const stock = l.kind === 'stock', name = stock ? l.inv.name : l.n.name, unit = stock ? l.inv.unit : (l.n.unit || 'pcs'), buy = l.buy > 0;
+  const sub = stock ? `need ${fmtQty(l.need)} ${unitShort(unit)}, have ${fmtQty(l.have)}${buy ? lastPaidText(l.inv) : ''}` : [`need ${fmtQty(l.need)} ${unitShort(unit)}`, l.n.note, +l.n.price ? 'about ' + formatEur(+l.n.price) + (l.need > 1 ? ' each' : '') : '', l.n.where].filter(Boolean).join(' • ');
+  return `<div class="shop-row flex items-center gap-3 py-2.5 border-t border-stone-700/60 first:border-0">
+    ${buy ? `<button type="button" onclick="shopGot('${ctx}',${i})" class="w-6 h-6 rounded border-2 border-stone-500 hover:border-amber-400 shrink-0" aria-label="Got it: ${esc(name)}"></button>` : `<span class="w-6 h-6 rounded bg-emerald-500/30 border-2 border-emerald-500 text-emerald-300 flex items-center justify-center text-xs shrink-0">&#10003;</span>`}
+    <div class="min-w-0 flex-1 ${stock ? '' : 'cursor-pointer'}" ${stock ? '' : `onclick="shopEditNeed('${ctx}',${i})"`}><b class="block text-sm text-white leading-tight">${esc(name)}${stock ? '' : ' <span class="text-[10px] font-bold px-1.5 py-px rounded border bg-amber-500/20 text-amber-300 border-amber-500/40 align-middle">New</span>'}</b><span class="block text-[11.5px] text-stone-400">${esc(sub)}</span></div>
+    ${buy ? tagHtml('Buy ' + fmtQty(l.buy) + (stock && unit !== 'pcs' ? ' ' + unitShort(unit) : ''), 'r') : tagHtml('In stock', 'g')}
+    ${stock ? '' : `<button type="button" onclick="shopRemoveNeed('${ctx}',${i})" class="icon-btn text-stone-400 hover:text-rose-400 bg-stone-700/60" aria-label="Remove ${esc(name)}"><i data-lucide="x" class="w-4 h-4"></i></button>`}
+  </div>`;
+}
+const shopLinesFor = ctx => ctx === 'wo' ? woShopLines : shopLinesTab;
+function shopText(lines, title) {
+  return title + '\n' + lines.map(l => '• ' + [fmtQty(l.buy) + (l.kind === 'stock' ? ' ' + unitShort(l.inv.unit) : ''), l.kind === 'stock' ? l.inv.name : l.n.name, l.kind === 'stock' ? [l.inv.brand, l.inv.code ? 'part no. ' + l.inv.code : ''].filter(Boolean).join(', ') : l.n.note, l.kind === 'new' ? l.n.where : '', l.est > 0 ? '(about ' + formatEur(l.est) + ')' : ''].filter(Boolean).join(' ')).join('\n');
+}
+function shopCopy(ctx) { const lines = shopLinesFor(ctx).filter(l => l.buy > 0); if (!lines.length) return toast('Nothing to buy'); if (!navigator.clipboard) return toast('Copy is not available in this browser'); navigator.clipboard.writeText(shopText(lines, ctx === 'wo' ? 'To buy for: ' + ($('wo-job-title').value || 'this job') : 'To buy')).then(() => toast('Shopping list copied'), () => toast('Could not copy')); }
+function shopPrint(ctx) {
+  const lines = shopLinesFor(ctx).filter(l => l.buy > 0); if (!lines.length) return toast('Nothing to buy');
+  const title = ctx === 'wo' ? 'Shopping list: ' + ($('wo-job-title').value || 'planned job') : 'Shopping list', total = lines.reduce((a, l) => a + l.est, 0);
+  $('print-template').innerHTML = `<div class="paper p-4 space-y-5"><div class="flex justify-between items-start border-b-2 border-stone-800 pb-3 gap-3"><div><h2 class="text-2xl font-extrabold">${esc(title)}</h2><p class="text-sm text-stone-600">${esc(fmtDate(todayStr()))}</p></div>${printBrand('Vehicle maintenance log')}</div>
+    <table><thead><tr><th style="width:2rem"></th><th>Item</th><th>Buy</th><th>Notes</th><th style="text-align:right">About</th></tr></thead><tbody>${lines.map(l => `<tr><td>&#9744;</td><td><b>${esc(l.kind === 'stock' ? l.inv.name : l.n.name)}</b>${l.kind === 'stock' && (l.inv.brand || l.inv.code) ? `<div style="font-size:.72rem;color:#475569">${esc([l.inv.brand, l.inv.code ? 'part no. ' + l.inv.code : ''].filter(Boolean).join(', '))}</div>` : ''}</td><td>${fmtQty(l.buy)} ${esc(l.kind === 'stock' ? unitShort(l.inv.unit) : unitShort(l.n.unit))}</td><td>${esc(l.kind === 'stock' ? 'have ' + fmtQty(l.have) + ', need ' + fmtQty(l.need) : [l.n.note, l.n.where].filter(Boolean).join(', '))}</td><td style="text-align:right">${l.est > 0 ? formatEur(l.est) : ''}</td></tr>`).join('')}</tbody></table>
+    ${total > 0 ? `<p class="text-sm"><b>About ${formatEur(total)}</b> in total.</p>` : ''}</div>`;
+  printWithTitle(`${dmyShort(todayStr())} - Shopping List - DriveLog`);
+}
+/* ---- inside a job ---- */
+let woNeeds = [], woShopLines = [];
+function woDomNeeds() {
+  const out = [];
+  document.querySelectorAll('.wo-part-row').forEach(r => { const inv = state.inventory.find(i => i.id === r.querySelector('.wo-part-select').value), qty = parseFloat(r.querySelector('.wo-part-qty').value) || 0; if (inv && qty > 0) out.push({ invId: inv.id, name: inv.name, unit: inv.unit, qty }); });
+  return out.concat(woNeeds.map(n => Object.assign({}, n)));
+}
+function renderWoShop() {
+  if (!$('wo-shop-body')) return;
+  woShopLines = shopSummarize(woDomNeeds());
+  $('wo-shop-body').innerHTML = woShopLines.length ? woShopLines.map((l, i) => shopRowHtml(l, i, 'wo')).join('') : '<p class="text-xs text-stone-400">Add the parts this job needs with "+ Add part". Anything you do not have enough of shows up here to buy.</p>';
+  const buy = woShopLines.filter(l => l.buy > 0), est = buy.reduce((a, l) => a + l.est, 0);
+  $('wo-shop-total').textContent = buy.length ? `${buy.length} to buy • about ${formatEur(est)}` : (woShopLines.length ? 'Everything is in stock' : '');
+  $('wo-shop-actions').classList.toggle('hidden', !buy.length); icons();
+}
+function setWoStatus(s) {
+  const prev = $('wo-status').value; if (prev === s) return;
+  $('wo-status').value = s;
+  if (prev === 'Planning') { $('wo-datetime').value = nowLocalInput(); if (!$('wo-odometer').value) setKmInput('wo-odometer', (state.vehicles.find(v => v.id === $('wo-vehicle-id').value) || {}).odometer || ''); }
+  refreshWoMode();
+}
+function refreshWoMode() {
+  const st = $('wo-status').value, plan = st === 'Planning', pro = $('wo-done-by').value === 'Professional';
+  document.querySelectorAll('.wo-seg button').forEach(b => { b.classList.toggle('on', b.dataset.s === st); b.setAttribute('aria-pressed', b.dataset.s === st); });
+  $('wo-timer-box').classList.toggle('hidden', pro || plan);
+  $('wo-datetime-label').textContent = plan ? 'Planned for (optional)' : 'Date & Time';
+  $('wo-shop-wrap').classList.toggle('hidden', !plan); $('wo-start-wrap').classList.toggle('hidden', !plan); $('wo-newpart-btn').classList.toggle('hidden', !plan);
+  $('wo-parts-label').textContent = plan ? 'Parts needed for this job' : 'Parts & Inventory Used';
+  $('wo-parts-hint').textContent = plan ? 'Nothing is taken out of stock until you start the job.' : 'Stock is deducted when you save (and restored if you edit or delete the order).';
+  $('wo-save-btn').textContent = plan ? 'Save plan' : 'Save Work Order';
+  if (plan) renderWoShop();
+}
+function woStartClick() { if ($('wo-status').value === 'Planning') woStartPlanned(); else startTimer(); }
+function woStartPlanned() {
+  if (!$('form-workorder').reportValidity()) return;
+  const was = $('wo-datetime').value, now = nowLocalInput(), n = shopSummarize(woDomNeeds()).filter(l => l.buy > 0).length;
+  clSheet({ title: 'Start this job now?', sub: `It moves from Planning to In progress and the timer starts.\nJob date was: ${was ? fmtDateTime(was) : 'not set'}\nJob date will be: ${fmtDateTime(now)}${n ? `\n${n} part${n === 1 ? ' is' : 's are'} still on the shopping list.` : ''}`, items: [{ label: 'Start now', cls: 'pri', fn: woDoStart }, { label: 'Not yet' }] });
+}
+function woDoStart() {
+  const prevDt = $('wo-datetime').value, prevOdo = $('wo-odometer').value;
+  $('wo-status').value = 'In Progress'; $('wo-datetime').value = nowLocalInput();
+  if (!$('wo-odometer').value) setKmInput('wo-odometer', (state.vehicles.find(v => v.id === $('wo-vehicle-id').value) || {}).odometer || '');
+  refreshWoMode();
+  if (saveWorkOrder(null, true) === false) { $('wo-status').value = 'Planning'; $('wo-datetime').value = prevDt; $('wo-odometer').value = prevOdo; refreshWoMode(); return; }
+  startTimer(); toast('Job started. The timer is running.');
+}
+function woPlanStart(id) { openWorkOrderModal(id); woStartPlanned(); }
+function woPlanCardHtml(wo) {
+  const v = state.vehicles.find(x => x.id === wo.vehicleId) || { make: 'Unknown', model: '', reg: '' }, st = woPlanStats(wo);
+  return `<div class="bg-stone-800 border border-dashed border-sky-500/50 hover:border-sky-400 rounded-2xl p-5 shadow-xl space-y-3">
+    <div class="min-w-0"><div class="flex items-center gap-2 flex-wrap"><h3 class="text-lg font-bold text-white cursor-pointer hover:text-amber-400" onclick="openWorkOrderModal('${wo.id}')">${esc(wo.jobTitle)}</h3><span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-500/20 text-sky-300 border border-sky-500/40 uppercase">Planning</span></div>
+      <p class="text-xs text-stone-400 mt-0.5">${esc(v.make)} ${esc(v.model)} (${esc(v.reg || 'No Reg')}) • ${wo.datetime ? 'Planned for ' + esc(fmtDate(wo.datetime)) : 'No date yet'}</p></div>
+    <div class="flex flex-wrap items-center gap-2 text-[11px]">${st.buy ? tagHtml(`${st.buy} part${st.buy === 1 ? '' : 's'} to buy`, 'r') : ''}${st.ok ? tagHtml(st.buy ? `${st.ok} in stock` : (st.ok === 1 ? 'Part in stock' : 'All parts in stock'), 'g') : ''}<span class="text-stone-400">${st.steps ? st.steps + ' step' + (st.steps === 1 ? '' : 's') + ' • ' : ''}${st.est > 0 ? 'est. ' + formatEur(st.est) : ''}</span></div>
+    <div class="grid grid-cols-2 sm:flex gap-2"><button onclick="openWorkOrderModal('${wo.id}')" class="btn btn-secondary" style="padding:.6rem .75rem"><i data-lucide="edit-2" class="w-4 h-4"></i> Open plan</button><button onclick="woPlanStart('${wo.id}')" class="btn btn-primary" style="padding:.6rem .75rem"><i data-lucide="play" class="w-4 h-4"></i> Start job</button></div></div>`;
+}
+const woPlanSort = (a, b) => (!a.datetime) - (!b.datetime) || (a.datetime || '').localeCompare(b.datetime || '');
+function woPlanGroupHtml(planned, withHeads) {
+  return (withHeads ? `<h3 class="text-[11px] font-bold uppercase tracking-wider text-sky-300 pt-1">Planning (${planned.length})</h3>` : '') + planned.map(woPlanCardHtml).join('') + (withHeads ? `<h3 class="text-[11px] font-bold uppercase tracking-wider text-stone-400 pt-3">Jobs</h3>` : '');
+}
+/* ---- "I need this part" ---- */
+let needCtx = null;
+function needUnitOptions(sel) { $('need-unit').innerHTML = [...$('inv-unit').options].map(o => `<option value="${o.value}">${esc(o.text)}</option>`).join(''); $('need-unit').value = sel || 'pcs'; }
+function openNeedModal(ctx, preName = '', edit = null) {
+  needCtx = { ctx, edit };
+  $('form-need').reset(); needUnitOptions(edit ? edit.unit : 'pcs'); $('need-dup').classList.add('hidden'); $('need-dup').innerHTML = '';
+  $('need-title').textContent = edit ? 'Edit this part' : ctx === 'rem' ? 'A part I do not have yet' : 'I need this part';
+  $('need-save').textContent = edit ? 'Save' : ctx === 'rem' ? 'Add to reminder' : 'Add to shopping list';
+  $('need-note-wrap').classList.toggle('hidden', ctx === 'rem');
+  $('need-for-wrap').classList.toggle('hidden', ctx !== 'tab');
+  let sub = '';
+  if (ctx === 'wo') sub = $('wo-job-title').value.trim() || 'Planned job';
+  if (ctx === 'rem') sub = ($('rem-title').value.trim() || 'Reminder') + ' • ' + (vehName($('rem-vehicle-id').value) || '');
+  if (ctx === 'tab') {
+    sub = 'Goes on your shopping list'; $('need-veh').innerHTML = vehOptionsLive(edit && edit.vehicleId);
+    const loc = edit && shopLocate(edit.id), cur = loc && loc.wo ? loc.wo : null;
+    $('need-veh').value = (cur ? cur.vehicleId : edit && edit.vehicleId) || (shopVeh !== 'all' ? shopVeh : (liveVehicles()[0] || {}).id) || ''; needVehChanged(cur ? cur.id : '');
+  }
+  $('need-sub').textContent = sub;
+  $('need-name').value = edit ? edit.name : preName; if (edit) { $('need-qty').value = edit.qty; $('need-price').value = edit.price || ''; $('need-note').value = edit.note || ''; $('need-where').value = edit.where || ''; }
+  openModal('modal-need'); needDup(); setTimeout(() => $('need-name').focus(), 80);
+}
+function needVehChanged(selJob = '') {
+  const vid = $('need-veh').value, jobs = state.workorders.filter(w => w.status === 'Planning' && w.vehicleId === vid);
+  $('need-job').innerHTML = `<option value="">No job yet</option>` + jobs.map(w => `<option value="${w.id}">${esc(w.jobTitle)}</option>`).join(''); $('need-job').value = selJob || '';
+}
+function needDup() {
+  const toks = $('need-name').value.trim().toLowerCase().split(/\s+/).filter(t => t.length >= 3), box = $('need-dup');
+  const hits = toks.length ? state.inventory.filter(i => toks.every(t => (i.name || '').toLowerCase().includes(t))).slice(0, 3) : [];
+  box.classList.toggle('hidden', !hits.length || !!(needCtx && needCtx.edit));
+  box.innerHTML = hits.map(i => `<button type="button" onclick="needUse('${i.id}')" class="w-full text-left bg-amber-500/10 border border-amber-500/40 rounded-lg px-3 py-2 text-xs text-amber-200 mb-1.5">You already have <b>${esc(i.name)}</b> (${i.qty <= 0 ? 'out of stock' : fmtQty(i.qty) + ' ' + esc(unitShort(i.unit)) + ' in stock'}). Tap to use that instead.</button>`).join('');
+}
+function needUse(invId) {
+  const inv = state.inventory.find(i => i.id === invId), qty = parseFloat($('need-qty').value) || 1, c = needCtx.ctx; if (!inv) return;
+  closeModal('modal-need');
+  if (c === 'wo') { addWoPartRow(inv.id, qty); updateWoCost(); }
+  else if (c === 'rem') addRemPartRow(inv.id, qty);
+  else { const vid = $('need-veh').value, job = state.workorders.find(w => w.id === $('need-job').value); if (job) job.parts = (job.parts || []).concat([woPartEntry(inv, qty, job)]); else shopList().push({ id: uid('n'), vehicleId: vid, invId: inv.id, name: inv.name, unit: inv.unit, qty }); commit(); }
+}
+function woPartEntry(inv, qty, prev) { const s = partSnapshot(inv, prev); return { invId: inv.id, code: inv.code || '', name: inv.name, qty, unit: inv.unit, price: s.price, currency: s.currency, eurUnit: s.eurUnit, warrantyMonths: inv.warrantyMonths || 0 }; }
+function shopLocate(nid) {
+  for (const w of state.workorders) { const i = (w.needs || []).findIndex(n => n.id === nid); if (i >= 0) return { arr: w.needs, i, wo: w }; }
+  const i = shopList().findIndex(n => n.id === nid); return i >= 0 ? { arr: shopList(), i, wo: null } : null;
+}
+function saveNeed(e) {
+  e.preventDefault(); const { ctx, edit } = needCtx;
+  const name = $('need-name').value.trim(), qty = parseFloat($('need-qty').value), base = { name, qty: qty > 0 ? qty : 1, unit: $('need-unit').value || 'pcs', price: Math.max(0, parseFloat($('need-price').value) || 0), note: $('need-note').value.trim(), where: $('need-where').value.trim() };
+  if (!name) { toast('Enter the part name'); return; }
+  if (ctx === 'wo') {
+    if (edit) Object.assign(woNeeds.find(n => n.id === edit.id) || {}, base); else woNeeds.push(Object.assign({ id: uid('n') }, base));
+    closeModal('modal-need'); renderWoShop(); return;
+  }
+  if (ctx === 'rem') {
+    const inv = { id: uid('i'), vehicleId: $('rem-vehicle-id').value, name, brand: '', vendor: base.where, code: '', batch: '', qty: 0, unit: base.unit, low: 0, price: base.price, currency: 'EUR', warrantyMonths: 0, purchases: [] };
+    state.inventory.push(inv); closeModal('modal-need'); commit(); addRemPartRow(inv.id, base.qty); toast(`"${name}" added to your parts with 0 in stock`); return;
+  }
+  const vid = $('need-veh').value, job = state.workorders.find(w => w.id === $('need-job').value);
+  if (edit) { const loc = shopLocate(edit.id); if (loc) loc.arr.splice(loc.i, 1); }
+  const rec = Object.assign({ id: edit ? edit.id : uid('n') }, base);
+  if (job) job.needs = (job.needs || []).concat([rec]); else shopList().push(Object.assign(rec, { vehicleId: vid }));
+  closeModal('modal-need'); commit();
+}
+function shopEditNeed(ctx, i) {
+  const l = shopLinesFor(ctx)[i]; if (!l || l.kind !== 'new') return;
+  if (ctx === 'wo') openNeedModal('wo', '', woNeeds.find(n => n.id === l.n.id) || l.n);
+  else { const loc = shopLocate(l.n.id); openNeedModal('tab', '', Object.assign({}, loc ? loc.arr[loc.i] : l.n, { vehicleId: loc && loc.wo ? loc.wo.vehicleId : (loc ? loc.arr[loc.i].vehicleId : '') })); }
+}
+function shopRemoveNeed(ctx, i) {
+  const l = shopLinesFor(ctx)[i]; if (!l || l.kind !== 'new') return;
+  if (ctx === 'wo') { woNeeds = woNeeds.filter(n => n.id !== l.n.id); renderWoShop(); return; }
+  const loc = shopLocate(l.n.id); if (loc) { loc.arr.splice(loc.i, 1); commit(); }
+}
+/* ---- "Got it": record what you bought ---- */
+let gotCtx = null;
+function shopGot(ctx, i) {
+  const l = shopLinesFor(ctx)[i]; if (!l) return; gotCtx = { ctx, l };
+  const stock = l.kind === 'stock', name = stock ? l.inv.name : l.n.name, unit = stock ? l.inv.unit : (l.n.unit || 'pcs');
+  $('got-title').textContent = 'Bought: ' + name; $('got-unit').textContent = unitShort(unit); $('got-qty').value = fmtQty(l.buy); $('got-total').value = l.est > 0 ? +l.est.toFixed(2) : '';
+  $('got-hint').textContent = stock ? 'Adds it to your stock and saves the price you paid.' : 'Adds it to your parts for this car, then the job counts it as in stock.';
+  openModal('modal-gotit'); setTimeout(() => $('got-qty').select(), 80);
+}
+function saveGot(e) {
+  e.preventDefault(); const { ctx, l } = gotCtx, qty = parseFloat($('got-qty').value), total = parseFloat($('got-total').value);
+  if (!(qty > 0)) { toast('Enter how many you bought'); return; }
+  const ppuEur = total > 0 ? +(total / qty).toFixed(4) : 0, stamp = (inv, price) => (inv.purchases = (inv.purchases || []).concat([{ date: todayStr(), vendor: inv.vendor || '', price, currency: inv.currency, qty }]));
+  if (l.kind === 'stock') {
+    const inv = l.inv; inv.qty = +(inv.qty + qty).toFixed(2);
+    if (ppuEur > 0) inv.price = +(ppuEur / (state.rates[inv.currency] || 1)).toFixed(4);
+    stamp(inv, inv.price);
+  } else {
+    const jobId = ctx === 'wo' ? '' : (l.n.src && l.n.src.kind === 'job' ? l.n.src.id : ''), job = state.workorders.find(w => w.id === jobId);
+    const vehId = ctx === 'wo' ? $('wo-vehicle-id').value : (job ? job.vehicleId : l.n.vehicleId || ''), price = ppuEur > 0 ? ppuEur : (+l.n.price || 0);
+    const inv = { id: uid('i'), vehicleId: vehId, name: l.n.name, brand: '', vendor: l.n.where || '', code: '', batch: '', qty, unit: l.n.unit || 'pcs', low: 0, price, currency: 'EUR', warrantyMonths: 0, purchases: [] };
+    stamp(inv, price); state.inventory.push(inv);
+    if (ctx === 'wo') { woNeeds = woNeeds.filter(n => n.id !== l.n.id); addWoPartRow(inv.id, l.need); }
+    else { const loc = shopLocate(l.n.id); if (loc) loc.arr.splice(loc.i, 1); if (job) job.parts = (job.parts || []).concat([woPartEntry(inv, l.need, job)]); }
+  }
+  closeModal('modal-gotit'); commit(); if (ctx === 'wo') { updateWoCost(); renderWoShop(); } toast('Added to your stock');
+}
+/* ---- reminders hold the parts they need ---- */
+function addRemPartRow(invId = '', qty = 1) {
+  const d = document.createElement('div'); d.className = 'rem-part-row flex items-center gap-2 bg-stone-900/80 p-2 rounded-lg border border-stone-700/70';
+  d.innerHTML = `<button type="button" class="wo-part-btn inp inp-sm flex-1 min-w-0 text-left flex items-center justify-between gap-2" onclick="openPartPicker(this.closest('.rem-part-row'),'rem')"></button><input type="hidden" class="wo-part-select" value="${invId}"><input type="number" step="0.01" min="0" value="${qty}" class="wo-part-qty inp inp-sm" style="width:5rem" aria-label="Quantity"><button type="button" onclick="this.closest('.rem-part-row').remove()" class="icon-btn text-stone-300 hover:text-rose-400 bg-stone-700/60" aria-label="Remove part"><i data-lucide="x" class="w-4 h-4"></i></button>`;
+  $('rem-parts-container').appendChild(d); refreshPartBtn(d); icons();
+}
+function addRemPartAndPick() { addRemPartRow(); const rows = document.querySelectorAll('.rem-part-row'); openPartPicker(rows[rows.length - 1], 'rem'); }
+function remFillFromJob() {
+  const vid = $('rem-vehicle-id').value, words = ($('rem-title').value.toLowerCase().match(/[a-z]{4,}/g) || []);
+  const jobs = state.workorders.filter(w => w.vehicleId === vid && w.status === 'Completed' && (w.parts || []).some(p => state.inventory.some(i => i.id === p.invId))).sort((a, b) => {
+    const m = w => words.filter(x => (w.jobTitle || '').toLowerCase().includes(x)).length; return m(b) - m(a) || (b.datetime || '').localeCompare(a.datetime || '');
+  }).slice(0, 12);
+  if (!jobs.length) { toast('No past job with parts on this car yet'); return; }
+  clSheet({ title: 'Fill from a past job', sub: 'Copies the parts that job used.', items: jobs.map(w => ({ label: w.jobTitle, sub: `${fmtDate(w.datetime)} • ${(w.parts || []).filter(p => state.inventory.some(i => i.id === p.invId)).map(p => p.qty + ' ' + p.name).join(', ')}`, fn: () => { $('rem-parts-container').innerHTML = ''; (w.parts || []).filter(p => state.inventory.some(i => i.id === p.invId)).forEach(p => addRemPartRow(p.invId, p.qty)); } })).concat([{ label: 'Cancel' }]) });
+}
+function remPartsHtml(r) {
+  const ps = (r.parts || []).map(p => ({ p, inv: state.inventory.find(i => i.id === p.invId) })).filter(x => x.inv && +x.p.qty > 0); if (!ps.length) return '';
+  return `<div class="flex flex-wrap items-center gap-1.5 text-[11px]"><span class="text-stone-500">Parts:</span>${ps.map(({ p, inv }) => { const ok = inv.qty >= p.qty; return `<span class="px-1.5 py-0.5 rounded border ${ok ? tagCls.g : tagCls.r}">${esc(inv.name)} ${fmtQty(p.qty)}${BULK_UNITS.includes(inv.unit) ? ' ' + unitShort(inv.unit) : ''}${ok ? '' : inv.qty <= 0 ? ' • none' : ' • short'}</span>`; }).join('')}</div>`;
+}
+function planFromReminder(id) {
+  const r = state.reminders.find(x => x.id === id); if (!r) return;
+  const prior = state.workorders.filter(w => w.vehicleId === r.vehicleId && w.status === 'Completed' && (w.resetReminderIds || []).includes(r.id)).sort((a, b) => (b.datetime || '').localeCompare(a.datetime || ''))[0];
+  const tpl = prior ? woTemplate(prior) : { title: r.title, doneBy: 'DIY', provider: '', parts: [], skipped: 0, checklists: [], reset: [] };
+  tpl.title = r.title; tpl.reset = [...new Set([...(tpl.reset || []), r.id])];
+  if ((r.parts || []).length) tpl.parts = r.parts.filter(p => state.inventory.some(i => i.id === p.invId)).map(p => ({ invId: p.invId, qty: p.qty }));
+  openWorkOrderModal(null, r.vehicleId, tpl, 'Planning');
+}
+/* ---- the shopping list under Parts ---- */
+let invView = 'stock', shopVeh = 'all', shopLinesTab = [], shopDays = 60;
+try { shopDays = +localStorage.getItem('drivelog.shopDays') || 60; } catch (e) {}
+function remInWindow(st, days) {
+  if (st.isOverdue) return true;
+  if (st.daysRemaining != null && st.daysRemaining <= days) return true;
+  if (st.remainingKm != null && st.remainingKm <= days * 50) return true;
+  const pr = predictDue(st); return !!(pr && !pr.needData && pr.a <= Date.now() + days * 864e5);
+}
+const remWhen = st => [st.isOverdue ? 'overdue' : '', st.targetDate && !st.isOverdue ? 'due ' + fmtDate(st.targetDate) : '', st.remainingKm != null && st.remainingKm > 0 ? 'in ' + fmtKm(st.remainingKm) : ''].filter(Boolean).join(' • ');
+function shopGather(vehId, days) {
+  const groups = [], ok = v => vehId === 'all' || v === vehId;
+  sortedStatuses().forEach(st => {
+    const r = st.reminder; if (!ok(r.vehicleId) || !(r.parts || []).length) return;
+    const items = r.parts.map(p => { const inv = state.inventory.find(i => i.id === p.invId); return inv && +p.qty > 0 ? { invId: inv.id, name: inv.name, unit: inv.unit, qty: +p.qty, src: { kind: 'rem', id: r.id } } : null; }).filter(Boolean);
+    if (items.length) groups.push({ kind: 'rem', id: r.id, title: r.title, vehicleId: r.vehicleId, when: remWhen(st), inWindow: remInWindow(st, days), items });
+  });
+  state.workorders.filter(w => w.status === 'Planning' && ok(w.vehicleId)).sort(woPlanSort).forEach(w => { const items = woNeedList(w); if (items.length) groups.push({ kind: 'job', id: w.id, title: w.jobTitle, vehicleId: w.vehicleId, when: w.datetime ? 'planned for ' + fmtDate(w.datetime) : 'planned, no date yet', inWindow: true, items }); });
+  const loose = shopList().filter(n => ok(n.vehicleId)).map(n => Object.assign({ src: { kind: 'loose', id: n.id } }, n));
+  if (loose.length) groups.push({ kind: 'loose', id: '', title: 'Other things I need', vehicleId: '', when: '', inWindow: true, items: loose });
+  return groups;
+}
+const shopToBuy = (vehId, days) => shopSummarize(shopGather(vehId, days).filter(g => g.inWindow).flatMap(g => g.items)).filter(l => l.buy > 0);
+const shopBadge = () => shopToBuy('all', shopDays).length;
+function setInvView(v) { invView = v; renderInventory(); }
+function setShopVeh(v) { shopVeh = v; renderShopping(); }
+function setShopDays(d) { shopDays = +d || 60; try { localStorage.setItem('drivelog.shopDays', String(shopDays)); } catch (e) {} renderShopping(); }
+function invViewSync() {
+  if (!$('inv-stock-view')) return;
+  const n = shopBadge();
+  $('inv-stock-view').classList.toggle('hidden', invView !== 'stock'); $('inv-shop-view').classList.toggle('hidden', invView !== 'shop');
+  [['stock', 'Stock'], ['shop', 'Shopping list' + (n ? ` (${n})` : '')]].forEach(([k, label]) => { const b = $('inv-tab-' + k); b.textContent = label; b.className = 'inv-tab-btn px-4 py-2 rounded-lg text-sm font-semibold ' + (invView === k ? 'bg-amber-500 text-stone-900' : 'bg-stone-800 text-stone-300 hover:text-white border border-stone-700'); });
+  if (invView === 'shop') renderShopping();
+}
+function renderShopping() {
+  const box = $('inv-shop-view'); if (!box) return;
+  const cars = liveVehicles(); if (shopVeh !== 'all' && !cars.some(v => v.id === shopVeh)) shopVeh = 'all';
+  const groups = shopGather(shopVeh, shopDays); shopLinesTab = shopSummarize(groups.filter(g => g.inWindow).flatMap(g => g.items)).filter(l => l.buy > 0);
+  const est = shopLinesTab.reduce((a, l) => a + l.est, 0), chip = (k, label) => `<button onclick="setShopVeh('${k}')" class="px-3 py-2 rounded-lg text-xs font-semibold border ${shopVeh === k ? 'bg-amber-500 text-stone-900 border-amber-500' : 'bg-stone-900 text-stone-300 border-stone-700 hover:text-white'}">${esc(label)}</button>`;
+  const itemTag = it => { const inv = state.inventory.find(i => i.id === it.invId); if (!inv) return tagHtml('Not bought', 'r'); return inv.qty >= it.qty ? tagHtml('In stock', 'g') : inv.qty <= 0 ? tagHtml('Missing', 'r') : tagHtml('Short ' + fmtQty(it.qty - inv.qty), 'a'); };
+  const groupHtml = g => `<div class="bg-stone-800 border ${g.inWindow ? 'border-stone-700' : 'border-stone-700/60 opacity-70'} rounded-xl p-4 space-y-1">
+    <div class="flex justify-between items-baseline gap-2 flex-wrap"><b class="text-sm text-white">${g.kind === 'job' ? '<span class="text-[10px] font-bold px-1.5 py-px rounded border bg-sky-500/20 text-sky-300 border-sky-500/40 mr-1.5 align-middle uppercase">Planned</span>' : ''}${esc(g.title)}</b><span class="text-[11px] text-amber-300 font-semibold">${esc(g.when)}${shopVeh === 'all' && g.vehicleId ? (g.when ? ' • ' : '') + esc(vehName(g.vehicleId)) : ''}</span></div>
+    ${g.inWindow ? g.items.map(it => { const stock = it.invId && state.inventory.some(i => i.id === it.invId);
+      return `<div class="flex items-center gap-3 py-2 border-t border-stone-700/60"><div class="min-w-0 flex-1"><b class="block text-[13px] text-white font-semibold">${esc(it.name)}</b><span class="block text-[11px] text-stone-400">need ${fmtQty(it.qty)} ${esc(unitShort(it.unit))}${stock ? ' • have ' + fmtQty(state.inventory.find(i => i.id === it.invId).qty) : [it.note, it.where].filter(Boolean).length ? ' • ' + esc([it.note, it.where].filter(Boolean).join(', ')) : ''}</span></div>${itemTag(it)}${g.kind === 'loose' ? `${stock ? '' : `<button onclick="shopEditLoose('${it.id}')" class="icon-btn text-stone-300 hover:text-white bg-stone-700/60" aria-label="Edit"><i data-lucide="edit-2" class="w-4 h-4"></i></button>`}<button onclick="shopDropLoose('${it.id}')" class="icon-btn text-stone-300 hover:text-rose-400 bg-stone-700/60" aria-label="Remove"><i data-lucide="x" class="w-4 h-4"></i></button>` : ''}</div>`; }).join('') : `<p class="text-[11px] text-stone-400">Beyond your ${shopDays} day window, so it is not on the list yet.</p>`}
+    ${g.kind === 'job' ? `<button onclick="openWorkOrderModal('${g.id}')" class="text-[11px] text-amber-300 underline pt-1">Open this plan</button>` : g.kind === 'rem' ? `<button onclick="openReminderModal('${g.id}')" class="text-[11px] text-amber-300 underline pt-1">Edit this reminder</button>` : ''}</div>`;
+  box.innerHTML = `<div class="flex flex-col sm:flex-row justify-between sm:items-end gap-3"><div><h3 class="text-lg font-bold text-white">What do I need to buy?</h3><p class="text-xs text-stone-400">Parts for planned jobs, reminders due soon, and anything you add by hand, compared with what is in stock.</p></div>
+      <button onclick="openNeedModal('tab')" class="btn btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Add something I need</button></div>
+    <div class="flex flex-wrap items-center gap-2">${chip('all', 'All cars')}${cars.map(v => chip(v.id, `${v.make} ${v.model}`)).join('')}<span class="ml-auto flex items-center gap-2 text-xs text-stone-400">Looks ahead <select onchange="setShopDays(this.value)" class="inp inp-sm" style="width:auto">${[30, 60, 90, 180].map(d => `<option value="${d}" ${d === shopDays ? 'selected' : ''}>${d} days</option>`).join('')}</select></span></div>
+    <div class="bg-stone-800 border border-amber-500/40 rounded-xl p-4"><div class="text-[11px] font-bold uppercase tracking-wider text-amber-300 mb-1">Shopping list</div>
+      ${shopLinesTab.length ? shopLinesTab.map((l, i) => shopRowHtml(l, i, 'tab')).join('') : `<p class="text-sm text-stone-400 py-3">${groups.length ? 'Nothing to buy. Everything you need is in stock.' : 'Nothing planned yet. Add parts to a reminder, plan a job, or tap "Add something I need".'}</p>`}
+      ${shopLinesTab.length ? `<div class="flex flex-wrap items-center justify-between gap-2 pt-3 mt-1 border-t border-stone-700/60"><span class="text-xs text-stone-400">About ${formatEur(est)} to spend</span><div class="flex gap-2"><button onclick="shopCopy('tab')" class="btn btn-secondary" style="padding:.4rem .75rem;font-size:.75rem"><i data-lucide="copy" class="w-4 h-4"></i> Copy</button><button onclick="shopPrint('tab')" class="btn btn-secondary" style="padding:.4rem .75rem;font-size:.75rem"><i data-lucide="printer" class="w-4 h-4"></i> Print</button></div></div>` : ''}</div>
+    ${groups.map(groupHtml).join('')}`;
+  icons();
+}
+function shopEditLoose(nid) { const n = shopList().find(x => x.id === nid); if (n) openNeedModal('tab', '', Object.assign({}, n)); }
+function shopDropLoose(nid) { const i = shopList().findIndex(x => x.id === nid); if (i >= 0) { shopList().splice(i, 1); commit(); } }
+function renderShopNudge() {
+  const el = $('dash-shop-nudge'); if (!el) return; const n = shopBadge();
+  el.classList.toggle('hidden', !n); if (n) el.innerHTML = `<i data-lucide="list-checks" class="w-5 h-5 text-amber-400 shrink-0"></i><span class="flex-1 text-sm text-stone-200"><b class="text-white">${n} part${n === 1 ? '' : 's'} to buy</b> for upcoming jobs</span><span class="text-xs text-amber-300 font-semibold">Open the list</span>`;
+}
+function ppAddNew() {
+  const name = $('pp-search').value.trim(), row = ppRow, c = ppCtx; closeModal('modal-partpick');
+  if (row && !row.querySelector('.wo-part-select').value) row.remove();
+  openNeedModal(c === 'rem' ? 'rem' : 'wo', name);
 }
 
 /* ---------- boot ---------- */
